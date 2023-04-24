@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FirstDay_Server_Win", "FirstDay_Server_Win\FirstDay_Server_Win.vcxproj", "{911FFA15-31F4-4D30-8526-F6E98A02A113}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FirstDay_Clint_Win", "FirstDay_Clint_Win\FirstDay_Clint_Win.vcxproj", "{621E3139-B449-446F-A6D9-5263C92DA87E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{911FFA15-31F4-4D30-8526-F6E98A02A113}.Debug|Win32.ActiveCfg = Debug|Win32
+		{911FFA15-31F4-4D30-8526-F6E98A02A113}.Debug|Win32.Build.0 = Debug|Win32
+		{911FFA15-31F4-4D30-8526-F6E98A02A113}.Release|Win32.ActiveCfg = Release|Win32
+		{911FFA15-31F4-4D30-8526-F6E98A02A113}.Release|Win32.Build.0 = Release|Win32
+		{621E3139-B449-446F-A6D9-5263C92DA87E}.Debug|Win32.ActiveCfg = Debug|Win32
+		{621E3139-B449-446F-A6D9-5263C92DA87E}.Debug|Win32.Build.0 = Debug|Win32
+		{621E3139-B449-446F-A6D9-5263C92DA87E}.Release|Win32.ActiveCfg = Release|Win32
+		{621E3139-B449-446F-A6D9-5263C92DA87E}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
