@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Server_Win", "Server_Win\Server_Win.vcxproj", "{748DB76B-12D2-408C-A988-AA3C878F7671}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Clinet_Win", "Clinet_Win\Clinet_Win.vcxproj", "{5EA1115A-8A83-4660-A783-499FBD8ABFD6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{748DB76B-12D2-408C-A988-AA3C878F7671}.Debug|Win32.ActiveCfg = Debug|Win32
+		{748DB76B-12D2-408C-A988-AA3C878F7671}.Debug|Win32.Build.0 = Debug|Win32
+		{748DB76B-12D2-408C-A988-AA3C878F7671}.Release|Win32.ActiveCfg = Release|Win32
+		{748DB76B-12D2-408C-A988-AA3C878F7671}.Release|Win32.Build.0 = Release|Win32
+		{5EA1115A-8A83-4660-A783-499FBD8ABFD6}.Debug|Win32.ActiveCfg = Debug|Win32
+		{5EA1115A-8A83-4660-A783-499FBD8ABFD6}.Debug|Win32.Build.0 = Debug|Win32
+		{5EA1115A-8A83-4660-A783-499FBD8ABFD6}.Release|Win32.ActiveCfg = Release|Win32
+		{5EA1115A-8A83-4660-A783-499FBD8ABFD6}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
