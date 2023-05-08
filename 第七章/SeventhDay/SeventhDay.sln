@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HalfClose_Server", "HalfClose_Server\HalfClose_Server.vcxproj", "{1537DEE6-4486-4AB8-B621-98B92785BACA}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HalfClose_Client", "HalfClose_Client\HalfClose_Client.vcxproj", "{EE3BAE06-D1CA-409A-AE8E-F5636867A964}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1537DEE6-4486-4AB8-B621-98B92785BACA}.Debug|Win32.ActiveCfg = Debug|Win32
+		{1537DEE6-4486-4AB8-B621-98B92785BACA}.Debug|Win32.Build.0 = Debug|Win32
+		{1537DEE6-4486-4AB8-B621-98B92785BACA}.Release|Win32.ActiveCfg = Release|Win32
+		{1537DEE6-4486-4AB8-B621-98B92785BACA}.Release|Win32.Build.0 = Release|Win32
+		{EE3BAE06-D1CA-409A-AE8E-F5636867A964}.Debug|Win32.ActiveCfg = Debug|Win32
+		{EE3BAE06-D1CA-409A-AE8E-F5636867A964}.Debug|Win32.Build.0 = Debug|Win32
+		{EE3BAE06-D1CA-409A-AE8E-F5636867A964}.Release|Win32.ActiveCfg = Release|Win32
+		{EE3BAE06-D1CA-409A-AE8E-F5636867A964}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
