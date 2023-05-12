@@ -54,7 +54,7 @@ int _tmain(int argc, _TCHAR* argv[])
 		printf("Recv From Server: %s\n", Msg);
 	}
 
-	//复位器半关闭后
+	//服务器器半关闭后
 	send(srvSock, "thank you", 10, 0);
 	closesocket(srvSock);
 	WSACleanup();

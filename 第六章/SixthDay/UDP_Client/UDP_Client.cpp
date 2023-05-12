@@ -23,8 +23,8 @@ int _tmain(int argc, _TCHAR* argv[])
 		return -1;
 	}
 
-	SOCKET srvSock = socket(PF_INET, SOCK_DGRAM, IPPROTO_UDP);
-	if (INVALID_SOCKET == srvSock)
+	SOCKET cltSock = socket(PF_INET, SOCK_DGRAM, IPPROTO_UDP);
+	if (INVALID_SOCKET == cltSock)
 	{
 		printf("socket Error!\n");
 		WSACleanup();
@@ -39,12 +39,24 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	int nSrvAddrLen = sizeof(srvAddr);
 
+	SOCKADDR_IN cltAddr;
+	memset(&cltAddr, 0, sizeof(cltAddr));
+	int nCltAddrLen = sizeof(cltAddr);
+
 	//将UDP套接字转换成连接套接字
-	connect(srvSock, (sockaddr*)&srvAddr, sizeof(srvAddr));
+	connect(cltSock, (sockaddr*)&srvAddr, sizeof(srvAddr));
 
 
-	char Msg[BUF_SIZE];
+	char Msg[BUF_SIZE] = "0123456789";
 	int recvLen = 0;
+
+	//客户端发送三次数据，服务器端调用一次recvfrom试图接收三次数据。是行不通的
+	//int nSendLend = 0;
+	//nSendLend += sendto(cltSock, Msg, strlen(Msg), 0, (sockaddr*)&srvAddr, nSrvAddrLen);
+	//nSendLend += sendto(cltSock, Msg, strlen(Msg), 0, (sockaddr*)&srvAddr, nSrvAddrLen);
+	//nSendLend += sendto(cltSock, Msg, strlen(Msg), 0, (sockaddr*)&srvAddr, nSrvAddrLen);
+
+
 	while (true)
 	{
 		fputs("Input Msg(q to quit): ", stdout);
@@ -69,22 +81,25 @@ int _tmain(int argc, _TCHAR* argv[])
 		//此时需要重复上述三阶段，上述三个阶段中，第①、③个阶段占整个通信过程近1/3的时间，缩短这部分时间将大大提高整体效率。
 		//因此，要与同一主机进行长时间通信，将UDP套接字编程连接套接字会提供效率。
 		//如何将UDP套接字变成连接套接字？使用connect函数实现。
-		//sendto(srvSock, Msg, strlen(Msg), 0, (sockaddr*)&srvAddr, sizeof(srvAddr));
+		sendto(cltSock, Msg, strlen(Msg), 0, (sockaddr*)&srvAddr, sizeof(srvAddr));
 
-		//recvLen = recvfrom(srvSock, Msg, BUF_SIZE - 1, 0, (sockaddr*)&srvAddr, &nSrvAddrLen);
-		//Msg[recvLen] = 0;
+		recvLen = recvfrom(cltSock, Msg, BUF_SIZE - 1, 0, (sockaddr*)&srvAddr, &nSrvAddrLen);
+		Msg[recvLen] = 0;
 
 		//已连接的UDP套接字可以直接使用send 和 recv函数
-		send(srvSock, Msg, strlen(Msg), 0);
+		//send(cltSock, Msg, strlen(Msg), 0);
 
-		recvLen = recv(srvSock, Msg, BUF_SIZE - 1, 0);
-		Msg[recvLen] = 0;
+		//recvLen = recv(cltSock, Msg, BUF_SIZE - 1, 0);
+		//Msg[recvLen] = 0;
 
 		printf("Msg From Server: %s\n", Msg);
 	}
+	
 
-	closesocket(srvSock);
+	closesocket(cltSock);
 	WSACleanup();
+
+	getchar();
 
 	return 0;
 }

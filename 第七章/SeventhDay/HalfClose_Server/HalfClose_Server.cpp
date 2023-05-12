@@ -18,6 +18,8 @@ howto: 断开方式的信息.可选：SD_RECEIVE -- 断开输入流，SD_SEND -- 断开输出流，SD_
 
 int _tmain(int argc, _TCHAR* argv[])
 {
+
+
 	if (argc != 2)
 	{
 		return -1;
@@ -64,16 +66,6 @@ int _tmain(int argc, _TCHAR* argv[])
 	memset(&cltAddr, 0, sizeof(cltAddr));
 	int nCltAddrSize = sizeof(cltAddr);
 
-	//FILE* fp;
-	//fp = fopen("half_close_server.c", "rb");
-	//if (fp == nullptr)
-	//{
-	//	printf("fopen error!");
-	//	closesocket(srvSock);
-	//	WSACleanup();
-	//	return -1;
-	//}
-
 	SOCKET cltSock = accept(srvSock, (sockaddr*)&cltAddr, &nCltAddrSize);
 	if (INVALID_SOCKET == cltSock)
 	{
@@ -87,8 +79,9 @@ int _tmain(int argc, _TCHAR* argv[])
 	char Msg[BUF_SIZE] = "0123456789";
 	while(true)
 	{
-		//nRecvLen = recv(cltSock, Msg, BUF_SIZE, 0);
 		nRecvLen = strlen(Msg);
+		printf("接收长度: %d\n", nRecvLen);
+
 		if (nRecvLen < BUF_SIZE)
 		{
 			printf("break\n");
@@ -105,7 +98,6 @@ int _tmain(int argc, _TCHAR* argv[])
 	nRecvLen = recv(cltSock, Msg, BUF_SIZE, 0);
 	printf("Msg From Client: %s\n", Msg);
 
-	//fclose(fp);
 	closesocket(srvSock);
 	WSACleanup();
 

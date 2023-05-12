@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+<!-- saved from url=(0041)https://blog.51cto.com/u_15127692/3677763 -->
+<html lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+        <title>WinDbg的安装、配置和功能_51CTO博客_windbg配置</title>
+    <meta name="keywords" content="WinDbg的安装、配置和功能,Java博客,51CTO博客">
+<meta name="description" content="WinDbg的安装、配置和功能，一、WinDbg简介WinDbg是微软发布的一款免费而十分强大的调试工具。既然是微软自己发布的调试工具，那它对微软产品的调试当然是十分的强大。Windows调试器(WinDbg)可用于调试内核模式和用户模式代码，来分析故障转储，并检查代码时CPU寄存器执行，同时也是一款相当优秀的源码级(source-level)调试工具。相比较于VisualStudio，它是一个轻量级的调试工具，所">    <meta name="applicable-device" content="pc">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="msvalidate.01" content="91C5324FE68C0A46FA65F3FEC225EA65">
+    
+<meta http-equiv="x-dns-prefetch-control" content="on">
+<link rel="preconnect" href="https://cdn.51cto.com/">
+<link rel="dns-prefetch" href="https://cdn.51cto.com/">
+<link rel="preconnect" href="https://static2.51cto.com/edu/">
+<link rel="dns-prefetch" href="https://static2.51cto.com/edu/">
+<link rel="preconnect" href="https://s2.51cto.com/">
+<link rel="dns-prefetch" href="https://s2.51cto.com/">
+<link rel="preload" as="image" href="https://s2.51cto.com/images/100/base/empty.png?x-oss-process=image/format,webp/ignore-error,1">
+    <link rel="canonical" href="https://blog.51cto.com/u_15127692/3677763">
+    <link type="favicon" rel="shortcut icon" href="https://blog.51cto.com/favicon.ico">
+        <script src="./WinDbg的安装、配置和功能_51CTO博客_windbg配置_files/push.js.下载"></script><script src="./WinDbg的安装、配置和功能_51CTO博客_windbg配置_files/hm.js.下载"></script><script async="" src="./WinDbg的安装、配置和功能_51CTO博客_windbg配置_files/sensorsdata.min.js.下载"></script><script src="./WinDbg的安装、配置和功能_51CTO博客_windbg配置_files/antidomxss_v702.js.下载"></script><script src="./WinDbg的安装、配置和功能_51CTO博客_windbg配置_files/interfaceacting230329.js.下载"></script><script type="application/ld+json">{"@context":"https://ziyuan.baidu.com/contexts/cambrian.jsonld","@id":"https://blog.51cto.com/u_15127692/3677763","appid":"1576672126670053","title":"WinDbg的安装、配置和功能_51CTO博客_windbg配置","images":["https://s2.51cto.com/images/blog/202108/08/765fea9acf1acc1b3d3a0c944441ba93.png","https://s2.51cto.com/images/blog/202108/08/003f75af1e4c47249de97cc56a04d067.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_30,g_se,x_10,y_10,shadow_20,type_ZmFuZ3poZW5naGVpdGk=","https://s2.51cto.com/images/blog/202108/08/d7a2c85f066d63e02eac2b00f1c0389d.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_30,g_se,x_10,y_10,shadow_20,type_ZmFuZ3poZW5naGVpdGk="],"description":"一、WinDbg简介\nWinDbg是微软发布的一款免费而十分强大的调试工具。既然是微软自己发布的调试工具，那它对微软产品的调试当然是十分的强大。Windows 调试器 (WinDbg) 可用于调试内核模式和用户模式代码，来分析故障转储，并检","pubDate":"2019-08-20T17:31:00","upDate":"2021-08-29T00:58:50"}</script>
+                                <style data-name="css-inline-enable-style-block" type="text/css">
+.blue{color:#3e71f6}.Page{margin:0 auto;width:1200px}.Page.Max{min-width:1000px;width:90%}.Page.M764{width:764px}.white-open{background:#fff;display:none;height:100%;left:0;opacity:0;position:fixed;top:0;width:100%;z-index:10}.blue-btn{background:#3e71f6;border:1px solid #3e71f6}.blue-btn:hover{background:#3477e6;border:1px solid #3477e6}.Header{background:#fff;box-shadow:0 3px 10px hsla(0,0%,40%,.03);display:flex;height:70px;justify-content:center;min-width:1200px;position:relative;z-index:21}.fgline{background:#333;display:inline-block;height:11px;margin:29px 4px 0;transform:rotate(22.5deg);width:1px}.Content{padding-top:20px;z-index:10}.Content,.Footer{position:relative}.Footer{background:#eaeaeb;color:#999;font-size:12px;margin-top:20px;overflow:hidden;padding:40px 0}.Footer dl{font-size:14px;margin-right:40px}.Footer dl dt{color:#333;font-size:16px;margin-bottom:10px}.Footer dl td{height:28px;padding-right:28px}.Footer dl td a{color:#666}.Footer dl td a:hover{color:#3e71f6}.Footer dl img{margin-right:20px}.Footer .copy a{color:#999}.Footer .copy a:hover{color:#333}.pagination{font-size:12px;margin:30px auto;text-align:center}.pagination li{display:inline-block;line-height:1;overflow:hidden}.pagination li.disabled,.pagination li.disabled:hover{color:#333;cursor:default;font-size:14px;padding:0 5px}.pagination li:last-child.last.disabled{color:#999;font-size:12px}.pagination li a,.pagination li.active b{color:#999;display:block;line-height:1;padding:0 5px;text-align:center;width:24px}.pagination li.active b{color:#333}.pagination li a:hover,.pagination li.active a{color:#333;font-size:14px}.pagination li.first a,.pagination li.first_page a,.pagination li.last a,.pagination li.last_page a,.pagination li.next a,.pagination li.prev a{text-align:center;width:50px}.pagination li.next:hover a,.pagination li.prev:hover a{font-size:12px}.pagination li:last-child.last.noLink{background:0;border-color:transparent;margin:0}.noList{margin:100px auto;text-align:center}.noList p{color:#999;font-size:14px;line-height:3}.is-vip-bg,.is-vip-bg-2,.is-vip-bg-3,.is-vip-bg-4,.is-vip-bg-5,.is-vip-bg-6,.is-vip-bg-7{height:100%;position:relative}.is-vip-bg-6 i{right:5px}.vip-icon{bottom:0;cursor:pointer;display:inline-block;position:absolute;right:-5px}.vip-icon-1{background:url("https://s2.51cto.com/images/100/blog/old/vip.png") no-repeat left 0;bottom:6px;height:32px;right:8px;width:32px}.webp .vip-icon-1{background-image:url("https://s2.51cto.com/images/100/blog/old/vip.png?x-oss-process=image/format,webp")}.vip-icon-2{background:url("https://s2.51cto.com/images/100/blog/old/vip.png") no-repeat left -64px;height:22px;width:22px}.webp .vip-icon-2{background-image:url("https://s2.51cto.com/images/100/blog/old/vip.png?x-oss-process=image/format,webp")}.vip-icon-3{background:url("https://s2.51cto.com/images/100/blog/old/vip.png") no-repeat left -108px;height:20px;width:20px}.webp .vip-icon-3{background-image:url("https://s2.51cto.com/images/100/blog/old/vip.png?x-oss-process=image/format,webp")}.vip-icon-4{background:url("https://s2.51cto.com/images/100/blog/old/vip.png") no-repeat left -152px;height:18px;width:18px}.webp .vip-icon-4{background-image:url("https://s2.51cto.com/images/100/blog/old/vip.png?x-oss-process=image/format,webp")}.vip-icon-5{background:url("https://s2.51cto.com/images/100/blog/old/vip.png") no-repeat left -152px;bottom:11px;height:18px;left:20px;position:absolute;width:18px}.webp .vip-icon-5{background-image:url("https://s2.51cto.com/images/100/blog/old/vip.png?x-oss-process=image/format,webp")}.vip-icon-1.on{background:url("https://s2.51cto.com/images/100/blog/old/vip.png") no-repeat right 0}.webp .vip-icon-1.on{background-image:url("https://s2.51cto.com/images/100/blog/old/vip.png?x-oss-process=image/format,webp")}.vip-icon-2.on{background:url("https://s2.51cto.com/images/100/blog/old/vip.png") no-repeat right -64px}.webp .vip-icon-2.on{background-image:url("https://s2.51cto.com/images/100/blog/old/vip.png?x-oss-process=image/format,webp")}.vip-icon-3.on{background:url("https://s2.51cto.com/images/100/blog/old/vip.png") no-repeat right -108px}.webp .vip-icon-3.on{background-image:url("https://s2.51cto.com/images/100/blog/old/vip.png?x-oss-process=image/format,webp")}.vip-icon-4.on{background:url("https://s2.51cto.com/images/100/blog/old/vip.png") no-repeat right -152px}.webp .vip-icon-4.on{background-image:url("https://s2.51cto.com/images/100/blog/old/vip.png?x-oss-process=image/format,webp")}.vip-icon-5.on{background:url("https://s2.51cto.com/images/100/blog/old/vip.png") no-repeat right -152px}.webp .vip-icon-5.on{background-image:url("https://s2.51cto.com/images/100/blog/old/vip.png?x-oss-process=image/format,webp")}.is-vip-bg-6{position:relative}.is-vip-bg-7 .vip-icon-4{background:url("https://s2.51cto.com/images/100/blog/old/vip.png") no-repeat 0 100%;bottom:0;height:28px;position:absolute;right:0;width:28px}.webp .is-vip-bg-7 .vip-icon-4{background-image:url("https://s2.51cto.com/images/100/blog/old/vip.png?x-oss-process=image/format,webp")}.is-vip-bg-7 .vip-icon-4.on{background:url("https://s2.51cto.com/images/100/blog/old/vip.png") no-repeat 100% 100%}.webp .is-vip-bg-7 .vip-icon-4.on{background-image:url("https://s2.51cto.com/images/100/blog/old/vip.png?x-oss-process=image/format,webp")}.is-vip-bg-3 i{bottom:0;right:12px}.is-vip-bg-4 i{bottom:0;right:0}.center-bg .vip-icon{bottom:6px;right:0}.comment-creat .is-vip-bg-6 i{bottom:-2px;right:-2px}.special-column .column-1 .column-box .center a.h2{font-size:18px}.special-column .column-1 .column-box .center h5 span{font-size:14px}.Footer{background:#fff;box-shadow:0 -1px 20px 10px hsla(0,3%,94%,.32);padding-top:35px}.Footer .Logo{box-sizing:border-box;display:block;height:60px;padding-top:16px;width:214px}.Footer .copy{color:#bbb;text-align:left}.Footer .copy a{color:#666;font-size:14px}.Footer .copy a:hover{color:#3e71f6}.Footer tr:first-child{border:0}.Footer table td{border:0;font-size:14px}.Footer a.zhiCustomBtn,.aboutList a.zhiCustomBtn{display:block}.Footer dt{font-weight:700}.Footer dl td{padding-bottom:5px}dl.foot_ab td{padding-right:43px}dl.foot_link{margin-right:50px}.urlTransfer{box-sizing:border-box;min-height:700px;padding-top:130px}.urlTransfer .logo{background:url("https://s2.51cto.com/images/100/blog/old/logo3.png") no-repeat 50%;background-size:217px 37px;height:37px;margin:0 auto;width:217px}.webp .urlTransfer .logo{background-image:url("https://s2.51cto.com/images/100/blog/old/logo3.png?x-oss-process=image/format,webp")}.urlTransfer .inner{background:#fff;box-sizing:border-box;margin:20px auto 0;padding:26px 39px;width:445px}.urlTransfer .inner .tit{background:#f7f7f7;color:#222;font-size:16px;height:45px;line-height:45px;width:240px}.urlTransfer .inner .tit i{color:#d3313a;float:left;font-size:25px;margin:0}.urlTransfer .inner .tips{color:#222;font-size:16px;margin-top:15px}.urlTransfer .inner .btn{background:#d3313a;border-radius:2px;color:#fff;cursor:pointer;display:block;height:36px;line-height:36px;margin-top:20px;text-align:center;width:100px}.urlTransfer .inner .btn:hover{background:#c22d36;color:#fff}.urlTransfer .inner .url{-webkit-line-clamp:2;line-clamp:2;-webkit-box-orient:vertical;color:#999;display:-webkit-box;font-size:16px;margin-top:10px;overflow:hidden;text-overflow:ellipsis;word-break:break-all}.urlTransfer .inner .url span{cursor:pointer}.urlTransfer .inner .url span:hover{color:#666}.common_scales_light{animation-duration:1s;-webkit-animation-duration:1s;animation-iteration-count:infinite;-webkit-animation-iteration-count:infinite;animation-name:scales_light;-webkit-animation-name:scales_light}@keyframes scales_light{0%{transform:scale(100%)}50%{transform:scale(96%)}to{transform:scale(100%)}}@-webkit-keyframes scales_light{0%{-webkit-transform:scale(100%)}50%{-webkit-transform:scale(96%)}to{-webkit-transform:scale(100%)}}.home-top-old .top-box .item-lf{padding-right:27px!important}.blog-search{font-size:14px!important}.right-fixadv{bottom:60%;position:fixed;right:20px;width:100px;z-index:999}.right-fixadv .ins{position:relative}.right-fixadv .ins span{background:url("https://s2.51cto.com/images/100/blog/sprites/sprites_ac0aa035.png") no-repeat -61px -277px;content:"";cursor:pointer;display:block;height:32px;position:absolute;right:-10px;top:-20px;transform:scale(.5);width:32px;z-index:99}.webp .right-fixadv .ins span{background-image:url("https://s2.51cto.com/images/100/blog/sprites/sprites_ac0aa035.png?x-oss-process=image/format,webp")}.right-fixadv img{width:100%}@media screen and (max-width:1199px){.Footer dl,.Footer dl.foot_link{margin-right:0}}.ac-box{display:block}.ac-box,.ac-box img{width:100%}input::-ms-clear{display:none;height:0;width:0}button,input,input[type=button]{outline:0}.header-content{display:flex;height:70px;justify-content:space-between;margin:1px auto}.header-content .header-left{display:flex;position:relative;width:50%}.header-content .header-left .Logo{box-sizing:border-box;padding-top:25px;width:100px}.header-content .header-left .Logo a{display:block;height:100%;overflow:hidden;position:relative}.header-content .header-left .Logo a img{z-index:2}.header-content .header-left .Logo h1,.header-content .header-left .Logo h2{position:absolute;text-indent:-9999em;z-index:-1}.header-content .header-left .Navigates{display:flex;font-size:16px;line-height:70px;list-style:none}.header-content .header-left .Navigates li{margin-left:38px}.header-content .header-left .Navigates li:first-child{margin-left:43px}.header-content .header-left .Navigates li a{color:#333}.header-content .header-left .Navigates li:hover a{color:#3e71f6}.header-content .header-left .Navigates .first a{display:block;height:70px;position:relative;width:100px}.header-content .header-left .Navigates .first a img{bottom:0;left:0;margin:auto;position:absolute;right:0;top:0;width:100px}.header-content .header-left .Navigates .cur a{color:#3e71f6}.header-content .header-right{display:flex;line-height:70px;list-style:none}.header-content .header-right li{margin-left:28px}.header-content .header-right .search{background:#f7f7f7;border-radius:3px;height:28px;line-height:28px;margin-top:21px;position:relative}.header-content .header-right .search .form-search{display:flex;justify-content:space-between;width:244px}.header-content .header-right .search .form-search input{background:0;border:none;flex:1;height:28px;line-height:28px;padding-left:10px}.header-content .header-right .search .form-search .blogsou{background:0;color:#999;display:inline-block;height:14px;line-height:14px;margin:7px 13px;padding:0;width:14px;z-index:99}.header-content .header-right .search .form-search .bloga-shanchutupian{color:#999;cursor:pointer;display:none}.header-content .header-right .search .form-search input:valid+.bloga-shanchutupian{display:block}.header-content .header-right .search .focusSelect_his{background:#fff;border-radius:10px;box-shadow:0 -2px 15px 0 rgba(0,0,0,.06);display:none;left:0;padding-bottom:10px;position:absolute;text-align:left;top:35px;width:100%;z-index:2}.header-content .header-right .search .focusSelect_his .hishead{border-bottom:1px solid #f6f7f8;color:#9399a6;display:block;font-size:14px;line-height:1.1;margin:20px 20px 10px;padding-bottom:10px;position:relative}.header-content .header-right .search .focusSelect_his .hishead .clearhis{color:#9399a6;cursor:pointer;float:right;font-size:14px}.header-content .header-right .search .focusSelect_his .his-item{align-items:center;color:#121212;cursor:pointer;display:flex;font-size:14px;justify-content:space-between;margin-bottom:17px;min-width:0;padding:0 20px}.header-content .header-right .search .focusSelect_his .his-item span{-webkit-line-clamp:2;-webkit-box-orient:vertical;display:-webkit-box;flex:1;line-height:25px;overflow:hidden;text-overflow:ellipsis}.header-content .header-right .search .focusSelect_his .his-item .close-his-item{color:#9399a6;display:none;font-size:12px}.header-content .header-right .search .focusSelect_his .his-item:hover .close-his-item{display:block;height:25px}.header-content .header-right .search .focusSelect_key{display:none;width:100%}.header-content .header-right .write{position:relative}.header-content .header-right .write a{color:#3e71f6}.header-content .header-right .write a .iconblog{margin-right:2px}.header-content .header-right .write .new_bloger{background-color:#ee502f;border-radius:50px;color:#fff;font-size:18px;font-weight:500;line-height:20px;padding:4px 14px;position:absolute;right:-56px;text-align:center;top:6px;transform:scale(.5);white-space:nowrap}.header-content .header-right .creative a{color:#3e71f6}.header-content .header-right .message,.header-content .header-right .message .message-link{position:relative}.header-content .header-right .message .message-link i{background:#e31436;border-radius:10px;color:#fff;display:inline-block;font-size:12px;font-style:normal;left:23px;line-height:1;padding:1px 4px;position:absolute;top:-6px}.header-content .header-right .message div{background:#fff;border-radius:10px;box-shadow:0 -2px 15px 0 rgba(0,0,0,.06);display:none;left:-30px;position:absolute;top:26px;width:87px;z-index:99}.header-content .header-right .message div .ins{padding:24px 18px 24px 27px}.header-content .header-right .message div .ins a{color:#121212;display:block;font-size:14px;font-weight:400;line-height:20px;margin-bottom:17px}.header-content .header-right .message div .ins a i{background:#e31436;border-radius:10px;color:#fff;display:inline-block;font-size:12px;font-style:normal;left:23px;line-height:1;margin-left:2px;padding:1px 4px}.header-content .header-right .message div .ins a:hover{color:#3e71f6}.header-content .header-right .message div .ins a:last-child{margin-bottom:0}.header-content .header-right .message:hover div{display:block}.header-content .header-right .user{position:relative}.header-content .header-right .user .is-vip-bg-1{display:inline-block}.header-content .header-right .user .is-vip-bg-1 img{border-radius:12px;height:24px;margin-top:23px;width:24px}.header-content .header-right .user .vip-icon{left:15px;position:absolute;top:27px}.header-content .header-right .user .user-alert{border-radius:10px;box-shadow:0 3px 10px hsla(0,0%,40%,.07);display:none;left:-280px;overflow:hidden;position:absolute;top:54px;z-index:99}.header-content .header-right .user .user-alert .ins{background:#fff;border-radius:10px;box-sizing:border-box;width:300px}.header-content .header-right .user .user-alert .ins .vip-icon{left:55px;top:50px}.header-content .header-right .user .user-alert .ins .user-base{align-items:center;background:linear-gradient(180deg,rgba(226,239,255,.5),hsla(0,0%,100%,0));color:#121212;display:block;display:flex;filter:blur(0);font-size:15px;font-weight:500;padding:10px 20px 0}.header-content .header-right .user .user-alert .ins .user-base img{border-radius:100%;height:50px;margin-right:10px;width:50px}.header-content .header-right .user .user-alert .ins .user-message{margin-top:11px;padding:0 20px}.header-content .header-right .user .user-alert .ins .user-message .user-medal{border-bottom:1px solid #f5f5f5;display:flex;flex-wrap:wrap}.header-content .header-right .user .user-alert .ins .user-message .user-medal img{height:27px;margin-right:13px;padding-bottom:14px;width:24px}.header-content .header-right .user .user-alert .ins .user-message .user-modal{border-bottom:1px solid #f5f5f5;display:flex}.header-content .header-right .user .user-alert .ins .user-message .user-modal .stat-item{color:#9f9f9f;flex:1;font-size:14px;font-weight:400;line-height:26px;margin-left:3px;padding:14px 0;text-align:left}.header-content .header-right .user .user-alert .ins .user-message .user-modal .stat-item:first-child{margin-left:0}.header-content .header-right .user .user-alert .ins .user-message .user-modal .stat-item .stat-num{color:#000;font-family:DINAlternate-Bold,DINAlternate;font-size:18px;font-weight:700;line-height:21px}.header-content .header-right .user .user-alert .ins .user-menu{border-bottom:1px solid #f5f5f5;display:flex;flex-wrap:wrap;padding:19px 20px 0}.header-content .header-right .user .user-alert .ins .user-menu a{box-sizing:border-box;color:#525d6c;display:block;font-size:14px;font-weight:400;line-height:20px;margin-bottom:20px;position:relative;width:50%}.header-content .header-right .user .user-alert .ins .user-menu a .iconblog{margin-right:8px}.header-content .header-right .user .user-alert .ins .user-menu a:nth-child(2n){padding-left:5px}.header-content .header-right .user .user-alert .ins .user-menu a .dot{background:#e31436;border-radius:5px;display:inline-block;height:5px;position:absolute;width:5px}.header-content .header-right .user .user-alert .ins .login-out{color:#525d6c;display:block;font-size:14px;font-weight:400;line-height:45px;text-align:center}.header-content .header-right .user:hover .user-alert{display:block}@media screen and (max-width:1580px){.header-content{width:1200px}}@media screen and (min-width:1581px)and (max-width:1767px){.header-content{width:1390px}}@media screen and (min-width:1768px){.header-content{width:1580px}}.Header-old .header-content{width:1200px}.home-top{background:#303030;font-size:12px;font-weight:400;height:30px;line-height:30px;position:relative;width:100%}.home-top,.home-top a,.home-top a:hover{color:#fff}.home-top .w1200{margin:0 auto;width:1200px}.home-top .left_nav{align-items:center;display:flex}.home-top .top_right{display:flex}.home-top .top_right .item-rt{margin-left:30px}.home-top .top_right .item-rt .i{font-size:12px}.home-top .top_right .item-rt.collection{cursor:pointer}.home-top .top_box{align-content:center;display:flex;height:30px;justify-content:space-between}.home-top .top_box .item-lf{padding-right:30px;position:relative}.home-top .top_box .item-lf.hot{align-items:center;display:flex}.home-top .top_box .item-lf.hot .hot-div{font-size:12px;height:14px;position:absolute;right:2px;top:-1px;width:26px}.home-top .top_box .item-lf.hot .hot-div img{height:14px;width:26px}.home-top .top_box .subweb{display:inline-block;height:30px}.home-top .top_box .subweb:hover{cursor:pointer;font-weight:600}.home-top .top_box .subweb.subweb-tag{position:relative}.home-top .top_box .subweb.subweb-tag .tagicon{display:block;height:13px;position:absolute;right:-28px;top:-3px;width:26px}.home-top .top_box .subweb.subweb-tag .tagicon img{width:100%}.home-top .nav-more-container{background:#303030;height:0;position:absolute;top:30px;transition:height .3s;width:100%;z-index:1000}.home-top .nav-more-container.height1{height:30px}.home-top .nav-more-container.height2,.home-top .nav-more-container.height3{height:120px}.home-top .nav-more-container .nav-contant-box{height:0;position:relative;transition:height .3s}.home-top .nav-more-container .nav-contant-box.height1{height:30px}.home-top .nav-more-container .nav-contant-box.height2,.home-top .nav-more-container .nav-contant-box.height3{height:120px}.home-top .nav-more-container .nav-contant{box-sizing:border-box;font-size:0;height:0;overflow:hidden;position:absolute;transition:height .3s;width:100%}.home-top .nav-more-container .nav-contant.height1{height:30px}.home-top .nav-more-container .nav-contant.height2,.home-top .nav-more-container .nav-contant.height3{height:120px}.home-top .nav-more-container .nav-contant a{color:#fff;font-size:12px;line-height:25px;margin-right:50px}.home-top .nav-more-container .nav-contant a:hover{color:#f40d04}.home-top .nav-more-container .nav-contant .ewmbox{display:inline-block;text-align:center;width:135px}.home-top .nav-more-container .nav-contant .ewmbox .imgbox{background:#fff;border:4px solid #fff;border-radius:4px;height:66px;margin:15px auto 0;overflow:hidden;width:66px}.home-top .nav-more-container .nav-contant .ewmbox img{background:#fff;border-radius:4px;height:66px;width:66px}.home-top .nav-more-container .nav-contant .ewmbox .txt{color:#c8c8c8;font-size:12px;padding-top:5px}.home-top .nav-more-container .nav-contant.wechatImageList{text-align:center}.home-top .nav-more-container .nav-contant.wechatImageList .ewmbox{width:135px}.home-top .nav-more-container .nav-contant.appImageList{text-align:center}.home-top .nav-more-container .nav-contant.appImageList .ewmbox{width:160px}.home-top .nav-more-container .nav-contant.nav-contant9{text-align:right}.home-top .nav-more-container .nav-contant.nav-contant9 .loginout{cursor:pointer;font-size:12px}.home-top .search-top i{font-size:14px}@media screen and (min-width:1768px){.home-top .w1200{width:1580px}}.publish-box{bottom:20px;display:block;height:103px;position:fixed;right:50px;width:331px;z-index:999999}.publish-box img{width:100%}.publish-box .publish-close{bottom:90px;cursor:pointer;display:inline-block;height:30px;position:fixed;right:52px;width:30px}@font-face{font-family:iconblog;src:url("https://static2.51cto.com/edu/blog/blog-static/iconFont/iconfont.woff2?t=1681350793988") format("woff2"),url("https://static2.51cto.com/edu/blog/blog-static/iconFont/iconfont.woff?t=1681350793988") format("woff"),url("https://static2.51cto.com/edu/blog/blog-static/iconFont/iconfont.ttf?t=1681350793988") format("truetype")}.iconblog{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;font-family:iconblog!important;font-size:16px;font-style:normal}.blogyijianfk:before{content:"\e6c4"}.blogyonghu:before{content:"\e6c3"}.blogyinhao:before{content:"\e6bf"}.blogpaixu:before{content:"\e6c0"}.blogxuanzhong:before{content:"\e6c1"}.blogxuanxiang:before{content:"\e6c2"}.blogfanhuidb:before{content:"\e6a3"}.blogfenxiang2:before{content:"\e6a4"}.blogchuangzuozx:before{content:"\e6a5"}.blogijilu:before{content:"\e6a6"}.blogshoucang-4:before{content:"\e6a7"}.blogqianbao:before{content:"\e6a8"}.blogzhuanlan:before{content:"\e6a9"}.blogquan:before{content:"\e6bd"}.blogwode:before{content:"\e6be"}.bloggengduo1:before{content:"\e695"}.blogsousuo:before{content:"\e698"}.blogxiewz:before{content:"\e69b"}.bloghuati1:before{content:"\e69c"}.bloggaiban:before{content:"\e693"}.bloga-2023:before{content:"\e694"}.blogjichuxinxi:before{content:"\e704"}.blogimport:before{content:"\e700"}.blogqiandao:before{content:"\e6ff"}.blogyidaka:before{content:"\e6fe"}.blogqiandaoqueren:before{content:"\e6fc"}.blogshenfenrenzhengbeifen:before{content:"\e6f8"}.bloggonggaobeifen:before{content:"\e6f7"}.blogunfold:before{content:"\e6f4"}.bloghuati:before{content:"\e6f3"}.blogrongyurenzheng:before{content:"\e6f1"}.blogpaixujiang:before{content:"\e6ee"}.blogpaixusheng:before{content:"\e6ed"}.blogxunzhangguanli:before{content:"\e6ec"}.bloghelp:before{content:"\e6eb"}.blogxiewenzhang:before{content:"\e6ea"}.blogzuixinblogzuixin:before{content:"\e63f"}.blogzuire:before{content:"\e63e"}.blogxiangshangpaixu:before{content:"\e6e6"}.blogzhujiao2:before{content:"\e6e0"}.blogzhujiang2:before{content:"\e6df"}.blogxuesheng2:before{content:"\e6de"}.blogyitijiao2:before{content:"\e6dd"}.blogrili2:before{content:"\e6dc"}.blogpaixu2:before{content:"\e6db"}.blogjiezhishijian2:before{content:"\e6da"}.blogdanxuanxuanzhong:before{content:"\e6d9"}.blogdanxuanweixuanzhong:before{content:"\e6d8"}.blogzuoye2:before{content:"\e6d5"}.blogshijian2:before{content:"\e6d4"}.blogjiaoshi2:before{content:"\e6d3"}.blogmulu:before{content:"\e63d"}.bloga-bianzu9:before{content:"\e63b"}.bloga-bianzu8:before{content:"\e63c"}.bloga-bianzu10:before{content:"\e638"}.bloga-bianzu12:before{content:"\e639"}.bloga-bianzu6:before{content:"\e63a"}.bloga-bianzu11:before{content:"\e637"}.bloga-bianzu7:before{content:"\e636"}.bloga-shanchutupian:before{content:"\e6cd"}.blogtianjiabeifen:before{content:"\e6cc"}.blogtishibeifen:before{content:"\e6cb"}.blogtishi2beifen:before{content:"\e6ca"}.blogjubaobeifen:before{content:"\e6c7"}.blogfuwuqibeifen:before{content:"\e6bc"}.blogqiyexinxihuabeifen:before{content:"\e6bb"}.blogyouxikaifabeifen:before{content:"\e6ba"}.blogrengongzhinengbeifen:before{content:"\e6b9"}.blogruanjianyanfabeifen:before{content:"\e6b8"}.blogkaoshirenzhengbeifen:before{content:"\e6b7"}.bloghongmengbeifen:before{content:"\e6b6"}.blogofficebangongbeifen:before{content:"\e6b5"}.blogqianrushibeifen:before{content:"\e6b4"}.blogyidongkaifabeifen:before{content:"\e6b3"}.blogbianchengyuyanbeifen:before{content:"\e6b2"}.blogqianduankaifabeifen:before{content:"\e6b1"}.blogyunjisuanbeifen:before{content:"\e6b0"}.blogshujukubeifen:before{content:"\e6af"}.blogxitongyunweibeifen:before{content:"\e6ae"}.blogwangluoanquanbeifen:before{content:"\e6ad"}.blogJavabeifen:before{content:"\e6ac"}.blogpythonbeifen:before{content:"\e6ab"}.blogdashujubeifen:before{content:"\e6aa"}.bloga-15beifen41:before{content:"\e6a2"}.bloga-15beifen4:before{content:"\e6a1"}.bloga-15beifen5:before{content:"\e6a0"}.bloga-15beifen2:before{content:"\e69f"}.bloga-15beifen3:before{content:"\e69e"}.bloga-15beifen:before{content:"\e69d"}.blogchenggongtishi:before{content:"\e69a"}.blogxiepinglun:before{content:"\e699"}.blogwodeqianbaobeifen:before{content:"\e697"}.blogdianzanxuanzhong:before{content:"\e696"}.bloga-icbokewenda:before{content:"\e692"}.bloga-icyijianfankui:before{content:"\e691"}.bloga-icfenxiangbeifen:before{content:"\e690"}.bloga-icwodedingyuezhuanlan:before{content:"\e68f"}.bloga-icdingyuezhuanlan:before{content:"\e68e"}.bloga-icshouye:before{content:"\e68d"}.bloga-icyonghu:before{content:"\e68c"}.blogshanchu1:before{content:"\e68a"}.blogyuedu:before{content:"\e689"}.blogpinglun3:before{content:"\e687"}.blogfenxiang1:before{content:"\e686"}.bloggengduo:before{content:"\e67f"}.blogshanchu18:before{content:"\e67e"}.blogquxiao18:before{content:"\e67d"}.bloglink:before{content:"\e67c"}.blogshanchu:before{content:"\e67b"}.blogdianzan:before{content:"\e679"}.blogremensousuo:before{content:"\e676"}.bloglishijilu:before{content:"\e675"}.bloga-blogdianzanxe622:before{content:"\e622"}.blogchuangzuoshezhibeifen:before{content:"\e631"}.blogchuangzuoliebiao:before{content:"\e632"}.blogchuangzuoshouye:before{content:"\e633"}.blogchuangzuoqushi:before{content:"\e634"}.blogchuangzuotianjia:before{content:"\e635"}.blogchuangzuogongju:before{content:"\e623"}.blogchuangzuolanhufan:before{content:"\e624"}.blogchuangzuoguanli:before{content:"\e625"}.blogchuangzuohuodong:before{content:"\e626"}.blogchuangzuorli:before{content:"\e628"}.blogchuangzuochuangzuo:before{content:"\e629"}.blogchuangzuoshezhi:before{content:"\e62b"}.blogchuangzuoshuju:before{content:"\e62f"}.blogchuangzuoxiazai:before{content:"\e630"}.blogfenxiang:before{content:"\e61b"}.blogNextpage:before{content:"\e62e"}.blogPreviouspage:before{content:"\e62d"}.blogxuanzhongbeifen1:before{content:"\e62c"}.blogweixuanzhongbeifen:before{content:"\e62a"}.blogright:before{content:"\e627"}.blogshouqi:before{content:"\e620"}.blogyuedu1:before{content:"\e621"}.blogsixin1:before{content:"\e61f"}.blogshoucang:before{content:"\e61e"}.blogpinglun1:before{content:"\e61d"}.blogzhankai:before{content:"\e61c"}.blogbianji1:before{content:"\e61a"}.blogguanzhu:before{content:"\e619"}.blogbianji:before{content:"\e617"}.blogshanchu2:before{content:"\e618"}.blogfenxiangqq:before{content:"\e614"}.blogfenxiangweixin:before{content:"\e615"}.blogfenxiangweibo:before{content:"\e616"}.blogqqqun:before{content:"\e611"}.blogboke:before{content:"\e612"}.blogguan:before{content:"\e613"}.blogpinglun:before{content:"\e605"}.blogpinglun2:before{content:"\e606"}.blogshang:before{content:"\e607"}.blogsixin:before{content:"\e608"}.blogshou:before{content:"\e609"}.blogzan2:before{content:"\e60a"}.blogfen:before{content:"\e60b"}.blogshan:before{content:"\e60c"}.blogzhi:before{content:"\e60d"}.blogsou:before{content:"\e60e"}.blogzan:before{content:"\e60f"}.blogduo:before{content:"\e610"}.blogxie:before{content:"\e604"}@font-face{font-family:fontDIN;src:url("https://cdn.51cto.com/fonts/din/DIN.ttf"),url("https://cdn.51cto.com/fonts/din/DIN.eot")}@font-face{font-family:fontDIN-bold;src:url("https://cdn.51cto.com/fonts/din/DIN-Bold.ttf"),url("https://cdn.51cto.com/fonts/din/DIN-Bold.eot")}@font-face{font-family:fontDIN-medium;src:url("https://cdn.51cto.com/fonts/din/DIN-Medium.ttf"),url("https://cdn.51cto.com/fonts/din/DIN-Medium.eot")}::-webkit-scrollbar{-webkit-appearance:none;height:10px;width:10px}::-webkit-scrollbar-thumb{background-color:rgba(0,0,0,.3);border:2px solid #fff;border-radius:4px}::-webkit-scrollbar-thumb:hover{background-color:rgba(0,0,0,.5)}::-webkit-scrollbar-thumb:window-inactive{background-color:rgba(0,0,0,.2)}.msg-index-box{background:#fff;border-radius:10px;left:50%;margin-left:-300px;padding:25px 10px;position:fixed;top:30%;width:606px;z-index:9999}.msg-index-box .top-bg{background:url("https://s2.51cto.com/images/100/blog/index/followbg.png") no-repeat top;height:129px;left:0;position:absolute;top:0;width:626px}.webp .msg-index-box .top-bg{background-image:url("https://s2.51cto.com/images/100/blog/index/followbg.png?x-oss-process=image/format,webp")}.msg-index-box .follow-close{background:url("https://s2.51cto.com/images/100/blog/index/sprites_indexfp0908.png") -61px -206px;cursor:pointer;height:18px;position:absolute;right:14px;top:14px;width:19px;z-index:1}.webp .msg-index-box .follow-close{background-image:url("https://s2.51cto.com/images/100/blog/index/sprites_indexfp0908.png?x-oss-process=image/format,webp")}.msg-index-box .con-box{left:0;position:absolute;top:0;width:100%}.msg-index-box .icon-bg{left:97px;position:absolute;top:48px}.msg-index-box .icon-1{background:url("https://s2.51cto.com/images/100/blog/index/sprites_indexfp0908.png") -8px -206px;height:31px;width:37px}.webp .msg-index-box .icon-1{background-image:url("https://s2.51cto.com/images/100/blog/index/sprites_indexfp0908.png?x-oss-process=image/format,webp")}.msg-index-box .icon-2{background:url("https://s2.51cto.com/images/100/blog/index/sprites_indexfp0908.png") -92px -199px;height:38px;width:38px}.webp .msg-index-box .icon-2{background-image:url("https://s2.51cto.com/images/100/blog/index/sprites_indexfp0908.png?x-oss-process=image/format,webp")}.msg-index-box h2{color:#4285f4;font-size:26px;line-height:1;margin-bottom:20px;margin-top:26px;text-align:center}.msg-index-box .con{color:#333;font-size:14px;line-height:24px;text-align:center}.msg-index-box .con a{color:#4285f4}.msg-index-box .code-bg{background:url("https://s2.51cto.com/images/100/blog/index/followcode.png") no-repeat;height:148px;margin:20px auto 0;width:148px}.webp .msg-index-box .code-bg{background-image:url("https://s2.51cto.com/images/100/blog/index/followcode.png?x-oss-process=image/format,webp")}.msg-index-box .code-bg img{width:100%}.msg-index-box .tipBox{line-height:20px;margin:0 auto;text-align:left;width:350px}.msg-index-box .tipBox .btn{color:#3e71f6;cursor:pointer}.msg-index-box .tipBox .txt{display:inline-block;line-height:12px;max-width:120px}.msg-index-box .btn-box{margin-top:20px;text-align:center}.msg-index-box .btn-box p{border-radius:6px;cursor:pointer;display:inline-block;font-size:14px;height:28px;line-height:28px;padding:0 16px}.msg-index-box .btn-1{border:1px solid #fff;color:#666;margin-right:46px}.msg-index-box .btn-2{border:1px solid #4285f4;color:#4285f4}.Header{top:30px}.hljs-center{text-align:center}.hljs-right{text-align:right}#result{overflow:auto}.detail-content-left s{text-decoration:line-through}.cto-mermaid{text-align:center}.cto-mermaid svg{max-width:100%}#result img{height:auto}.report-dialog-root{display:none}.am-engine img{vertical-align:middle}.mb24{margin-bottom:24px}.mb30{margin-bottom:30px}body{background:#f7f8f9}.Header{position:fixed;width:100%}.home-top{position:fixed;top:0;z-index:999}.detail-content-new{background:#f7f8f9;padding:114px 0 30px}.detail-content-new .jia1,.detail-content-new .jia2{color:#3e71f6}.detail-content-new .fixtitle{background:#fff;box-shadow:0 3px 10px #efefef;display:none;height:61px;left:0;line-height:61px;position:fixed;top:0;width:100%;z-index:999}.detail-content-new .fixtitle h3{box-sizing:border-box;color:#333;font-size:24px;overflow:hidden;padding:0 35px;text-overflow:ellipsis;white-space:nowrap;width:883px}.detail-content-new .fixtitle .messbox .checkFollow{background:#3e71f6;border:none;border-radius:0;border-radius:2px;box-sizing:border-box;color:#666;color:#fff;cursor:pointer;float:right;font-size:14px;height:32px;line-height:32px;margin:13px 0 0 15px;text-align:center;width:90px}.detail-content-new .fixtitle .messbox .checkFollow.in{background:0;border:1px solid #789bf9;color:#3e71f6;padding-left:0}.detail-content-new .fixtitle .messbox .checkFollow.on{background:#3e71f6;font-family:iconblog;padding-left:19px;text-align:left}.detail-content-new .fixtitle .messbox .checkFollow.on:before{content:"";font-size:20px;vertical-align:bottom}.detail-content-new .fixtitle .messbox .checkFollow.on:hover{background:#3d62f5}.detail-content-new .fixtitle .messbox .checkFollow.off{background:#ddd;padding-left:0}.detail-content-new .fixtitle .messbox .name{color:#17233f;float:right;margin-left:10px;max-width:110px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.detail-content-new .fixtitle .messbox strong{float:right;height:34px;margin-top:13px;position:relative;width:34px}.detail-content-new .fixtitle .messbox .avatar img{border-radius:34px;height:34px;width:34px}.detail-content-new .Page .common-section{background:#fff;border-radius:2px}.detail-content-new .Page .detail-content-left{float:left;width:874px}.detail-content-new .Page .detail-content-left.set-right{float:right}.detail-content-new .Page .detail-content-left .common-spacing{padding:15px 35px}.detail-content-new .Page .detail-content-left .content-taotao-h{display:none}.detail-content-new .Page .detail-content-left .article-detail{padding-bottom:27px}.detail-content-new .Page .detail-content-left .article-detail .title{word-wrap:break-word;font-size:37px;line-height:40px;margin-bottom:5px;padding:5px 0 10px;word-break:break-all}.detail-content-new .Page .detail-content-left .article-detail .title h1{color:#333;display:inline;font-size:28px}.detail-content-new .Page .detail-content-left .article-detail .title span{border-radius:4px;color:#fff;display:inline-block;font-size:14px;line-height:24px;margin-right:1px;position:relative;text-align:center;top:-4px;width:36px}.detail-content-new .Page .detail-content-left .article-detail .title span:first-child{margin-left:20px}.detail-content-new .Page .detail-content-left .article-detail .title span.tuijian{background:#f3c352}.detail-content-new .Page .detail-content-left .article-detail .title span.original{background:#99cea4}.detail-content-new .Page .detail-content-left .article-detail .title span.reprint{background:#84c4fa}.detail-content-new .Page .detail-content-left .article-detail .title span.translation{background:#fea4a4}.detail-content-new .Page .detail-content-left .article-detail .title span.type_selected{background:#84a0fa}.detail-content-new .Page .detail-content-left .article-detail .title .examine{background:#f4f5f6;color:#b7bdc9;display:inline-block;font-size:14px;font-weight:400;height:22px;line-height:22px;text-align:center;width:49px}.detail-content-new .Page .detail-content-left .article-detail .messbox{background:#f9f9fa;border-radius:2px;color:#6b7486;padding:15px 15px 5px}.detail-content-new .Page .detail-content-left .article-detail .messbox p.mess-line1{line-height:1}.detail-content-new .Page .detail-content-left .article-detail .messbox p.mess-line1 a{color:#6b7486}.detail-content-new .Page .detail-content-left .article-detail .messbox p.mess-line1 a:hover{color:#3e71f6}.detail-content-new .Page .detail-content-left .article-detail .messbox p.mess-line1 .fl{padding-right:12px}.detail-content-new .Page .detail-content-left .article-detail .messbox p.mess-line1 time{font-family:fontDIN}.detail-content-new .Page .detail-content-left .article-detail .messbox p.mess-line1 #copyright-btn{cursor:pointer;font-size:12px;-moz-user-select:none;-webkit-user-select:none;-ms-user-select:none;-khtml-user-select:none;user-select:none}.detail-content-new .Page .detail-content-left .article-detail .messbox p.mess-line1 #copyright-btn:hover{color:#3e71f6}.detail-content-new .Page .detail-content-left .article-detail .messbox p.mess-tag{margin-top:15px}.detail-content-new .Page .detail-content-left .article-detail .messbox p.mess-tag strong{float:left;font-weight:400;margin-right:22px}.detail-content-new .Page .detail-content-left .article-detail .messbox p.mess-tag strong em{font-style:normal;line-height:24px;margin-right:11px}.detail-content-new .Page .detail-content-left .article-detail .messbox p.mess-tag strong a,.detail-content-new .Page .detail-content-left .article-detail .messbox p.mess-tag strong span{background:#efeff1;color:#5c6578;display:inline-block;font-size:12px;height:24px;line-height:24px;margin-bottom:10px;margin-right:13px;padding:0 8px}.detail-content-new .Page .detail-content-left .article-detail .messbox p.mess-tag strong a:last-child,.detail-content-new .Page .detail-content-left .article-detail .messbox p.mess-tag strong span:last-child{margin-right:0}.detail-content-new .Page .detail-content-left .article-detail .messbox p.mess-tag strong a.subject,.detail-content-new .Page .detail-content-left .article-detail .messbox p.mess-tag strong span.subject{background:#e6ebfa;color:#3e71f6}.detail-content-new .Page .detail-content-left .article-detail .messbox p.mess-tag strong a.subject i,.detail-content-new .Page .detail-content-left .article-detail .messbox p.mess-tag strong span.subject i{float:left;font-size:12px;margin:0 4px 0 0}.detail-content-new .Page .detail-content-left .article-detail .messbox p.mess-tag strong a:hover{color:#3e71f6}.detail-content-new .Page .detail-content-left .article-detail .messbox p.mess-tag strong b{color:#6b7486;font-family:fontDIN;font-size:14px;font-weight:400}.detail-content-new .Page .detail-content-left .article-detail .copytext{color:#9399a6;display:none;font-size:12px;margin-top:10px;word-break:break-all}.detail-content-new .Page .detail-content-left .article-detail .copytext a{color:#9399a6}.detail-content-new .Page .detail-content-left .article-detail .copytext2{color:#9399a6;font-size:12px;margin-top:10px;word-break:break-all}.detail-content-new .Page .detail-content-left .article-detail .article-content-wrap{border-bottom:1px solid #f3f3f3;color:#17233f;font-size:16px;margin-bottom:30px;padding-bottom:30px;word-break:break-all}.detail-content-new .Page .detail-content-left .article-detail .article-content-wrap img{cursor:zoom-in;max-width:100%}.detail-content-new .Page .detail-content-left .article-detail .article-content-wrap .artical-content-bak{max-width:100%;padding:0 0 20px!important}.detail-content-new .Page .detail-content-left .article-detail .label-list{margin-top:20px;padding-left:90px;position:relative}.detail-content-new .Page .detail-content-left .article-detail .label-list .tag-text{color:#9399a6;display:inline;font-size:13px;line-height:35px;margin-right:15px;word-break:break-all}.detail-content-new .Page .detail-content-left .article-detail .label-list .tag-text:hover{color:#7d828c}.detail-content-new .Page .detail-content-left .article-detail .label-list .tag-text:nth-child(3n-2){color:#b6c2bb}.detail-content-new .Page .detail-content-left .article-detail .label-list .tag-text:nth-child(3n-2):hover{color:#9ea8a2}.detail-content-new .Page .detail-content-left .article-detail .label-list .tag-text:nth-child(3n-1){color:#e0d6d1}.detail-content-new .Page .detail-content-left .article-detail .label-list .tag-text:nth-child(3n-1):hover{color:#c7beb9}.detail-content-new .Page .detail-content-left .article-detail .label-list span{color:#17233f;font-size:16px;left:0;position:absolute;top:0}.detail-content-new .Page .detail-content-left .article-detail .label-list a{background:#f6f7f8;border-radius:2px;color:#6b7484;display:inline-block;height:30px;line-height:30px;margin:0 12px 15px 0;max-width:80%;overflow:hidden;padding:0 20px;text-overflow:ellipsis;white-space:nowrap}.detail-content-new .Page .detail-content-left .article-detail .label-list a.cur,.detail-content-new .Page .detail-content-left .article-detail .label-list a:hover{background:#3e71f6;color:#fff}.detail-content-new .Page .detail-content-left .article-detail .action-box{text-align:center}.detail-content-new .Page .detail-content-left .article-detail .action-box ul li{display:inline-block;list-style:none;position:relative;width:105px}.detail-content-new .Page .detail-content-left .article-detail .action-box ul li:last-child{margin-bottom:0}.detail-content-new .Page .detail-content-left .article-detail .action-box ul li.share:hover .bdsharebuttonbox{display:block}.detail-content-new .Page .detail-content-left .article-detail .action-box ul li .bdsharebuttonbox{left:8px}.detail-content-new .Page .detail-content-left .article-detail .action-box ul li strong{display:inline-block;font-weight:400;position:relative;text-align:center;width:80px}.detail-content-new .Page .detail-content-left .article-detail .action-box ul li strong.is-praise a i{background:url("https://s2.51cto.com/images/100/blog/old/zan1.png") no-repeat top;background-size:47px 47px;display:inline-block;height:47px;width:47px}.webp .detail-content-new .Page .detail-content-left .article-detail .action-box ul li strong.is-praise a i{background-image:url("https://s2.51cto.com/images/100/blog/old/zan1.png?x-oss-process=image/format,webp")}.detail-content-new .Page .detail-content-left .article-detail .action-box ul li strong.is-praise.on a i{background:url("https://s2.51cto.com/images/100/blog/old/zan2.png") no-repeat top;background-size:47px 47px}.webp .detail-content-new .Page .detail-content-left .article-detail .action-box ul li strong.is-praise.on a i{background-image:url("https://s2.51cto.com/images/100/blog/old/zan2.png?x-oss-process=image/format,webp")}.detail-content-new .Page .detail-content-left .article-detail .action-box ul li strong.is-praise.no-praise a i,.detail-content-new .Page .detail-content-left .article-detail .action-box ul li strong.is-praise.on.no-praise a i{background:url("https://s2.51cto.com/images/100/blog/old/zan.gif") no-repeat top;background-size:47px 47px}.detail-content-new .Page .detail-content-left .article-detail .action-box ul li strong.favorites-opt a i{background:url("https://s2.51cto.com/images/100/blog/old/ping1.png") no-repeat top;background-size:47px 47px;display:inline-block;height:47px;width:47px}.webp .detail-content-new .Page .detail-content-left .article-detail .action-box ul li strong.favorites-opt a i{background-image:url("https://s2.51cto.com/images/100/blog/old/ping1.png?x-oss-process=image/format,webp")}.detail-content-new .Page .detail-content-left .article-detail .action-box ul li strong.favorites-opt.on a i{background:url("https://s2.51cto.com/images/100/blog/old/ping2.png") no-repeat top;background-size:47px 47px}.webp .detail-content-new .Page .detail-content-left .article-detail .action-box ul li strong.favorites-opt.on a i{background-image:url("https://s2.51cto.com/images/100/blog/old/ping2.png?x-oss-process=image/format,webp")}.detail-content-new .Page .detail-content-left .article-detail .action-box ul li strong.favorites-opt.no-favorites a i,.detail-content-new .Page .detail-content-left .article-detail .action-box ul li strong.favorites-opt.on.no-favorites a i{background:url("https://s2.51cto.com/images/100/blog/old/ping.gif") no-repeat top;background-size:47px 47px}.detail-content-new .Page .detail-content-left .article-detail .action-box ul li strong:hover a{box-shadow:0 8px 16px 0 rgba(23,35,63,.12)}.detail-content-new .Page .detail-content-left .article-detail .action-box ul li strong a{background:#fff;border:1px solid #f4f4f4;border-radius:47px;box-shadow:0 8px 16px 0 rgba(23,35,63,.04);display:block;height:47px;line-height:47px;margin:0 auto 5px;width:47px}.detail-content-new .Page .detail-content-left .article-detail .action-box ul li strong a i{color:#818797}.detail-content-new .Page .detail-content-left .article-detail .action-box ul li strong a i.blogshang,.detail-content-new .Page .detail-content-left .article-detail .action-box ul li strong a i.blogzan{font-size:19px}.detail-content-new .Page .detail-content-left .article-detail .action-box ul li strong a i.blogshou{font-size:21px}.detail-content-new .Page .detail-content-left .article-detail .action-box ul li strong a i.blogpinglun{font-size:19px}.detail-content-new .Page .detail-content-left .article-detail .action-box ul li strong a i.blogfen{font-size:23px}.detail-content-new .Page .detail-content-left .article-detail .action-box ul li strong a i.blogzhi{font-size:18px}.detail-content-new .Page .detail-content-left .article-detail .action-box ul li strong span{color:#979da9;line-height:1}.detail-content-new .Page .detail-content-left .article-detail .action-box ul li strong span b{font-weight:400}.detail-content-new .Page .detail-content-left .article-detail .action-box ul li strong.on a i{color:#3e71f6}.detail-content-new .Page .detail-content-left .article-detail .lists{margin-top:40px}.detail-content-new .Page .detail-content-left .article-detail .lists p{color:#818797;max-width:45%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.detail-content-new .Page .detail-content-left .article-detail .lists p a{color:#818797}.detail-content-new .Page .detail-content-left .article-detail .lists p a:hover{color:#17233f}.detail-content-new .Page .detail-content-left .article-detail .lists p:last-child{text-align:right}.detail-content-new .Page .detail-content-left .article-edit{margin-bottom:10px;margin-top:10px}.detail-content-new .Page .detail-content-left .article-edit a{color:#9399a6;display:inline-block;font-size:12px;height:23px;line-height:23px;margin-left:20px}.detail-content-new .Page .detail-content-left .article-edit a:hover{color:#3e71f6}.detail-content-new .Page .detail-content-left .article-edit a i{float:left;font-size:14px;margin-right:5px;opacity:.8}.detail-content-new .Page .detail-content-left .common-sub-title{border-bottom:1px solid #f5f5f5;height:48px;line-height:48px;margin-bottom:3px}.detail-content-new .Page .detail-content-left .common-sub-title h2,.detail-content-new .Page .detail-content-left .common-sub-title strong{color:#333;display:inline-block;font-size:20px}.detail-content-new .Page .detail-content-left .common-sub-title .more{color:#999}.detail-content-new .Page .detail-content-left .comment-textarea{padding-top:20px}.detail-content-new .Page .detail-content-left .comment-textarea .avatar{float:left;height:40px;margin-right:15px;position:relative;width:40px}.detail-content-new .Page .detail-content-left .comment-textarea .avatar img{border-radius:40px;height:40px;width:40px}.detail-content-new .Page .detail-content-left .comment-textarea .textarea-box{float:left;width:749px}.detail-content-new .Page .detail-content-left .comment-textarea .textarea-box .textarea-show{background:#fff;border:1px solid #e5e5e5;border-radius:2px;box-sizing:border-box;color:#818797;cursor:pointer;height:44px;line-height:44px;margin-bottom:20px;position:relative}.detail-content-new .Page .detail-content-left .comment-textarea .textarea-box .textarea-show span{display:inline-block;overflow:hidden;padding-left:15px;text-overflow:ellipsis;white-space:nowrap;width:80%}.detail-content-new .Page .detail-content-left .comment-textarea .textarea-box .textarea-show strong{background:#f5f5f5;border-left:1px solid #e5e5e5;display:inline-block;height:42px;line-height:42px;position:absolute;right:0;text-align:center;top:0;width:78px}.detail-content-new .Page .detail-content-left .comment-textarea .textarea-box .textarea-hide{display:none}.detail-content-new .Page .detail-content-left .comment-textarea .textarea-box .textarea-hide .top{margin-bottom:10px}.detail-content-new .Page .detail-content-left .comment-textarea .textarea-box .textarea-hide .top textarea{background:#fff;border:1px solid #e5e5e5;border-radius:2px;box-sizing:border-box;color:#17233f;height:78px;outline:0;padding:12px 15px;resize:none;width:100%}.detail-content-new .Page .detail-content-left .comment-textarea .textarea-box .textarea-hide .bot .publish-btn{background:#3e71f6;border-radius:2px;color:#fff;cursor:pointer;display:inline-block;height:35px;line-height:35px;text-align:center;width:110px}.detail-content-new .Page .detail-content-left .comment-textarea .textarea-box .textarea-hide .bot span{color:#9399a6;font-size:12px;line-height:35px;margin-right:16px}.detail-content-new .Page .detail-content-left .comment-num{border-bottom:1px solid #f5f5f5;color:#333;font-size:20px;height:56px;line-height:56px}.detail-content-new .Page .detail-content-left .comment-num span{color:#999}.detail-content-new .Page .detail-content-left .comment-num span b{font-family:fontDIN;font-weight:400}.detail-content-new .Page .detail-content-left .comment-num .sort{cursor:pointer;font-size:14px;font-weight:400;margin-left:15px}.detail-content-new .Page .detail-content-left .comment-num .sort.on{color:#3e71f6}.detail-content-new .Page .detail-content-left .comment-num .sort .iconblog{float:left;font-size:14px;margin-right:5px}.detail-content-new .Page .detail-content-left .comment-box{padding-bottom:27px}.detail-content-new .Page .detail-content-left .comment-List-box .floor-1{border-bottom:1px solid #f5f5f5;padding-top:25px}.detail-content-new .Page .detail-content-left .comment-List-box .floor-1.floor-n{display:none}.detail-content-new .Page .detail-content-left .comment-List-box .floor-2{padding-left:50px}.detail-content-new .Page .detail-content-left .comment-List-box .comment-List{display:flex;padding-bottom:25px}.detail-content-new .Page .detail-content-left .comment-List-box .comment-List .avatar{float:left;height:40px;margin-right:10px;margin-top:4px;position:relative;width:40px}.detail-content-new .Page .detail-content-left .comment-List-box .comment-List .avatar img{border-radius:40px;height:40px;width:40px}.detail-content-new .Page .detail-content-left .comment-List-box .comment-List .comment-detail{float:left;width:754px}.detail-content-new .Page .detail-content-left .comment-List-box .comment-List .comment-detail h3{color:#17233f;font-size:14px;height:28px;line-height:1;line-height:28px;margin-bottom:4px}.detail-content-new .Page .detail-content-left .comment-List-box .comment-List .comment-detail h3 .tag{background:#ebf1fe;border-radius:2px;color:#3e71f6;display:inline-block;font-size:12px;height:20px;line-height:20px;margin-left:7px;margin-top:4px;padding:0 8px}.detail-content-new .Page .detail-content-left .comment-List-box .comment-List .comment-detail h3 i{font-style:normal;margin:0 12px}.detail-content-new .Page .detail-content-left .comment-List-box .comment-List .comment-detail h3 .time{color:#9399a6;font-family:fontDIN;font-size:14px;font-weight:400}.detail-content-new .Page .detail-content-left .comment-List-box .comment-List .comment-detail .reply-content{background:#f9f9fa;border-radius:2px;color:#9399a6;font-size:16px;margin-bottom:12px;margin-top:17px;padding:10px 15px;word-break:break-word}.detail-content-new .Page .detail-content-left .comment-List-box .comment-List .comment-detail .content{color:#17233f;font-size:16px;margin-bottom:12px;word-break:break-word}.detail-content-new .Page .detail-content-left .comment-List-box .comment-List .comment-detail .action{height:23px;line-height:23px}.detail-content-new .Page .detail-content-left .comment-List-box .comment-List .comment-detail .action span{color:#9399a6;cursor:pointer;float:left;margin-right:20px}.detail-content-new .Page .detail-content-left .comment-List-box .comment-List .comment-detail .action span:hover i{color:#818797}.detail-content-new .Page .detail-content-left .comment-List-box .comment-List .comment-detail .action span.on,.detail-content-new .Page .detail-content-left .comment-List-box .comment-List .comment-detail .action span.on i{color:#3e71f6}.detail-content-new .Page .detail-content-left .comment-List-box .comment-List .comment-detail .action span i{color:#c5c8cf;float:left;margin-right:6px}.detail-content-new .Page .detail-content-left .comment-List-box .comment-List .comment-detail .action span b{font-weight:400}.detail-content-new .Page .detail-content-left .comment-List-box .comment-List .comment-detail .textarea-hide{margin-top:25px}.detail-content-new .Page .detail-content-left .comment-List-box .comment-List .comment-detail .textarea-hide .top{margin-bottom:10px}.detail-content-new .Page .detail-content-left .comment-List-box .comment-List .comment-detail .textarea-hide .top textarea{background:#fff;border:1px solid #e5e5e5;border-radius:2px;box-sizing:border-box;color:#17233f;height:78px;outline:0;padding:12px 15px;resize:none;width:100%}.detail-content-new .Page .detail-content-left .comment-List-box .comment-List .comment-detail .textarea-hide .bot .publish-btn{background:#3e71f6;border-radius:2px;color:#fff;cursor:pointer;display:inline-block;font-weight:400;height:32px;line-height:32px;text-align:center;width:110px}.detail-content-new .Page .detail-content-left .comment-List-box .comment-List .comment-detail .textarea-hide .bot span{color:#9399a6;cursor:pointer;line-height:35px;margin-right:16px}.detail-content-new .Page .detail-content-left .comment-List-box .more-toggle{color:#17233f;cursor:pointer;display:inline-block;padding-bottom:25px;padding-right:20px;position:relative}.detail-content-new .Page .detail-content-left .comment-List-box .more-toggle:hover,.detail-content-new .Page .detail-content-left .comment-List-box .more-toggle:hover i{color:#3e71f6}.detail-content-new .Page .detail-content-left .comment-List-box .more-toggle i{color:#9399a6;position:absolute;right:0;top:-2px;transform:rotate(-90deg);-ms-transform:rotate(-90deg);-moz-transform:rotate(-90deg);-webkit-transform:rotate(-90deg);-o-transform:rotate(-90deg)}.detail-content-new .Page .detail-content-left .pagination{font-size:12px;margin:60px auto 0;text-align:center}.detail-content-new .Page .detail-content-left .pagination li{border-radius:2px;color:#666;display:inline-block;font-size:14px;height:30px;line-height:30px;margin:0 6px;overflow:hidden;text-align:center}.detail-content-new .Page .detail-content-left .pagination li.disabled,.detail-content-new .Page .detail-content-left .pagination li.disabled:hover{color:#333;cursor:default;font-size:12px;padding:0}.detail-content-new .Page .detail-content-left .pagination li:last-child.last.disabled{color:#999;font-size:12px}.detail-content-new .Page .detail-content-left .pagination li a{background:#f3f4f5;color:#666;display:block;font-family:fontDIN;height:30px;line-height:30px;padding:0;text-align:center;width:30px}.detail-content-new .Page .detail-content-left .pagination li a:hover{background:#edeeef;color:#333;font-size:14px}.detail-content-new .Page .detail-content-left .pagination li.active a{color:#333;font-size:14px}.detail-content-new .Page .detail-content-left .pagination li.active b{background:#4973ee;color:#fff;display:block;font-family:fontDIN;font-weight:400;line-height:30px;padding:0;text-align:center;width:30px}.detail-content-new .Page .detail-content-left .pagination li.first a,.detail-content-new .Page .detail-content-left .pagination li.first_page a,.detail-content-new .Page .detail-content-left .pagination li.last a,.detail-content-new .Page .detail-content-left .pagination li.last_page a,.detail-content-new .Page .detail-content-left .pagination li.next a,.detail-content-new .Page .detail-content-left .pagination li.prev a{text-align:center;width:30px}.detail-content-new .Page .detail-content-left .pagination li.next:hover a,.detail-content-new .Page .detail-content-left .pagination li.prev:hover a{font-size:14px}.detail-content-new .Page .detail-content-left .pagination li:last-child.last.noLink{background:0;border-color:transparent;margin:0}.detail-content-new .Page .detail-content-left .pagination li.prev a{background:#f3f4f5;font-family:iconblog;font-size:20px;height:30px;width:30px}.detail-content-new .Page .detail-content-left .pagination li.prev a:before{content:""}.detail-content-new .Page .detail-content-left .pagination li.prev a:hover{background:#edeeef;font-size:20px}.detail-content-new .Page .detail-content-left .pagination li.next a{background:#f3f4f5;font-family:iconblog;font-size:20px;height:30px;width:30px}.detail-content-new .Page .detail-content-left .pagination li.next a:before{content:""}.detail-content-new .Page .detail-content-left .pagination li.next a:hover{background:#edeeef;font-size:20px}.detail-content-new .Page .detail-content-left .pagination li.first,.detail-content-new .Page .detail-content-left .pagination li.last{margin:0 2px}.detail-content-new .Page .detail-content-left .pagination li.first a,.detail-content-new .Page .detail-content-left .pagination li.last a{background:0;width:auto}.detail-content-new .Page .detail-content-left .recommend-about li{border-bottom:1px solid #f5f5f5;list-style:none;padding:17px 0 16px;position:relative}.detail-content-new .Page .detail-content-left .recommend-about li .list-subjuct{background:#e9f1ff;border-radius:16px;bottom:17px;box-sizing:border-box;display:none;height:22px;line-height:22px;max-width:250px;overflow:hidden;padding:0 13px;position:absolute;right:0;text-overflow:ellipsis;white-space:nowrap;z-index:2}.detail-content-new .Page .detail-content-left .recommend-about li .list-subjuct .fontsizeIcon{color:#3e71f6;font-size:14px}.detail-content-new .Page .detail-content-left .recommend-about li .list-subjuct span{color:#3e71f6;font-family:PingFang SC;font-size:12px;font-weight:500}.detail-content-new .Page .detail-content-left .recommend-about li:last-child{border-bottom:none}.detail-content-new .Page .detail-content-left .recommend-about li a,.detail-content-new .Page .detail-content-left .recommend-about li:hover .list-subjuct{display:block}.detail-content-new .Page .detail-content-left .recommend-about li .pic{background:#f7f7f8;float:right;height:45px;line-height:45px;margin-left:15px;margin-top:6px;position:relative;text-align:center;width:74px}.detail-content-new .Page .detail-content-left .recommend-about li .pic img{border-radius:2px;bottom:0;left:0;margin:auto;max-height:45px;max-width:74px;position:absolute;right:0;top:0}.detail-content-new .Page .detail-content-left .recommend-about li .pic span{background:rgba(0,0,0,.4);border-radius:1px;bottom:4px;color:#f5f5f5;font-size:12px;height:16px;line-height:20px;position:absolute;right:4px;text-align:center;width:25px}.detail-content-new .Page .detail-content-left .recommend-about li .tit{color:#17233f;font-size:18px;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.detail-content-new .Page .detail-content-left .recommend-about li .tit em{color:#cd4b50;font-style:normal}.detail-content-new .Page .detail-content-left .recommend-about li .tit:hover{color:#3e71f6}.detail-content-new .Page .detail-content-left .recommend-about li .tit:hover em{color:#cd4b50}.detail-content-new .Page .detail-content-left .recommend-about li p{color:#585858;margin-top:5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.detail-content-new .Page .detail-content-left .recommend-about li p em{color:#cd4b50;font-style:normal}.detail-content-new .Page .detail-content-left .recommend-cloumn li{border-bottom:1px solid #f5f5f5;list-style:none;padding:25px 0}.detail-content-new .Page .detail-content-left .recommend-cloumn li:last-child{border-bottom:none}.detail-content-new .Page .detail-content-left .recommend-cloumn li dl dt{float:left;height:116px;margin-right:10px;width:213px}.detail-content-new .Page .detail-content-left .recommend-cloumn li dl dt img{height:116px;width:213px}.detail-content-new .Page .detail-content-left .recommend-cloumn li dl dd{float:left;width:580px}.detail-content-new .Page .detail-content-left .recommend-cloumn li dl dd h3{font-weight:400;line-height:1;margin:5px 0 10px}.detail-content-new .Page .detail-content-left .recommend-cloumn li dl dd h3:hover .cloumn-subscribe{display:block}.detail-content-new .Page .detail-content-left .recommend-cloumn li dl dd h3 .title{display:inline-block;max-width:455px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.detail-content-new .Page .detail-content-left .recommend-cloumn li dl dd h3 .title:hover{color:#3e71f6}.detail-content-new .Page .detail-content-left .recommend-cloumn li dl dd h3 .cloumn-subscribe{color:#3e71f6;display:none;float:right;font-size:12px}.detail-content-new .Page .detail-content-left .recommend-cloumn li dl dd .dec{color:#9399a6;line-height:1;margin-bottom:17px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.detail-content-new .Page .detail-content-left .recommend-cloumn li dl dd .mess{color:#9399a6;line-height:1;margin-bottom:20px}.detail-content-new .Page .detail-content-left .recommend-cloumn li dl dd .mess b{background:#9399a6;display:inline-block;height:14px;margin:0 6px;width:1px}.detail-content-new .Page .detail-content-left .recommend-cloumn li dl dd .price{line-height:1}.detail-content-new .Page .detail-content-left .recommend-cloumn li dl dd .price span{color:#17233f;padding-right:18px}.detail-content-new .Page .detail-content-left .recommend-cloumn li dl dd .price strong{color:#9399a6;font-weight:400}.detail-content-new .Page .detail-content-left .recommend-course{margin:20px 0 15px}.detail-content-new .Page .detail-content-left .recommend-course li{float:left;list-style:none;margin-left:21px;width:185px}.detail-content-new .Page .detail-content-left .recommend-course li:first-child{margin-left:0}.detail-content-new .Page .detail-content-left .recommend-course li:nth-child(5),.detail-content-new .Page .detail-content-left .recommend-course li:nth-child(6){display:none}.detail-content-new .Page .detail-content-left .recommend-course li .pic{height:112px;width:185px}.detail-content-new .Page .detail-content-left .recommend-course li .pic img{border-radius:5px;height:112px;width:185px}.detail-content-new .Page .detail-content-left .recommend-course li .main{padding-top:12px}.detail-content-new .Page .detail-content-left .recommend-course li .main h3{font-weight:400;line-height:1;margin-bottom:10px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.detail-content-new .Page .detail-content-left .recommend-course li .main h3 a{color:#17233f}.detail-content-new .Page .detail-content-left .recommend-course li .main h3 a:hover{color:#3e71f6}.detail-content-new .Page .detail-content-left .recommend-course li .main .num{color:#b4b8c1;line-height:1;margin-bottom:13px}.detail-content-new .Page .detail-content-left .recommend-course li .main .price{color:#17233f;font-size:12px;line-height:1}.detail-content-new .Page .detail-content-right{float:right;width:302px}.detail-content-new .Page .detail-content-right .common-spacing{padding:8px 20px 12px}.detail-content-new .Page .detail-content-right .common-sub-title{border-bottom:1px solid #f5f5f5;height:38px;line-height:38px}.detail-content-new .Page .detail-content-right .common-sub-title h2,.detail-content-new .Page .detail-content-right .common-sub-title strong{color:#333;display:inline-block;font-size:16px;max-width:215px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.detail-content-new .Page .detail-content-right .common-sub-title .more{color:#999}.detail-content-new .Page .detail-content-right .fix-table{box-sizing:border-box;position:fixed;top:100px;width:298px}.detail-content-new .Page .detail-content-right .user-intr{padding:25px 10px}.detail-content-new .Page .detail-content-right .user-intr .top .avatar .avatar-img{height:65px;margin:0 auto;position:relative;width:65px}.detail-content-new .Page .detail-content-right .user-intr .top .avatar .avatar-img img{border-radius:65px;height:65px;width:65px}.detail-content-new .Page .detail-content-right .user-intr .top .username{color:#333;font-size:16px;font-weight:700;line-height:1;padding:13px 0 8px;text-align:center}.detail-content-new .Page .detail-content-right .user-intr .top .username a{color:#333;display:inline-block;font-size:16px;height:22px;line-height:22px}.detail-content-new .Page .detail-content-right .user-intr .top .username a .blog-user{display:inline-block;height:22px;max-width:185px;overflow:hidden;text-overflow:ellipsis;vertical-align:bottom;white-space:nowrap;word-break:break-all}.detail-content-new .Page .detail-content-right .user-intr .top .username .icon{display:inline-block;margin-left:-2px;position:relative;vertical-align:middle}.detail-content-new .Page .detail-content-right .user-intr .top .username .icon ul{display:inline-block}.detail-content-new .Page .detail-content-right .user-intr .top .username .icon ul li{float:left;height:18px;list-style:none;margin-left:5px;width:16px}.detail-content-new .Page .detail-content-right .user-intr .top .username .icon ul li a{background:url("https://s2.51cto.com/images/100/blog/sprites/sprites_identity.png") no-repeat;background-size:16px auto;display:inline-block;height:18px;width:16px}.webp .detail-content-new .Page .detail-content-right .user-intr .top .username .icon ul li a{background-image:url("https://s2.51cto.com/images/100/blog/sprites/sprites_identity.png?x-oss-process=image/format,webp")}.detail-content-new .Page .detail-content-right .user-intr .top .username .icon ul li a.qybz{background-position:0 -80px}.detail-content-new .Page .detail-content-right .user-intr .top .username .icon ul li a.zj{background-position:0 -60px}.detail-content-new .Page .detail-content-right .user-intr .top .username .icon ul li a.bkzx{background-position:0 0}.detail-content-new .Page .detail-content-right .user-intr .top .username .icon ul li a.tjzx{background-position:0 -40px}.detail-content-new .Page .detail-content-right .user-intr .top .username .icon ul li a.js{background-position:0 -20px}.detail-content-new .Page .detail-content-right .user-intr .top .username .icon ul li a.zjbz{background-position:0 -108px;background-size:14px auto}.detail-content-new .Page .detail-content-right .user-intr .top .username .icon ul li a.top_hr{background-position:0 -88px;background-size:14px auto}.detail-content-new .Page .detail-content-right .user-intr .top .username .icon ul li a.mrzx{background-position:-6px -257px;background-size:28px auto}.detail-content-new .Page .detail-content-right .user-intr .bottom{margin-bottom:8px}.detail-content-new .Page .detail-content-right .user-intr .bottom.loading{background:url("https://s2.51cto.com/images/100/blog/old/loading1.gif") no-repeat center 36px}.detail-content-new .Page .detail-content-right .user-intr .bottom .lines{background:#f5f5f5;height:1px;margin:0 10px}.detail-content-new .Page .detail-content-right .user-intr .bottom .num-name{text-align:center}.detail-content-new .Page .detail-content-right .user-intr .bottom .num-name:first-child ul{padding-top:0}.detail-content-new .Page .detail-content-right .user-intr .bottom .num-name:last-child ul{padding-top:11px}.detail-content-new .Page .detail-content-right .user-intr .bottom .num-name ul{display:inline-block;line-height:1;padding:18px 0 6px;width:100%}.detail-content-new .Page .detail-content-right .user-intr .bottom .num-name ul li{float:left;font-size:14px;list-style:none;text-align:center;width:25%}.detail-content-new .Page .detail-content-right .user-intr .bottom .num-name ul li .num{color:#17233f;font-family:fontDIN-medium;font-size:18px;padding-bottom:8px}.detail-content-new .Page .detail-content-right .user-intr .bottom .num-name ul li .num a{color:#17233f;font-family:fontDIN-medium;font-size:18px}.detail-content-new .Page .detail-content-right .user-intr .bottom .num-name ul li .num a:hover{color:#3e71f6}.detail-content-new .Page .detail-content-right .user-intr .bottom .num-name ul li .num span{font-size:17px}.detail-content-new .Page .detail-content-right .user-intr .bottom .num-name ul li .label-name{color:#9399a6;font-size:12px;line-height:1}.detail-content-new .Page .detail-content-right .user-intr .bottom .num-name ul li .label-name a{color:#9399a6}.detail-content-new .Page .detail-content-right .user-intr .bottom .num-name ul li .label-name a:hover{color:#3e71f6}.detail-content-new .Page .detail-content-right .user-intr .operating{margin-top:8px;padding-left:16px}.detail-content-new .Page .detail-content-right .user-intr .operating.operating2 button{display:block;float:none;margin:0 auto}.detail-content-new .Page .detail-content-right .user-intr .operating button{background-color:#fff;background-image:none!important;border:1px solid #789bf9;border-radius:0;border-radius:2px;cursor:pointer;float:left;height:35px;line-height:35px;padding:0;width:110px}.detail-content-new .Page .detail-content-right .user-intr .operating button:hover{border:1px solid #3d62f5}.detail-content-new .Page .detail-content-right .user-intr .operating button:hover a,.detail-content-new .Page .detail-content-right .user-intr .operating button:hover a i{color:#3d62f5}.detail-content-new .Page .detail-content-right .user-intr .operating button a{color:#3e71f6;display:inline-block;font-size:14px;height:35px;line-height:35px}.detail-content-new .Page .detail-content-right .user-intr .operating button a i{float:left;font-size:18px;margin-right:5px}.detail-content-new .Page .detail-content-right .user-intr .operating .checkFollow{background:#3e71f6;border:none;border-radius:0;border-radius:2px;box-sizing:border-box;color:#666;color:#fff;float:left;font-size:14px;height:35px;line-height:35px;margin:0 25px 0 0;text-align:center;width:110px}.detail-content-new .Page .detail-content-right .user-intr .operating .checkFollow.in,.detail-content-new .Page .detail-content-right .user-intr .operating .checkFollow.mutual{background:0;border:1px solid #789bf9;color:#3e71f6;padding-left:0}.detail-content-new .Page .detail-content-right .user-intr .operating .checkFollow.on{background:#3e71f6;font-family:iconblog;padding-left:30px;text-align:left}.detail-content-new .Page .detail-content-right .user-intr .operating .checkFollow.on:before{content:"";font-size:20px;vertical-align:bottom}.detail-content-new .Page .detail-content-right .user-intr .operating .checkFollow.on:hover{background:#3d62f5}.detail-content-new .Page .detail-content-right .user-intr .operating .checkFollow.off{background:#ddd;padding-left:0}.detail-content-new .Page .detail-content-right .blogger-ranking .rank-list{margin-bottom:10px}.detail-content-new .Page .detail-content-right .blogger-ranking .rank-list a{box-sizing:border-box;color:#6c7486;display:block;height:48px;line-height:48px;padding-left:25px;position:relative;width:100%}.detail-content-new .Page .detail-content-right .blogger-ranking .rank-list a:after{background:url("https://s2.51cto.com/images/100/blog/list/css_sprites_0913.png") no-repeat;content:"";height:90px;position:absolute;right:-5px;top:-20px;transform:scale(.45);width:90px}.webp .detail-content-new .Page .detail-content-right .blogger-ranking .rank-list a:after{background-image:url("https://s2.51cto.com/images/100/blog/list/css_sprites_0913.png?x-oss-process=image/format,webp")}.detail-content-new .Page .detail-content-right .blogger-ranking .rank-list a.new{background:url("https://s2.51cto.com/images/100/blog/list/blist1.png") no-repeat;background-size:100% 100%}.webp .detail-content-new .Page .detail-content-right .blogger-ranking .rank-list a.new{background-image:url("https://s2.51cto.com/images/100/blog/list/blist1.png?x-oss-process=image/format,webp")}.detail-content-new .Page .detail-content-right .blogger-ranking .rank-list a.new:after{background-position:-2px -2px}.detail-content-new .Page .detail-content-right .blogger-ranking .rank-list a.week{background:url("https://s2.51cto.com/images/100/blog/list/blist3.png") no-repeat;background-size:100% 100%}.webp .detail-content-new .Page .detail-content-right .blogger-ranking .rank-list a.week{background-image:url("https://s2.51cto.com/images/100/blog/list/blist3.png?x-oss-process=image/format,webp")}.detail-content-new .Page .detail-content-right .blogger-ranking .rank-list a.week:after{background-position:-96px -2px}.detail-content-new .Page .detail-content-right .blogger-ranking .rank-list a.default{background:url("https://s2.51cto.com/images/100/blog/list/blist2.png") no-repeat;background-size:100% 100%}.webp .detail-content-new .Page .detail-content-right .blogger-ranking .rank-list a.default{background-image:url("https://s2.51cto.com/images/100/blog/list/blist2.png?x-oss-process=image/format,webp")}.detail-content-new .Page .detail-content-right .blogger-ranking .rank-list a.default:after{background-position:-2px -96px}.detail-content-new .Page .detail-content-right .blogger-ranking .rank-list a b{font-family:fontDIN-bold;font-weight:700;margin-left:5px}.detail-content-new .Page .detail-content-right .blogger-ranking .rank-list:last-child{margin-bottom:0}.detail-content-new .Page .detail-content-right .identify-list{padding:0 14px 5px}.detail-content-new .Page .detail-content-right .identify-list .item{padding-bottom:5px;text-align:center}.detail-content-new .Page .detail-content-right .identify-list .item span{box-sizing:border-box;display:inline-block;height:25px;line-height:25px;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.detail-content-new .Page .detail-content-right .identify-list .item span i{float:left;height:22px;margin-right:4px;width:20px}.detail-content-new .Page .detail-content-right .identify-list .item.item1 span i{background:url("https://s2.51cto.com/images/100/blog/sprites/sprites_detail_new.png") no-repeat;background-position:-5px -5px;background-size:90px auto}.webp .detail-content-new .Page .detail-content-right .identify-list .item.item1 span i{background-image:url("https://s2.51cto.com/images/100/blog/sprites/sprites_detail_new.png?x-oss-process=image/format,webp")}.detail-content-new .Page .detail-content-right .identify-list .item.item2 span i{background:url("https://s2.51cto.com/images/100/blog/sprites/sprites_detail_new.png") no-repeat;background-position:-35px -5px;background-size:90px auto}.webp .detail-content-new .Page .detail-content-right .identify-list .item.item2 span i{background-image:url("https://s2.51cto.com/images/100/blog/sprites/sprites_detail_new.png?x-oss-process=image/format,webp")}.detail-content-new .Page .detail-content-right .identify-list .item.item3 span i{background:url("https://s2.51cto.com/images/100/blog/sprites/sprites_detail_new.png") no-repeat;background-position:-65px -5px;background-size:90px auto}.webp .detail-content-new .Page .detail-content-right .identify-list .item.item3 span i{background-image:url("https://s2.51cto.com/images/100/blog/sprites/sprites_detail_new.png?x-oss-process=image/format,webp")}.detail-content-new .Page .detail-content-right .identify-list .item.item4 span i{background:url("https://s2.51cto.com/images/100/blog/sprites/sprites_detail_new.png") no-repeat;background-position:-5px -37px;background-size:90px auto}.webp .detail-content-new .Page .detail-content-right .identify-list .item.item4 span i{background-image:url("https://s2.51cto.com/images/100/blog/sprites/sprites_detail_new.png?x-oss-process=image/format,webp")}.detail-content-new .Page .detail-content-right .medal-list{display:flex;flex-wrap:wrap;margin-bottom:6px;padding:0 11px}.detail-content-new .Page .detail-content-right .medal-list .item{cursor:pointer;display:flex;height:42.5px;justify-content:center;margin-bottom:9px;width:52px}.detail-content-new .Page .detail-content-right .medal-list .item img{height:40.5px;width:36px}.detail-content-new .Page .detail-content-right .common-list{padding:7px 0 3px}.detail-content-new .Page .detail-content-right .common-list.common-list-dot li .title a,.detail-content-new .Page .detail-content-right .common-list.common-list-dot li a.title{padding-left:10px}.detail-content-new .Page .detail-content-right .common-list.common-list-dot li .title a:before,.detail-content-new .Page .detail-content-right .common-list.common-list-dot li a.title:before{background:#b9bdc5;border-radius:4px;content:"";display:inline-block;height:4px;left:0;position:absolute;top:10px;width:4px}.detail-content-new .Page .detail-content-right .common-list#classification-list li a:hover span{color:#3e71f6}.detail-content-new .Page .detail-content-right .common-list#classification-list li span:first-child{display:inline-block;max-width:206px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.detail-content-new .Page .detail-content-right .common-list#classification-list li span:last-child{color:#5c6578;float:right}.detail-content-new .Page .detail-content-right .common-list li{list-style:none;padding:5px 0}.detail-content-new .Page .detail-content-right .common-list li:last-child{padding-bottom:0}.detail-content-new .Page .detail-content-right .common-list li a{color:#17233f;display:block;font-size:14px;font-weight:400;overflow:hidden;position:relative;text-overflow:ellipsis;white-space:nowrap}.detail-content-new .Page .detail-content-right .common-list li a:hover{color:#3e71f6}.detail-content-new .Page .detail-content-right .common-list li .dec{color:#9399a6;font-size:12px;overflow:hidden;padding-left:10px;text-overflow:ellipsis;white-space:nowrap}.detail-content-new .Page .detail-content-right .common-list li .dec a{color:#9399a6;font-size:12px}.detail-content-new .Page .detail-content-right .common-list-lines{background:#f5f5f5;height:1px;margin-bottom:15px;margin-top:15px}.detail-content-new .Page .detail-content-right .years{color:#17233f}.detail-content-new .Page .detail-content-right .years a{color:#17233f;display:inline-block}.detail-content-new .Page .detail-content-right .years a:hover{color:#3e71f6}.detail-content-new .Page .detail-content-right .months{margin-top:10px}.detail-content-new .Page .detail-content-right .months a{border:1px solid #f0f0f0;display:block;float:left;height:55px;margin:0 20px 10px 0;text-align:center;width:48px}.detail-content-new .Page .detail-content-right .months a:hover span,.detail-content-new .Page .detail-content-right .months a:hover strong{color:#3e71f6}.detail-content-new .Page .detail-content-right .months a:nth-child(4n){margin-right:0}.detail-content-new .Page .detail-content-right .months a span{color:#9399a6;display:block;margin-bottom:2px;padding:1px 0;position:relative}.detail-content-new .Page .detail-content-right .months a span:after{background:#f5f5f5;bottom:0;content:"";height:1px;left:50%;margin-left:-12px;position:absolute;width:25px}.detail-content-new .Page .detail-content-right .months a strong{display:block;font-weight:400}.detail-content-new .Page .detail-content-right .nowYear{margin-top:15px}.detail-content-new .Page .detail-content-right .otherYear .years a{float:left;padding:3px 0;width:50%}.detail-content-new .Page .detail-content-right .directory{max-height:402px;overflow-x:hidden}.detail-content-new .Page .detail-content-right .directory::-webkit-scrollbar{display:none}.detail-content-new .Page .detail-content-right .directory-list{border-left:2px solid #f8f8f9;margin-bottom:20px;margin-top:12px;padding-left:12px}.detail-content-new .Page .detail-content-right .directory-list li{list-style:none}.detail-content-new .Page .detail-content-right .directory-list li:first-child{margin-bottom:7px}.detail-content-new .Page .detail-content-right .directory-list li span{cursor:pointer;display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.detail-content-new .Page .detail-content-right .directory-list li:hover span{color:#3e71f6}.detail-content-new .Page .detail-content-right .directory-list li.lv1{margin-bottom:7px}.detail-content-new .Page .detail-content-right .directory-list li.lv1.on .title span{color:#3e71f6}.detail-content-new .Page .detail-content-right .directory-list li.lv1.on .title:before{background:#3e71f6;content:"";display:inline-block;height:18px;left:-14px;position:absolute;top:3px;width:2px}.detail-content-new .Page .detail-content-right .directory-list li.lv1 .title{font-weight:400;position:relative}.detail-content-new .Page .detail-content-right .directory-list li.lv2,.detail-content-new .Page .detail-content-right .directory-list li.lv3{margin-bottom:5px}.detail-content-new .Page .detail-content-right .directory-list li.lv2.on .title span,.detail-content-new .Page .detail-content-right .directory-list li.lv3.on .title span{color:#3e71f6}.detail-content-new .Page .detail-content-right .directory-list li.lv2 .title,.detail-content-new .Page .detail-content-right .directory-list li.lv3 .title{font-size:12px;font-weight:400;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.detail-content-new .Page .detail-content-right .directory-list li.lv2 .title:before,.detail-content-new .Page .detail-content-right .directory-list li.lv3 .title:before{background:#b9bdc5;border-radius:4px;content:"";float:left;height:4px;margin:8px 6px 0 0;width:4px}.detail-content-new .Page .detail-content-right .directory-list li.lv2.lv3,.detail-content-new .Page .detail-content-right .directory-list li.lv3.lv3{margin-left:12px}.detail-content-new .Page .detail-content-right .label-list .tag-text{color:#9399a6;display:inline;font-size:13px;line-height:35px;margin-right:15px;word-break:break-all}.detail-content-new .Page .detail-content-right .label-list .tag-text:hover{color:#7d828c}.detail-content-new .Page .detail-content-right .label-list .tag-text:nth-child(3n-2){color:#b6c2bb}.detail-content-new .Page .detail-content-right .label-list .tag-text:nth-child(3n-2):hover{color:#9ea8a2}.detail-content-new .Page .detail-content-right .label-list .tag-text:nth-child(3n-1){color:#e0d6d1}.detail-content-new .Page .detail-content-right .label-list .tag-text:nth-child(3n-1):hover{color:#c7beb9}.detail-content-new .Page .detail-content-directory{display:none;position:fixed;width:302px}.detail-content-new .Page .detail-content-directory .common-spacing{padding:8px 20px 12px}.detail-content-new .Page .detail-content-directory .common-sub-title{border-bottom:1px solid #efeff1;height:38px;line-height:38px}.detail-content-new .Page .detail-content-directory .common-sub-title h2,.detail-content-new .Page .detail-content-directory .common-sub-title strong{color:#333;display:inline-block;font-size:16px;max-width:215px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.detail-content-new .Page .detail-content-directory .common-sub-title .iconblog{color:#9399a6;cursor:pointer;float:right;font-size:12px;font-weight:700}.detail-content-new .Page .detail-content-directory .common-sub-title .iconblog:hover{color:#313d54}.detail-content-new .Page .common-content-directory.fix-table{box-sizing:border-box;position:fixed;top:100px;width:298px}.detail-content-new .Page .common-content-directory .directory{max-height:402px;overflow-x:hidden}.detail-content-new .Page .common-content-directory .directory::-webkit-scrollbar{display:none}.detail-content-new .Page .common-content-directory .directory-list{border-left:2px solid #f8f8f9;margin-bottom:20px;margin-top:12px;padding-left:12px}.detail-content-new .Page .common-content-directory .directory-list li{list-style:none}.detail-content-new .Page .common-content-directory .directory-list li:first-child{margin-bottom:7px}.detail-content-new .Page .common-content-directory .directory-list li span{cursor:pointer;display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.detail-content-new .Page .common-content-directory .directory-list li:hover span{color:#3e71f6}.detail-content-new .Page .common-content-directory .directory-list li.lv1{margin-bottom:7px}.detail-content-new .Page .common-content-directory .directory-list li.lv1.on .title span{color:#3e71f6}.detail-content-new .Page .common-content-directory .directory-list li.lv1.on .title:before{background:#3e71f6;content:"";display:inline-block;height:18px;left:-14px;position:absolute;top:3px;width:2px}.detail-content-new .Page .common-content-directory .directory-list li.lv1 .title{font-weight:400;position:relative}.detail-content-new .Page .common-content-directory .directory-list li.lv2,.detail-content-new .Page .common-content-directory .directory-list li.lv3,.detail-content-new .Page .common-content-directory .directory-list li.lv4{margin-bottom:5px}.detail-content-new .Page .common-content-directory .directory-list li.lv2.on .title span,.detail-content-new .Page .common-content-directory .directory-list li.lv3.on .title span,.detail-content-new .Page .common-content-directory .directory-list li.lv4.on .title span{color:#3e71f6}.detail-content-new .Page .common-content-directory .directory-list li.lv2 .title,.detail-content-new .Page .common-content-directory .directory-list li.lv3 .title,.detail-content-new .Page .common-content-directory .directory-list li.lv4 .title{font-size:12px;font-weight:400;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.detail-content-new .Page .common-content-directory .directory-list li.lv2 .title:before,.detail-content-new .Page .common-content-directory .directory-list li.lv3 .title:before,.detail-content-new .Page .common-content-directory .directory-list li.lv4 .title:before{background:#b9bdc5;border-radius:4px;content:"";float:left;height:4px;margin:8px 6px 0 0;width:4px}.detail-content-new .Page .common-content-directory .directory-list li.lv2.lv3,.detail-content-new .Page .common-content-directory .directory-list li.lv3.lv3,.detail-content-new .Page .common-content-directory .directory-list li.lv4.lv3{margin-left:12px}.detail-content-new .Page .common-content-directory .directory-list li.lv2.lv4,.detail-content-new .Page .common-content-directory .directory-list li.lv3.lv4,.detail-content-new .Page .common-content-directory .directory-list li.lv4.lv4{margin-left:24px}.action-aside{left:50%;margin:-265px 0 0 -703px;position:fixed;top:50%;z-index:999}.action-aside.action-aside-right{bottom:200px;left:auto;margin:0;right:30px;top:auto}.action-aside ul li{list-style:none;margin-bottom:15px;position:relative}.action-aside ul li:last-child{margin-bottom:0}.action-aside ul li.share:hover .bdsharebuttonbox{display:block}.action-aside ul li.scrollTop{display:none}.action-aside ul li strong{display:inline-block;font-weight:400;position:relative;text-align:center;width:80px}.action-aside ul li strong:hover a{box-shadow:0 8px 16px 0 rgba(23,35,63,.12)}.action-aside ul li strong.is-praise a i{background:url("https://s2.51cto.com/images/100/blog/old/zan1.png") no-repeat top;background-size:47px 47px;display:inline-block;height:47px;width:47px}.webp .action-aside ul li strong.is-praise a i{background-image:url("https://s2.51cto.com/images/100/blog/old/zan1.png?x-oss-process=image/format,webp")}.action-aside ul li strong.is-praise.on a i{background:url("https://s2.51cto.com/images/100/blog/old/zan2.png") no-repeat top;background-size:47px 47px}.webp .action-aside ul li strong.is-praise.on a i{background-image:url("https://s2.51cto.com/images/100/blog/old/zan2.png?x-oss-process=image/format,webp")}.action-aside ul li strong.is-praise.no-praise a i,.action-aside ul li strong.is-praise.on.no-praise a i{background:url("https://s2.51cto.com/images/100/blog/old/zan.gif") no-repeat top;background-size:47px 47px}.action-aside ul li strong.favorites-opt a i{background:url("https://s2.51cto.com/images/100/blog/old/ping1.png") no-repeat top;background-size:47px 47px;display:inline-block;height:47px;width:47px}.webp .action-aside ul li strong.favorites-opt a i{background-image:url("https://s2.51cto.com/images/100/blog/old/ping1.png?x-oss-process=image/format,webp")}.action-aside ul li strong.favorites-opt.on a i{background:url("https://s2.51cto.com/images/100/blog/old/ping2.png") no-repeat top;background-size:47px 47px}.webp .action-aside ul li strong.favorites-opt.on a i{background-image:url("https://s2.51cto.com/images/100/blog/old/ping2.png?x-oss-process=image/format,webp")}.action-aside ul li strong.favorites-opt.no-favorites a i,.action-aside ul li strong.favorites-opt.on.no-favorites a i{background:url("https://s2.51cto.com/images/100/blog/old/ping.gif") no-repeat top;background-size:47px 47px}.action-aside ul li strong.sign{cursor:pointer}.action-aside ul li strong.sign a{position:relative}.action-aside ul li strong.sign a .dot{background:#e90d31;border-radius:50%;content:"";display:inline-block;height:5px;position:absolute;right:13px;top:10px;width:5px}.action-aside ul li strong.sign a i{font-size:24px}.action-aside ul li strong a{background:#fff;border:1px solid #f4f4f4;border-radius:47px;box-shadow:0 8px 16px 0 rgba(23,35,63,.04);display:block;height:47px;line-height:47px;margin:0 auto 5px;width:47px}.action-aside ul li strong a i{color:#8a92a5}.action-aside ul li strong a i.blogshang,.action-aside ul li strong a i.blogzan{font-size:19px}.action-aside ul li strong a i.blogshou{font-size:21px}.action-aside ul li strong a i.blogpinglun{font-size:19px}.action-aside ul li strong a i.blogfen{font-size:23px}.action-aside ul li strong a i.blogzhi{font-size:18px}.action-aside ul li strong a i.bloggengduo{font-size:24px}.action-aside ul li strong span{color:#979da9;line-height:1}.action-aside ul li strong span b{font-weight:400}.action-aside ul li strong.on a i{color:#3e71f6}.action-aside ul li strong .new{background:#e31436;border-radius:10px 10px 10px 2px;color:#fff;display:inline-block;font-size:12px;font-style:normal;line-height:1;padding:2px 5px;position:absolute;right:-7px;top:-4px}.bdsharebuttonbox{display:none;left:-5px;padding-top:20px;position:absolute;top:39px;z-index:99}.bdsharebuttonbox .ins{background:#fff;border-radius:2px;box-shadow:0 8px 16px 0 hsla(0,0%,40%,.1);padding:10px 0 8px;position:absolute;text-align:center;width:90px}.bdsharebuttonbox .ins a{background:0;color:#2e3d56;display:inline-block;float:none;font-size:12px;height:32px;line-height:32px;margin:0 0 2px;padding-left:0;width:55px}.bdsharebuttonbox .ins a:hover,.bdsharebuttonbox .ins a:hover i{color:#3e71f6}.bdsharebuttonbox .ins a i{color:#818797;float:left;margin-right:8px}.bdsharebuttonbox .ins a i.blogfenxiangweibo{font-size:19px}.bdsharebuttonbox .ins a i.blogfenxiangqq{font-size:18px}.bdsharebuttonbox .ins a i.blogfenxiangweixin{font-size:20px}.bdsharebuttonbox .ins img{height:59px;width:59px}.Footer{margin-top:60px!important}.footer{background-color:#f7f8f9;color:#9fa3a7;font-size:12px;padding:36px 0;text-align:center}.set-right{-webkit-animation:right-to-left .3s linear;animation:right-to-left .3s linear;right:0;z-index:9}.reset-right,.set-right{float:none!important;position:absolute;top:0}.reset-right{-webkit-animation:left-to-right .3s linear;animation:left-to-right .3s linear;right:326px}.arrowing{animation-duration:1s;-webkit-animation-duration:1s;animation-iteration-count:infinite;-webkit-animation-iteration-count:infinite;animation-name:arrowing;-webkit-animation-name:arrowing}@keyframes right-to-left{0%{right:326px}to{right:0}}@-webkit-keyframes right-to-left{0%{right:326px}to{right:0}}@keyframes left-to-right{0%{right:0}to{right:326px}}@-webkit-keyframes left-to-right{0%{right:0}to{right:326px}}@keyframes arrowing{0%{transform:scale(1)}50%{transform:scale(.9)}to{transform:scale(1)}}@-webkit-keyframes arrowing{0%{-webkit-transform:scale(1)}50%{-webkit-transform:scale(.9)}to{-webkit-transform:scale(1)}}*{-webkit-font-smoothing:antialiased;font-family:-apple-system,Helvetica Neue,Helvetica,Arial,PingFang SC,Hiragino Sans GB,WenQuanYi Micro Hei,Microsoft Yahei,sans-serif;margin:0;padding:0}a{color:#333;text-decoration:none}textarea{resize:none}button,input,input[type=button]{outline:0}button,input[type=button]{background-color:#00baf2;border:none;color:#fff;cursor:pointer;line-height:30px;padding:0 20px}button:hover,input[type=button]:hover{opacity:.9}img{border:none}body{color:#333;font-size:14px;line-height:1.75;text-align:left}.disabled{background:#999}.del{text-decoration:line-through}.clear{height:0;overflow:hidden;width:0}.clear,.clearfix{clear:both}.clearfix:after{clear:both;content:"";display:block}.Left,.fl{float:left}.Right,.fr{float:right}.tl{text-align:left}.tc{text-align:center}.tr{text-align:right}.fb{font-weight:700}.bluebg{background:#00baf2}.blue{color:#00baf2}.redbg{background:#ff4a56}.red{color:#ff4a56}.red:hover{color:#950b11}.Mask,.mask{background:rgba(0,0,0,.8);display:none;height:100%;left:0;position:fixed;top:0;width:100%;z-index:9999}label{margin-bottom:0!important}.blue-btn{background:#4285f4;border:1px solid #4285f4;color:#fff;cursor:pointer}.disabled-btn{background:#ddd;border:1px solid #ddd;color:#fff}.blue-btn:hover{background:#3c78dc;border:1px solid #3c78dc;color:#fff}.gray-btn{background:#fff;border:1px solid #ccc;color:#333;cursor:pointer}.gray-btn:hover{background:#e6e6e6;color:#000}.editor-side-new{font-size:16px;word-break:break-all}.editor-side-new blockquote{background:#f2f5f9;border-left:.2rem solid #4285f4;color:#819198;margin:1rem 0;padding:.8rem 1.2rem}.editor-side-new blockquote h1:last-child,.editor-side-new blockquote h2:last-child,.editor-side-new blockquote h3:last-child,.editor-side-new blockquote h4:last-child,.editor-side-new blockquote h5:last-child,.editor-side-new blockquote h6:last-child,.editor-side-new blockquote li:last-child,.editor-side-new blockquote ol:last-child,.editor-side-new blockquote p:last-child,.editor-side-new blockquote ul:last-child{margin-bottom:0}.editor-side-new blockquote p{font-size:16px;font-weight:400;line-height:1.7}@media screen and (max-width:1440px){.body_padding{padding-bottom:115px}.action-aside{z-index:999}.action-aside ul li{display:inline-block;margin:0 20px;width:80px}.action-aside ul li .bdsharebuttonbox{display:none;left:73px;padding-top:20px;position:absolute;top:-134px;z-index:99}.action-aside ul li strong{width:80px}.action-aside ul li strong span{font-size:12px}.action-aside ul li strong.is-praise a i{background:url("https://s2.51cto.com/images/100/blog/old/zan1.png") no-repeat 50%;background-size:41px 41px;display:inline-block;height:35px;width:35px}.webp .action-aside ul li strong.is-praise a i{background-image:url("https://s2.51cto.com/images/100/blog/old/zan1.png?x-oss-process=image/format,webp")}.action-aside ul li strong.is-praise.on a i{background:url("https://s2.51cto.com/images/100/blog/old/zan2.png") no-repeat 50%;background-size:41px 41px}.webp .action-aside ul li strong.is-praise.on a i{background-image:url("https://s2.51cto.com/images/100/blog/old/zan2.png?x-oss-process=image/format,webp")}.action-aside ul li strong.is-praise.no-praise a i,.action-aside ul li strong.is-praise.on.no-praise a i{background:url("https://s2.51cto.com/images/100/blog/old/zan.gif") no-repeat 50%;background-size:41px 41px}.action-aside ul li strong.favorites-opt a i{background:url("https://s2.51cto.com/images/100/blog/old/ping1.png") no-repeat 50%;background-size:41px 41px;display:inline-block;height:35px;width:35px}.webp .action-aside ul li strong.favorites-opt a i{background-image:url("https://s2.51cto.com/images/100/blog/old/ping1.png?x-oss-process=image/format,webp")}.action-aside ul li strong.favorites-opt.on a i{background:url("https://s2.51cto.com/images/100/blog/old/ping2.png") no-repeat 50%;background-size:41px 41px}.webp .action-aside ul li strong.favorites-opt.on a i{background-image:url("https://s2.51cto.com/images/100/blog/old/ping2.png?x-oss-process=image/format,webp")}.action-aside ul li strong.favorites-opt.no-favorites a i,.action-aside ul li strong.favorites-opt.on.no-favorites a i{background:url("https://s2.51cto.com/images/100/blog/old/ping.gif") no-repeat 50%;background-size:41px 41px}.action-aside ul li strong a{border-radius:35px;height:35px;line-height:35px;margin-bottom:0;width:35px}.action-aside ul li strong a i{color:#8a92a5}.action-aside ul li strong a i.blogshang,.action-aside ul li strong a i.blogzan{font-size:15px}.action-aside ul li strong a i.blogshou{font-size:17px}.action-aside ul li strong a i.blogpinglun{font-size:15px}.action-aside ul li strong a i.blogfen{font-size:19px}.action-aside ul li strong a i.blogzhi{font-size:13px}.action-aside ul li strong a i.bloggengduo{font-size:18px}.action-aside ul li strong.sign{cursor:pointer}.action-aside ul li strong.sign a{position:relative}.action-aside ul li strong.sign a .dot{background:#e90d31;border-radius:50%;content:"";display:inline-block;height:4px;position:absolute;right:9px;top:8px;width:4px}.action-aside ul li strong.sign a i{font-size:18px}.action-aside ul li strong .new{transform:scale(.85);-webkit-transform:scale(.85);-moz-transform:scale(.85)}.action-aside-left{bottom:0;left:0;margin:0;position:fixed;text-align:center;top:auto;width:100%}.action-aside-left .inner{margin:0 auto;width:1200px}.action-aside-left .inner ul{background:#fff;box-shadow:0 0 14px -2px #efefef;padding:10px 0;width:874px}.action-aside.action-aside-right{z-index:999}}@media screen and (max-width:1199px){.Page{width:1000px}.detail-content-new .fixtitle h3{width:720px}.detail-content-new .Page .detail-content-left{width:674px}.detail-content-new .Page .detail-content-left .main-content{max-width:none}.detail-content-new .Page .detail-content-left .comment-textarea .textarea-box{width:549px}.detail-content-new .Page .detail-content-left .comment-List-box .comment-List .comment-detail{width:554px}.detail-content-new .Page .detail-content-left .recommend-cloumn li dl dd{float:left;width:380px}.detail-content-new .Page .detail-content-left .recommend-course{display:none}.action-aside-left .inner{width:1000px}.action-aside-left .inner ul{width:674px}.action-aside-left .inner ul li{margin:0 14px}}@media screen and (min-width:1200px)and (max-width:1580px){.Page{width:1200px}}@media screen and (min-width:1581px)and (max-width:1767px){.Page{width:1390px}.detail-content-new .Page .detail-content-left,.detail-content-new .fixtitle h3{width:1064px}.detail-content-new .Page .detail-content-left .main-content{max-width:none}.detail-content-new .Page .detail-content-left .comment-textarea .textarea-box{width:939px}.detail-content-new .Page .detail-content-left .comment-List-box .comment-List .comment-detail{width:944px}.detail-content-new .Page .detail-content-left .recommend-cloumn li dl dd{float:left;width:771px}.detail-content-new .Page .detail-content-left .recommend-course li{margin-left:27px;width:177px}.detail-content-new .Page .detail-content-left .recommend-course li:nth-child(5){display:block}.detail-content-new .Page .detail-content-left .recommend-course li .pic,.detail-content-new .Page .detail-content-left .recommend-course li .pic img{height:107px;width:177px}.action-aside{margin:-300px 0 0 -799px}}@media screen and (min-width:1768px){.Page{width:1580px}.detail-content-new .Page .detail-content-left,.detail-content-new .fixtitle h3{width:1254px}.detail-content-new .Page .detail-content-left .main-content{max-width:none}.detail-content-new .Page .detail-content-left .comment-textarea .textarea-box{width:1129px}.detail-content-new .Page .detail-content-left .comment-List-box .comment-List .comment-detail{width:1134px}.detail-content-new .Page .detail-content-left .recommend-cloumn li dl dd{float:left;width:961px}.detail-content-new .Page .detail-content-left .recommend-course li{margin-left:24px;width:177px}.detail-content-new .Page .detail-content-left .recommend-course li:nth-child(5),.detail-content-new .Page .detail-content-left .recommend-course li:nth-child(6){display:block}.detail-content-new .Page .detail-content-left .recommend-course li .pic,.detail-content-new .Page .detail-content-left .recommend-course li .pic img{height:107px;width:177px}.action-aside{margin:-300px 0 0 -892px}}.cto-mermaid svg{cursor:zoom-in}.artical-content-bak a img{cursor:pointer!important}.imgViewDom{background:hsla(0,0%,100%,.8);display:none;height:100%;left:0;overflow:auto;position:fixed;text-align:center;top:0;width:100%;z-index:99999999}.imgViewDom .img-content{height:100%;margin:0 auto;overflow:auto;position:relative;width:100%}.imgViewDom .small-img{cursor:zoom-out;left:50%!important;margin:0 auto;position:absolute!important;text-align:center;top:50%!important;transform:translate(-50%,-50%);-ms-transform:translate(-50%,-50%);-moz-transform:translate(-50%,-50%);-webkit-transform:translate(-50%,-50%);-o-transform:translate(-50%,-50%)}.cto-mermaid.gantt .titleText,.imgViewDom svg .titleText{font-size:24px!important}.cto-mermaid.gantt .section0,.imgViewDom svg .section0{fill:#e2eafe!important}.cto-mermaid.gantt .task0,.cto-mermaid.gantt .task1,.cto-mermaid.gantt .task2,.cto-mermaid.gantt .task3,.imgViewDom svg .task0,.imgViewDom svg .task1,.imgViewDom svg .task2,.imgViewDom svg .task3{fill:#9eb8fa!important;stroke-width:0!important}.cto-mermaid.gantt .grid .tick line,.imgViewDom svg .grid .tick line{stroke:#c1c5cc;opacity:.5}.cto-mermaid.gantt .grid .tick text,.imgViewDom svg .grid .tick text{font-size:14px!important}.cto-mermaid.seq .actor,.imgViewDom svg .actor{stroke-width:0;fill:#f3f5f9!important}.cto-mermaid.seq .messageText,.cto-mermaid.seq .noteText>tspan,.cto-mermaid.seq text.actor>tspan,.imgViewDom svg .messageText,.imgViewDom svg .noteText>tspan,.imgViewDom svg text.actor>tspan{fill:#1a233d!important}.cto-mermaid.seq .messageText,.imgViewDom svg .messageText{stroke:none!important}.cto-mermaid.seq .note,.imgViewDom svg .note{stroke-width:0}#result img{height:auto!important}.modal-bg{background:rgba(0,0,0,.45);bottom:0;display:none;height:100vh;top:0;width:100%}.modal-bg,.modal-bg .modal{left:0;position:fixed;right:0;z-index:99999}.modal-bg .modal{background:#fff;border-radius:10px;margin:0 auto;max-height:450px;min-height:150px;overflow:hidden;padding:45px 46px;top:30%;width:450px}.modal-bg .modal .iconblog{color:#acacac;cursor:pointer;font-size:12px;position:absolute;right:12px;top:12px}.modal-bg .modal .content{-webkit-line-clamp:6;-webkit-box-orient:vertical;color:#999;display:-webkit-box;overflow:hidden;position:relative;text-overflow:ellipsis}.modal-bg .modal .content .modal-title{color:#333}.modal-bg .modal .tip-box{color:#333;margin-bottom:50px;margin-top:20px}.modal-bg .modal .tip-box .zhiCustomBtn{color:#2d66fe}.modal-bg .modal .know-box{text-align:center}.modal-bg .modal .know-box .know-btn{border:1px solid #333;border-radius:4px;cursor:pointer;display:inline-block;height:40px;line-height:40px;text-align:center;width:150px}.tag-box{display:flex;margin-top:10px}.tag-box .tag-item{background:#f2f2f2;border-radius:4px;color:#6a6a6a;cursor:pointer;font-size:12px;font-weight:400;line-height:18px;margin-right:10px;padding:0 9px}.tag-box .tag-item a{color:#858585}.tag-box .tag-item:hover{background:#f1f5ff;color:#3e71f6}.tag-box .tag-item:hover a{color:#3e71f6}.tag,.type{border-radius:2px;color:#fff;font-size:12px;height:18px;line-height:18px;margin-right:6px;padding:0 3px;text-align:center}.tag.type_top,.type.type_top{background:#f8b57e}.tag.type_recommend,.type.type_recommend{background:#f3c352}.tag.type_original,.type.type_original{background:#99cea4}.tag.type_reprint,.type.type_reprint{background:#84c4fa}.tag.type_translation,.type.type_translation{background:#fea4a4}.tag.type_selected,.type.type_selected{background:#84a0fa}.infomessage{background:linear-gradient(144deg,#fdf6e8,#f9eddd);border-radius:4px;color:#ae7518;display:inline-block;font-size:12px;font-weight:500;line-height:21px;margin-right:10px;padding-left:28px;padding-right:9px;position:relative}.infomessage .blogIcon{display:inline-block;left:5px;position:absolute}.infomessage b{font-weight:400;margin-right:5px}.list-subjuct{align-items:center;background:#f1f5ff;border-radius:10px;box-sizing:border-box;display:flex;height:18px;line-height:18px;margin-left:21px;padding:0 8px 0 3px}.list-subjuct .fontsizeIcon{color:#3e71f6;font-size:14px}.list-subjuct span{color:#3e71f6;font-size:12px;font-weight:500;margin-left:3px;max-width:197px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.blogIcon{background-image:url("https://s2.51cto.com/blog/sprites/homeIcon12x.png");background-size:137px 80px}.webp .blogIcon{background-image:url("https://s2.51cto.com/blog/sprites/homeIcon12x.png?x-oss-process=image/format,webp")}.blogIcon-article{background-position:0 0;height:40px;width:40px}.blogIcon-huifu-2{background-position:-96px -18px;height:14px;width:20px}.blogIcon-icon_huati{background-position:-80px -39px;height:14px;width:14px}.blogIcon-icon_rank{background-position:-80px -18px;height:21px;width:16px}.blogIcon-icon_xiewenzhang{background-position:-94px -39px;height:14px;width:14px}.blogIcon-identity{background-position:-40px 0;height:40px;width:40px}.blogIcon-liulan{background-position:-116px -18px;height:14px;width:20px}.blogIcon-manager{background-position:0 -40px;height:40px;width:40px}.blogIcon-more1{background-position:-108px -39px;height:10px;width:6px}.blogIcon-more2{background-position:-114px -39px;height:10px;width:6px}.blogIcon-move{background-position:-40px -40px;height:40px;width:40px} 
+</style>
+             <style type="text/css">#waf_nc_block{position:fixed;_position:absolute;width:100%;height:100%;top:0;bottom:0;left:0;z-index:99999}.waf-nc-mask{background:#000;opacity:.5;filter:alpha(opacity=50);width:100%;height:100%}.waf-nc-wrapper{width:348px;height:236px;text-align:center;position:absolute;top:50%;left:50%;margin-top:-160px;margin-left:-200px;margin-bottom:16px;background:#fff;box-shadow:0 0 10px 0 rgba(0,0,0,0.15)}.waf-nc-title{margin-top:28px;font-size:24px;font-weight:500;color:#181818;letter-spacing:1.71px;text-align:center}.waf-nc-description{margin-top:24px;font-size:14px;color:#666;text-align:center}.waf-nc-traceid-class{margin-top:8px;font-size:12px;color:#999;text-align:center}#nocaptcha{margin-left:24px;margin-top:14px}.nc_bg{background:#fff3ea!important}.btn_slide{background:#ff6a00!important;border:0!important;color:#fff!important;width:48px!important;height:48px!important;font-size:30px;font-weight:900!important;line-height:48px!important}.btn_ok{background:#ff6a00!important;border:0!important;color:#fff!important;width:48px!important;height:48px!important;font-size:30px;font-weight:900!important;line-height:48px!important}.nc_scale{background:rgba(241,241,242,1)!important;height:48px!important}.nc-lang-cnt{height:48px!important;margin-left:10px!important;line-height:48px!important;font-size:14px!important}</style><script src="./WinDbg的安装、配置和功能_51CTO博客_windbg配置_files/awsc.js.下载"></script><link rel="stylesheet" href="./WinDbg的安装、配置和功能_51CTO博客_windbg配置_files/pc_detailinline.min.css"><link rel="stylesheet" href="./WinDbg的安装、配置和功能_51CTO博客_windbg配置_files/pc_detail.min.css"><script charset="utf-8" src="./WinDbg的安装、配置和功能_51CTO博客_windbg配置_files/jquery-2.2.4.min.js.下载"></script><script charset="utf-8" src="./WinDbg的安装、配置和功能_51CTO博客_windbg配置_files/interaction_iframe.js.下载"></script><script charset="utf-8" src="./WinDbg的安装、配置和功能_51CTO博客_windbg配置_files/swiper-4.5.3.js.下载"></script><script charset="utf-8" src="./WinDbg的安装、配置和功能_51CTO博客_windbg配置_files/pc_base.min.js.下载"></script><script charset="utf-8" src="./WinDbg的安装、配置和功能_51CTO博客_windbg配置_files/mprime.js.下载"></script><script charset="utf-8" src="./WinDbg的安装、配置和功能_51CTO博客_windbg配置_files/pc_detail.min.js.下载"></script><link href="https://static2.51cto.com/edu/blog/blog-static/static/css/pc_base.min.css?v=2731609498" rel="prefetch"><link href="https://static2.51cto.com/edu/blog/blog-static/static/css/pc_newIndexinline.min.css?v=7cd4246e43" rel="prefetch"><link href="https://static2.51cto.com/edu/blog/blog-static/static/css/pc_newListinline.min.css?v=fcde138dd1" rel="prefetch"><link href="https://static2.51cto.com/edu/blog/blog-static/static/css/pc_topicdetailinline.min.css?v=512bf305aa" rel="prefetch"><link href="https://static2.51cto.com/edu/blog/blog-static/markdown/dist/js/main.js?v=9fee5bb838" rel="prefetch"><link href="https://static2.51cto.com/edu/blog/blog-static/static/js/pc_list_js.min.js?v=8973c321c1" rel="prefetch"><link href="https://static2.51cto.com/edu/blog/blog-static/static/js/pc_topic_static.min.js?v=8533cb9e02" rel="prefetch"><link href="https://static2.51cto.com/edu/blog/blog-static/static/js/pc_blogger_js.min.js?v=c7a4e3d003" rel="prefetch"><style></style></head>
+<body class="webp">
+<img src="./WinDbg的安装、配置和功能_51CTO博客_windbg配置_files/share_default.jpeg" border="0" style="width:0; height:0; position:absolute;">
+<div class="Content-box" style="min-height: 399px;">
+    <div class="Content detail-content-new">
+    <!--关注-->
+    <div class="fixtitle" style="display: block;">
+        <div class="clearfix Page">
+            <h3 class="fl title">WinDbg的安装、配置和功能</h3>
+            <div class="messbox fr">
+                                                            <a id="checkFollow1_15117692" class="follow-1 checkFollow on">关注</a>
+                                                    <a href="https://blog.51cto.com/u_15127692" class="name" target="_blank" title="mob60475705c8db">mob60475705c8db</a>
+                <strong>
+                    <a href="https://blog.51cto.com/u_15127692" class="avatar" target="_blank">
+                        <img class="is-vip-img is-vip-img-4" data-uid="15117692" src="./WinDbg的安装、配置和功能_51CTO博客_windbg配置_files/noavatar_small.gif">
+                    </a>
+                </strong>
+            </div>
+        </div>
+    </div>
+    <!--大模块引入-->
+    <div class="clearfix Page" id="page_center" style="position:relative;">
+                <article class="detail-content-left">
+    <div class="common-section common-spacing mb30 article-detail">
+    <div class="title">
+        <h1>WinDbg的安装、配置和功能</h1>
+         
+                <span class="reprint">转载</span>
+        
+    </div>
+    <div class="messbox">
+        <p class="clearfix mess-line1">
+            <a class="fl" href="https://blog.51cto.com/u_15127692" rel="nofollow">mob60475705c8db</a>
+            <time class="fl" pubdate="2019-08-20 17:31:00">2019-08-20 17:31:00</time>
+                                </p>
+        <p class="clearfix mess-tag">
+                            <strong class="fl">
+                    <em class="fl">文章标签</em>
+                                            <a href="https://blog.51cto.com/topic/tiaoshigongjuwindbg.html" class="fl  shence_tag" target="_blank">调试---工具&amp;Windbg</a>
+                                            <a href="https://blog.51cto.com/topic/tiaoshiqi.html" class="fl  shence_tag" target="_blank">调试器</a>
+                                            <a href="https://blog.51cto.com/topic/tiaoshigongju.html" class="fl  shence_tag" target="_blank">调试工具</a>
+                                            <a href="https://blog.51cto.com/topic/windowstiaoshi.html" class="fl  shence_tag" target="_blank">windows调试</a>
+                                            <a href="https://blog.51cto.com/topic/minglingxing.html" class="fl  shence_tag" target="_blank">命令行</a>
+                                    </strong>
+                                        <strong class="fl">
+                    <em class="fl">文章分类</em>
+                                                                        <a href="https://blog.51cto.com/nav/java" class="fl shence_cate" target="_blank" rel="nofollow">Java</a>
+                                                                                                <a href="https://blog.51cto.com/nav/program" class="fl shence_cate" target="_blank" rel="nofollow">后端开发</a>
+                                                            </strong>
+                                <strong class="fl"><em class="fl">阅读数</em><b class="fl">495</b></strong></p>
+    </div>
+            <div class="article-content-wrap">
+                    <div class="artical-content-bak main-content editor-side-new">
+                <div class="con editor-preview-side" id="result" data-version="0"><p>一、WinDbg简介</p>
+<p>WinDbg是微软发布的一款免费而十分强大的调试工具。既然是微软自己发布的调试工具，那它对微软产品的调试当然是十分的强大。<span>Windows 调试器 (WinDbg) 可用于调试内核模式和用户模式代码，来分析故障转储，并检查代码时 CPU 寄存器执行，同时也是<span>一款相当优秀的源码级(source-level)调试工具</span>。相比较于Visual Studio，它是一个轻量级的调试工具，所谓轻量级指的是它的安装文件大小较小，但是其调试功能，却比VS更为强大。</span></p>
+<p><span>二、获取和安装</span></p>
+<p><span>2.1、获取途径</span></p>
+<p><span>可以将Windows调试工具作为开发工具包的一部分或作为独立工具集获取：</span></p>
+<ul><li><span>作为WDK的一部分<br>Windows的调试工具包含在Windows驱动程序工具包（WDK）中。<a rel="nofollow" href="https://docs.microsoft.com/windows-hardware/drivers/download-the-wdk"><i class="iconblog bloglink" style="font-size:inherit;"></i>&nbsp;Download the Windows Driver Kit (WDK)</a>.<br></span></li>
+<li>作为Windows SDK的一部分<br>Windows软件开发工具包（SDK）中包含Windows调试工具。要下载安装程序或ISO映像，请参阅Windows开发人员中心上的<a rel="nofollow" href="https://developer.microsoft.com/windows/downloads/windows-10-sdk"><i class="iconblog bloglink" style="font-size:inherit;"></i>&nbsp;Windows 10 SDK</a>
+</li>
+<li>作为独立的工具集<br><span>通过开始安装Windows SDK，然后在要安装的功能列表中仅选择Windows的调试工具（并清除所有其他功能的选择），可以在不安装Windows SDK或WDK的情况下单独安装Windows的调试工具。<span>要下载安装程序或ISO映像，请参阅Windows开发人员中心上的<a rel="nofollow" href="https://developer.microsoft.com/windows/downloads/windows-10-sdk"><i class="iconblog bloglink" style="font-size:inherit;"></i>&nbsp;Windows 10 SDK</a></span></span>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</ul><p>2.2、安装</p>
+<p>安装过程略</p>
+<p>下面是安装后的截图</p>
+<p>作为独立工具集安装后</p>
+<p><img src="./WinDbg的安装、配置和功能_51CTO博客_windbg配置_files/765fea9acf1acc1b3d3a0c944441ba93.png" alt="WinDbg的安装、配置和功能_调试工具"></p>
+<p>作为SDK一部分安装后</p>
+<p><img src="./WinDbg的安装、配置和功能_51CTO博客_windbg配置_files/003f75af1e4c47249de97cc56a04d067.png" alt="WinDbg的安装、配置和功能_调试工具_02"></p>
+<p>启动后的界面</p>
+<p><img src="./WinDbg的安装、配置和功能_51CTO博客_windbg配置_files/d7a2c85f066d63e02eac2b00f1c0389d.png" alt="WinDbg的安装、配置和功能_调试---工具&amp;Windbg_03" style="width: 100%;"></p>
+<p>三、配置</p>
+<p>安装好之后就需要配环境变量，打开环境变量配置界面 我的电脑-&gt;右键属性-&gt;高级系统设置-&gt;环境变量设置-&gt;在系统变量里找到path,把你的WinDbg安装目录写上去</p>
+<p><img src="./WinDbg的安装、配置和功能_51CTO博客_windbg配置_files/d82c96c520280f213a0830f4517e792a.png" alt="WinDbg的安装、配置和功能_命令行_04"><img src="./WinDbg的安装、配置和功能_51CTO博客_windbg配置_files/115fdf50d2d28afedeee6074abcdae98.png" alt="WinDbg的安装、配置和功能_调试工具_05"></p>
+<p><img src="./WinDbg的安装、配置和功能_51CTO博客_windbg配置_files/cb61f0f989e70e2c48e0b60a8c81b028.png" alt="WinDbg的安装、配置和功能_调试工具_06"></p>
+<p>设置好后，在命令行里输入windbg，如果能跑起来，则设置成功,然后再在系统变量中创建一个名为 _NT_SYMBOL_PATH,值为:SRV*F:\Debug_Symbol\Symbols32* http://msdl.microsoft.com/download/symbols <br><img src="./WinDbg的安装、配置和功能_51CTO博客_windbg配置_files/53a71dbb83efc37230a1e784db3c18b9.png" alt="WinDbg的安装、配置和功能_调试工具_07"></p>
+<p>启动Windbg 打开一个exe看到这个说明配置成功</p>
+<p><img src="./WinDbg的安装、配置和功能_51CTO博客_windbg配置_files/216f789ae819dd6d3f729a13fcbc754c.png" alt="WinDbg的安装、配置和功能_调试器_08" style="width: 100%;"></p>
+<p>&nbsp;</p>
+<p>四、功能</p>
+<div>Windbg是Microsoft公司免费调试器调试集合中的GUI的调试器，支持Source和Assembly两种模式的调试。Windbg不仅可以调试应用程序，还可以进行Kernel Debug。结合Microsoft的Symbol Server，可以获取系统符号文件，便于应用程序和内核的调试。Windbg支持的平台包括X86、IA64、AMD64。虽然windbg也提供图形界面操作，但它最强大的地方还是有着强大的调试命令，一般情况会结合GUI和命令行进行操作，常用的视图有：局部变量、全局变量、调用栈、线程、命令、寄存器、白板等。其中“命令”视图是默认打开的。</div>
+<div>安装后，相关目录如下：</div>
+<div><img src="./WinDbg的安装、配置和功能_51CTO博客_windbg配置_files/af7d75aa0e53152a39d1d3cc53984d4a.png" alt="WinDbg的安装、配置和功能_调试---工具&amp;Windbg_09" style="width: 100%;"></div>
+<div>
+<p>用户成功安装微软Windows调试工具集后，能够在安装目录下发现四个调试器程序，分别是：cdb.exe、ntsd.exe、kd.exe和Windbg.exe。其中cdb.exe和ntsd.exe只能调试用户程序，Kd.exe主要用于内核调试，有时候也用于用户态调试，上述三者的一个共同特点是，都只有控制台界面，以命令行形式工作。</p>
+<p>Windbg.exe在用户态、内核态下都能够发挥调试功能，尤其重要的是，它不再是命令行格式而是采用了可视化的用户界面。所以绝大部分情况下，我们在谈及Windows调试工具的时候，都直接指向Windbg，而不大谈及前三者。</p>
+<p>Windbg在用户态和内核态下，都支持两种调试模式，即“实时调试模式（Living）”和“事后调试模式（Postmortem）”。所谓实时模式，是被调试的目标对象（Target）当前正在运行当中，调试器可以实时分析、修改被调试目标的状态，如寄存器、内存、变量，调试exe可执行程序或<del>双击</del>双机实时调试都属于这种模式；所谓事后模式，是被调试的目标对象（Target）已经结束了，现在只是事后对它保留的快照进行分析，这个快照称为转储文件（Dump文件）。<span></span>Windbg另一个重大优点，还在于它支持源码级的调试，就像VC自带的调试器一样。虽然提供了用户界面，但Windbg归根结底还是需要用户一个个地输入命令来指挥其行动。这就是他的Command窗口。每个调试命令都各有使用范围，有些命令只能用于内核调试，有些命令只能用于用户调试，有些命令只能用于活动调试。但用户也不必记得这许多，一旦在某个环境下，使用了不被支持的命令，都会显示“No export XXX found”的字样。</p>
+
+
+</div>
+<div>
+<p>我们通过各调试器比较表，看看windbg的组要功能</p>
+<p><img src="./WinDbg的安装、配置和功能_51CTO博客_windbg配置_files/740fce98fe2c831a062a135a84060f9f.png" alt="WinDbg的安装、配置和功能_windows调试_10" style="width: 100%;"></p>
+<p>内核调试方面：</p>
+<p><img src="./WinDbg的安装、配置和功能_51CTO博客_windbg配置_files/7c1f818ef3b5fd64146111cf5b711442.png" alt="WinDbg的安装、配置和功能_windows调试_11"></p>
+<p>用户调试方面：</p>
+<p><img src="./WinDbg的安装、配置和功能_51CTO博客_windbg配置_files/a44aef686d089dcf10a73fcc2c824f58.png" alt="WinDbg的安装、配置和功能_调试---工具&amp;Windbg_12"></p>
+<p>虽说WinDbg在无源码调试方面确实比较困难，但在调试内核方面却真的有独到之处。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div></div>
+            </div>
+        
+        <div id="asideoffset"></div>
+        <div class="clearfix label-list">
+
+            <!--            <span>本文包含：</span>-->
+            <!--          -->
+            <!--            <a href="" target="_blank"></a>-->
+
+        </div>
+                    <div class="copytext2">本文章为转载内容，我们尊重原作者对文章享有的著作权。如有内容错误或侵权问题，欢迎原作者联系我们进行内容更正或删除文章。 </div>
+            </div>
+    <div class="action-box">
+        <ul>
+                        <li>
+                <strong class="is-praise  " type="1" blog_id="3677763" userid="15117692">
+                    <a href="javascript:;"><i></i></a>
+                    <span><b class="praise-num"></b>赞</span>
+                </strong>
+            </li>
+            <li>
+                <strong class="favorites-opt">
+                    <a href="javascript:;"><i></i></a>
+                    <span><b class="favorites-num"></b>收藏</span>
+                </strong>
+            </li>
+            <li>
+                <strong class="Topraise">
+                    <a href="javascript:;"><i class="iconblog blogpinglun"></i></a>
+                    <span><b class="comments_num">2</b>评论</span>
+                </strong>
+            </li>
+            <li class="share">
+                <strong class="">
+                    <a href="javascript:;"><i class="iconblog blogfen"></i></a>
+                    <span>分享</span>
+                </strong>
+            </li>
+                            <li>
+                    <strong class="article-report">
+                        <a href="javascript:;"><i class="iconblog blogjubaobeifen report-icon" style="font-size: 23px"></i></a>
+                        <span>举报</span>
+                    </strong>
+                </li>
+                    </ul>
+    </div>
+    <div class="clearfix lists">
+                    <p class="fl"><span>上一篇：</span><a href="https://blog.51cto.com/u_15127692/3677762">WinDbg 图形界面功能(一)</a></p>
+                            <p class="fr"><span>下一篇：</span><a href="https://blog.51cto.com/u_15127692/3677764">windbg调试托管代码 .Net clr</a></p>
+            </div>
+    <div class="text-aticle">
+
+    </div>
+</div>
+    
+
+<div class="common-section common-spacing mb30 comment-box" id="comment">
+    <div class="comment-textarea clearfix">
+        <div class="avatar">
+            <a href="https://blog.51cto.com/" class="header-img" target="_blank">
+                <img src="./WinDbg的安装、配置和功能_51CTO博客_windbg配置_files/noavatar_middle.gif">
+            </a>
+        </div>
+        <div class="textarea-box">
+            <div class="textarea-show clearfix">
+                <span>提问和评论都可以，用心的回复会被更多人看到</span>
+                <strong>评论</strong>
+            </div>
+            <div class="textarea-hide">
+                <div class="top">
+                    <textarea class="textareadiv textareadiv-publish" name="" id="textareadiv-publish" placeholder="提问和评论都可以，用心的回复会被更多人看到和认可" maxlength="500"></textarea>
+                </div>
+                <div class="bot clearfix">
+                    <strong class="fr publish-btn" flag="1" id="publish-btn">发布评论</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="comment-num" style="">
+        <strong>全部评论</strong>
+        <span>(<b id="CommentNum">2</b>)</span>
+        <span class="fr sort" type="up_num" order="0"><i class="iconblog blogzuire"></i>最热</span>
+        <span class="fr sort on" type="create_time" order="0"><i class="iconblog blogzuixinblogzuixin"></i>最新</span>
+    </div>
+    <div class="comment-List-box"><div class="floor-1"><div class="comment-List clearfix" id="1262736">
+            <div class="avatar">
+                <a href="https://blog.51cto.com/u_15280448"><img src="./WinDbg的安装、配置和功能_51CTO博客_windbg配置_files/noavatar_small.gif" alt=""></a>
+                
+            </div>
+            <div class="comment-detail">
+                <h3 class="clearfix">
+                    <a href="https://blog.51cto.com/u_15280448" class="fl">1301d7391d64</a>
+                    
+                    <span class="time fr">2年前</span></h3>
+                <div class="content">啥都不说了，给你们一个大写的赞。</div>
+                <div class="action clearfix">
+                    <span class="reply"><i class="iconblog blogpinglun2"></i>回复</span>
+                    <span class="vote "><i class="iconblog blogzan2"></i>点赞<b num="0"></b></span>
+                    
+                </div>
+            </div>
+            <input type="hidden" class="first_pid" value="1262736">
+                <input type="hidden" class="parent_id" value="1262736">
+                    <input type="hidden" class="reply_uid" value="15270448">
+                    </div>
+                    <div class="floor-2"></div></div><div class="floor-1"><div class="comment-List clearfix" id="1262735">
+            <div class="avatar">
+                <a href="https://blog.51cto.com/u_15263792"><img src="./WinDbg的安装、配置和功能_51CTO博客_windbg配置_files/noavatar_small.gif" alt=""></a>
+                
+            </div>
+            <div class="comment-detail">
+                <h3 class="clearfix">
+                    <a href="https://blog.51cto.com/u_15263792" class="fl">1ae81fabfba1</a>
+                    
+                    <span class="time fr">2年前</span></h3>
+                <div class="content">写的挺不错的，继续加油哦</div>
+                <div class="action clearfix">
+                    <span class="reply"><i class="iconblog blogpinglun2"></i>回复</span>
+                    <span class="vote "><i class="iconblog blogzan2"></i>点赞<b num="0"></b></span>
+                    
+                </div>
+            </div>
+            <input type="hidden" class="first_pid" value="1262735">
+                <input type="hidden" class="parent_id" value="1262735">
+                    <input type="hidden" class="reply_uid" value="15253792">
+                    </div>
+                    <div class="floor-2"></div></div></div>
+</div>
+    
+    <section class="common-section common-spacing mb30">
+        <div class="clearfix common-sub-title">
+            <strong>相关文章</strong>
+        </div>
+        <ul class="recommend-about">
+                            <li>
+                    <div class="about-aticle-list">
+                        <a href="https://blog.51cto.com/u_15060462/4173365" data-report-query="xiangguantuijian&amp;01" target="_blank" class="title">
+                            <div class="tit">安装与配置windbg的symbol(符号)</div>
+                            <p> &lt;一&gt;下载最新版的WinDbg工具，有两种方式，假设我的电脑系统为Win 10，Windows 10必须周年更新版本哦，那么可以去这个官网下载。 有两种版本：第一种版本是在微软应用商店下载的WinDbg Preview版本，这个版本UI更加好看，如果你有需求可以直接在这个网站下载，也可以下载exe版</p>
+                        </a>
+                        <!-- 标签页 -->
+                                                    <div class="tag-box">
+                                                                    <span class="tag-item">
+                                         符号文件                                    </span>
+                                                                    <span class="tag-item">
+                                         环境变量                                    </span>
+                                                                    <span class="tag-item">
+                                         microsoft                                    </span>
+                                                                    <span class="tag-item">
+                                         应用商店                                    </span>
+                                                                    <span class="tag-item">
+                                         官网                                    </span>
+                                                            </div>
+                                                                    </div>
+
+                </li>
+                            <li>
+                    <div class="about-aticle-list">
+                        <a href="https://blog.51cto.com/u_15127515/3683854" data-report-query="xiangguantuijian&amp;02" target="_blank" class="title">
+                            <div class="tit">WinDbg安装</div>
+                            <p> WinDbg是微软发布的一款相当优秀的源码级(source-level)调试工具，可以用于Kernel模式调试和用户模式调试，还可以调试Dump文件。 主页：http://msdn.microsoft.com/en-us/windows/hardware/gg463016 下载链接：http://m</p>
+                        </a>
+                        <!-- 标签页 -->
+                                                    <div class="tag-box">
+                                                                    <span class="tag-item">
+                                         windbg                                    </span>
+                                                                    <span class="tag-item">
+                                         图形界面                                    </span>
+                                                                    <span class="tag-item">
+                                         microsoft                                    </span>
+                                                                    <span class="tag-item">
+                                         应用程序                                    </span>
+                                                                    <span class="tag-item">
+                                         运行方式                                    </span>
+                                                            </div>
+                                                                    </div>
+
+                </li>
+                            <li>
+                    <div class="about-aticle-list">
+                        <a href="https://blog.51cto.com/u_15127685/4179882" data-report-query="xiangguantuijian&amp;03" target="_blank" class="title">
+                            <div class="tit">WinDbg调试：配置和查看符号</div>
+                            <p> 设置符号路径利用环境变量设置符号路径在WinDbg启动时，会根据&nbsp;​​_NT_ALT_SYMBOL_PATH​​&nbsp;和&nbsp;​​_NT_SYMBOL_PATH​​&nbsp;的值设置符号路径：&gt; set _NT_ALT_SYMBOL_PATH="D:\symbols"&gt; windbg notepad.exe利用启动参数设置符号路径可以使用选项&nbsp;​​-y​​&nbsp;来指定符号路径：&gt; windbg</p>
+                        </a>
+                        <!-- 标签页 -->
+                                                    <div class="tag-box">
+                                                                    <span class="tag-item">
+                                         加载                                    </span>
+                                                                    <span class="tag-item">
+                                         符号文件                                    </span>
+                                                                    <span class="tag-item">
+                                         microsoft                                    </span>
+                                                                    <span class="tag-item">
+                                         服务器                                    </span>
+                                                                    <span class="tag-item">
+                                         5e                                    </span>
+                                                            </div>
+                                                                    </div>
+
+                </li>
+                            <li>
+                    <div class="about-aticle-list">
+                        <a href="https://blog.51cto.com/guangrou/5106508" data-report-query="xiangguantuijian&amp;04" target="_blank" class="title">
+                            <div class="tit">WinDbg配置和使用基础(转)</div>
+                            <p> WinDbg是微软发布的一款相当优秀的源码级(source-level)调试工具，可以用于Kernel模式调试和用户模式调试，还可以调试Dump文件。 1. WinDbg介绍：</p>
+                        </a>
+                        <!-- 标签页 -->
+                                                    <div class="tag-box">
+                                                                    <span class="tag-item">
+                                         microsoft                                    </span>
+                                                                    <span class="tag-item">
+                                         hive                                    </span>
+                                                                    <span class="tag-item">
+                                         图形界面                                    </span>
+                                                            </div>
+                                                                    </div>
+
+                </li>
+                            <li>
+                    <div class="about-aticle-list">
+                        <a href="https://blog.51cto.com/u_12320710/5511901" data-report-query="xiangguantuijian&amp;05" target="_blank" class="title">
+                            <div class="tit">laravel安装和配置搜索功能</div>
+                            <p> 1、你确保你的java环境有安装没有的话百度这个下载就可以了然后你需要 这两个github的地址elasticel</p>
+                        </a>
+                        <!-- 标签页 -->
+                                                    <div class="tag-box">
+                                                                    <span class="tag-item">
+                                         laravel                                    </span>
+                                                                    <span class="tag-item">
+                                         elasticsearch                                    </span>
+                                                                    <span class="tag-item">
+                                         github                                    </span>
+                                                            </div>
+                                                                    </div>
+
+                </li>
+                            <li>
+                    <div class="about-aticle-list">
+                        <a href="https://blog.51cto.com/xjsunjie/382091" data-report-query="xiangguantuijian&amp;06" target="_blank" class="title">
+                            <div class="tit">WinDbg配置与下载</div>
+                            <p> WinDbg配置与下载</p>
+                        </a>
+                        <!-- 标签页 -->
+                                                    <div class="tag-box">
+                                                                    <span class="tag-item">
+                                         职场                                    </span>
+                                                                    <span class="tag-item">
+                                         休闲                                    </span>
+                                                                    <span class="tag-item">
+                                         WinDbg配置与下载                                     </span>
+                                                            </div>
+                                                                    </div>
+
+                </li>
+                            <li>
+                    <div class="about-aticle-list">
+                        <a href="https://blog.51cto.com/csnd/5484602" data-report-query="xiangguantuijian&amp;07" target="_blank" class="title">
+                            <div class="tit">WinDbg 配置网络调试</div>
+                            <p> 条件 两哥机器必须在同一局域网下。 被调试机器 命令行输入命令，然后重启 bcdedit /debug onbcdedit /dbg...        </p>
+                        </a>
+                        <!-- 标签页 -->
+                                                    <div class="tag-box">
+                                                                    <span class="tag-item">
+                                         命令行                                    </span>
+                                                                    <span class="tag-item">
+                                         重启                                    </span>
+                                                            </div>
+                                                                    </div>
+
+                </li>
+                            <li>
+                    <div class="about-aticle-list">
+                        <a href="https://blog.51cto.com/u_15127692/3677759" data-report-query="xiangguantuijian&amp;08" target="_blank" class="title">
+                            <div class="tit">WinDbg 图形界面功能(三)</div>
+                            <p> 1.4、调试菜单调试相关操作的功能菜单在这个下面，比如单步执行等。Go单击Go调试菜单恢复 （或开始） 在目标上的执行。 此执行将继续，直到抵达某个断点、 异常或事件发生时，该过程结束或调试器将中断目标。此命令相当于按 F5 或单击 (F5) 转按钮 () 工具栏上。转到未经处理异常单击转未经处理的异常上调试恢复目标上的执行，并将当前异常视为未经处理的菜单。转到已处理</p>
+                        </a>
+                        <!-- 标签页 -->
+                                                    <div class="tag-box">
+                                                                    <span class="tag-item">
+                                         调试---工具&amp;Windbg                                    </span>
+                                                                    <span class="tag-item">
+                                         调试器                                    </span>
+                                                                    <span class="tag-item">
+                                         目标计算机                                    </span>
+                                                                    <span class="tag-item">
+                                         加载                                    </span>
+                                                                    <span class="tag-item">
+                                         工具栏                                    </span>
+                                                            </div>
+                                                                    </div>
+
+                </li>
+                            <li>
+                    <div class="about-aticle-list">
+                        <a href="https://blog.51cto.com/u_15127692/3677760" data-report-query="xiangguantuijian&amp;09" target="_blank" class="title">
+                            <div class="tit">WinDbg 图形界面功能(四)</div>
+                            <p> 二、工具栏除了断点按钮在工具栏上的每个按钮相当于菜单命令。 每个按钮的效果的完整说明，请参阅相应的菜单命令的页。在工具栏上的按钮具有以下效果。按钮描述打开源文件为只读的文件。 等效于文件 |打开源文件。从活动窗口中删除所选的文本并将其放到剪贴板上。 等效于编辑 |剪切。将所选的文本从活动窗口复制到剪贴板。 等效于编辑 |复制。将文本粘贴到光标所在的位置在剪贴板</p>
+                        </a>
+                        <!-- 标签页 -->
+                                                    <div class="tag-box">
+                                                                    <span class="tag-item">
+                                         调试---工具&amp;Windbg                                    </span>
+                                                                    <span class="tag-item">
+                                         调试器                                    </span>
+                                                                    <span class="tag-item">
+                                         反汇编                                    </span>
+                                                                    <span class="tag-item">
+                                         快捷方式                                    </span>
+                                                                    <span class="tag-item">
+                                         局部变量                                    </span>
+                                                            </div>
+                                                                    </div>
+
+                </li>
+                            <li>
+                    <div class="about-aticle-list">
+                        <a href="https://blog.51cto.com/u_15127692/3677761" data-report-query="xiangguantuijian&amp;10" target="_blank" class="title">
+                            <div class="tit">WinDbg 图形界面功能(二)</div>
+                            <p> 1.2、编辑菜单这个菜单可以提供Windbg里的各功能窗口的可选文本的编辑功能，比如源代码窗口、命令窗口等提供选择、复制、剪切和黏贴等基础编辑功能。剪切单击剪切上编辑菜单中，删除所选的任何文本并将其移动到剪贴板。此命令是等效于按下 CTRL + X 或 SHIFT + DELETE，或单击剪切 (Ctrl + X) 按钮 () 工具栏上。可以使用剪切命令编辑菜单仅与停靠或选项卡式窗口，但可</p>
+                        </a>
+                        <!-- 标签页 -->
+                                                    <div class="tag-box">
+                                                                    <span class="tag-item">
+                                         调试---工具&amp;Windbg                                    </span>
+                                                                    <span class="tag-item">
+                                         调试器                                    </span>
+                                                                    <span class="tag-item">
+                                         工具栏                                    </span>
+                                                                    <span class="tag-item">
+                                         日志文件                                    </span>
+                                                                    <span class="tag-item">
+                                         反汇编                                    </span>
+                                                            </div>
+                                                                    </div>
+
+                </li>
+                            <li>
+                    <div class="about-aticle-list">
+                        <a href="https://blog.51cto.com/u_15127692/3677762" data-report-query="xiangguantuijian&amp;11" target="_blank" class="title">
+                            <div class="tit">WinDbg 图形界面功能(一)</div>
+                            <p> 当我们启动windbg后，我们就能看到Windbg的样子了，如下：本部分讨论 WinDbg 图形用户界面的元素。 这些元素包括以下各项：菜单、工具栏和快捷键。菜单有：文件菜单、编辑菜单、视图菜单、调试菜单、窗口菜单、帮助菜单。下面分别一 一简单介绍下。一、菜单1.1、文件菜单打开源文件加载特定的源文件。此命令相当于按 CTRL + O 或单击开放源代码文件 (Ctrl + O) 按钮</p>
+                        </a>
+                        <!-- 标签页 -->
+                                                    <div class="tag-box">
+                                                                    <span class="tag-item">
+                                         调试---工具&amp;Windbg                                    </span>
+                                                                    <span class="tag-item">
+                                         工作区                                    </span>
+                                                                    <span class="tag-item">
+                                         服务器                                    </span>
+                                                                    <span class="tag-item">
+                                         加载                                    </span>
+                                                                    <span class="tag-item">
+                                         客户端                                    </span>
+                                                            </div>
+                                                                    </div>
+
+                </li>
+                            <li>
+                    <div class="about-aticle-list">
+                        <a href="https://blog.51cto.com/u_1567045/780759" data-report-query="xiangguantuijian&amp;12" target="_blank" class="title">
+                            <div class="tit">LNMMP架构的安装配置和功能的实现</div>
+                            <p> 如果你对此篇文章感兴趣请先看前面一篇基础，有什么疑问和不懂可以讨论。欢迎提问！Nginx的高级应用1、开启Nginx状态监控的功能：[root@localhost ~]# cd /etc/nginx/[root@localhost nginx]# vim nginx.conf#在默认server段里添加下面的location段location /nginx_status {&nbsp; stub_</p>
+                        </a>
+                        <!-- 标签页 -->
+                                                    <div class="tag-box">
+                                                                    <span class="tag-item">
+                                         职场                                    </span>
+                                                                    <span class="tag-item">
+                                         休闲                                    </span>
+                                                                    <span class="tag-item">
+                                         LNMMP web服务器                                     </span>
+                                                            </div>
+                                                                    </div>
+
+                </li>
+                            <li>
+                    <div class="about-aticle-list">
+                        <a href="https://blog.51cto.com/u_15127664/4024626" data-report-query="xiangguantuijian&amp;13" target="_blank" class="title">
+                            <div class="tit">Windows 8 之 windbg 配置</div>
+                            <p> 怎么安装windbg? 在Win8中，要通过安装windows 8 SDK来安装.安装之后，在C:\Program Files (x86)\Windows Kits\8.0\Debuggers\x64中。比较重要的是就是symbol file的配置。下载在http://msdn.microsoft.com/en-us/windows/hardware/gg463028#Download_windo</p>
+                        </a>
+                        <!-- 标签页 -->
+                                                    <div class="tag-box">
+                                                                    <span class="tag-item">
+                                         Winform                                    </span>
+                                                                    <span class="tag-item">
+                                         microsoft                                    </span>
+                                                                    <span class="tag-item">
+                                         符号表                                    </span>
+                                                                    <span class="tag-item">
+                                         参考文献                                    </span>
+                                                                    <span class="tag-item">
+                                         f5                                    </span>
+                                                            </div>
+                                                                    </div>
+
+                </li>
+                            <li>
+                    <div class="about-aticle-list">
+                        <a href="https://blog.51cto.com/u_15127645/4149216" data-report-query="xiangguantuijian&amp;14" target="_blank" class="title">
+                            <div class="tit">WinDbg配置符号表</div>
+                            <p> [File] =&gt; [Symbol File Path] 1.初始值:srv* 2.修改为：SRV*c:\mysymbol* http://msdl.microsoft.com/download/symbols 未成功 https://blog.csdn.net/lxc1014/article/de ...</p>
+                        </a>
+                        <!-- 标签页 -->
+                                                    <div class="tag-box">
+                                                                    <span class="tag-item">
+                                         .net                                    </span>
+                                                                    <span class="tag-item">
+                                         microsoft                                    </span>
+                                                                    <span class="tag-item">
+                                         IT                                    </span>
+                                                            </div>
+                                                                    </div>
+
+                </li>
+                            <li>
+                    <div class="about-aticle-list">
+                        <a href="https://blog.51cto.com/lyshark/5322161" data-report-query="xiangguantuijian&amp;15" target="_blank" class="title">
+                            <div class="tit">WinDBG 配置内核双机调试</div>
+                            <p> WinDBG 是在 windows 平台下，强大的用户态和内核态调试工具，相比较于 Visual Studio 它是一个轻量级的调试工具，所谓轻量级指的是它的安装文件大小较小，但是其调试功能，却比VS更为强大，WinDBG由于是微软的产品所以能够调试Windows系统的内核，另外一个用途是可以用来分</p>
+                        </a>
+                        <!-- 标签页 -->
+                                                    <div class="tag-box">
+                                                                    <span class="tag-item">
+                                         Windows 驱动开发                                    </span>
+                                                                    <span class="tag-item">
+                                         加载                                    </span>
+                                                                    <span class="tag-item">
+                                         windows系统                                    </span>
+                                                                    <span class="tag-item">
+                                         启动项                                    </span>
+                                                            </div>
+                                                                    </div>
+
+                </li>
+                            <li>
+                    <div class="about-aticle-list">
+                        <a href="https://blog.51cto.com/u_10486491/3215802" data-report-query="xiangguantuijian&amp;16" target="_blank" class="title">
+                            <div class="tit">windbg配置双机调试流程</div>
+                            <p> 1、在本机安装windbg可以只安装WDK7600软件即可，里面带有windbg2、在虚拟机中修改boot.ini（c盘下如果没有，即在隐藏文件中，需要全部显示文件）3、设置虚拟机4、修改windbg的运行参数5、验证启动虚拟机，然后同时启动windbg 虚拟机就会卡住，此时填写g指令此时，就会正常开启虚拟机</p>
+                        </a>
+                        <!-- 标签页 -->
+                                                    <div class="tag-box">
+                                                            </div>
+                                                                    </div>
+
+                </li>
+                            <li>
+                    <div class="about-aticle-list">
+                        <a href="https://blog.51cto.com/kuangke/3145669" data-report-query="xiangguantuijian&amp;17" target="_blank" class="title">
+                            <div class="tit">013_VM+WinDbg安装</div>
+                            <p>  开发环境：VC6，VS2003，VS2008 </p>
+                        </a>
+                        <!-- 标签页 -->
+                                                    <div class="tag-box">
+                                                                    <span class="tag-item">
+                                         VM+WinDbg                                    </span>
+                                                            </div>
+                                                                    </div>
+
+                </li>
+                            <li>
+                    <div class="about-aticle-list">
+                        <a href="https://blog.51cto.com/u_15060462/4173364" data-report-query="xiangguantuijian&amp;18" target="_blank" class="title">
+                            <div class="tit">如何在Win10系统中正确配置WinDbg？WinDbg配置方法说明</div>
+                            <p> Windbg，这是微软设计的一款Windows调试器，体积小巧、开源免费，它可以调试软件进程，还可以帮助修复电脑蓝屏问题。如果你是初次使用WinDbg，需要对软件进行配置，详情可以参考文章说明。 Win10系统如何正确安装配置WinDbg？ 下载Windbg，根据提示进行安装，启动软件，界面如图，</p>
+                        </a>
+                        <!-- 标签页 -->
+                                                    <div class="tag-box">
+                                                                    <span class="tag-item">
+                                         打开对话框                                    </span>
+                                                                    <span class="tag-item">
+                                         环境变量                                    </span>
+                                                                    <span class="tag-item">
+                                         系统变量                                    </span>
+                                                                    <span class="tag-item">
+                                         系统设置                                    </span>
+                                                                    <span class="tag-item">
+                                         安装配置                                    </span>
+                                                            </div>
+                                                                    </div>
+
+                </li>
+                            <li>
+                    <div class="about-aticle-list">
+                        <a href="https://blog.51cto.com/csnd/5745377" data-report-query="" target="_blank" class="title">
+                            <div class="tit">WinDbg 配置联机调试环境搭建</div>
+                            <p> 接下来设置虚拟机启动模式，可以直接设置现在的虚拟机启动项为debug模式 或者直接新建一个启动项目 bcdedit /dbgsetti</p>
+                        </a>
+                        <!-- 标签页 -->
+                                                    <div class="tag-box">
+                                                                    <span class="tag-item">
+                                         启动项                                    </span>
+                                                                    <span class="tag-item">
+                                         快捷方式                                    </span>
+                                                                    <span class="tag-item">
+                                         microsoft                                    </span>
+                                                            </div>
+                                                                    </div>
+
+                </li>
+                    </ul>
+    </section>
+
+</article>
+        
+<aside class="detail-content-right">
+    <!--右上角统计-->
+    <section class="common-section common-spacing mb24 user-intr" style="visibility: hidden;">
+        <div class="user-content">
+            <div class="top">
+                <div class="avatar">
+                    <div class="avatar-img">
+                        <a href="https://blog.51cto.com/u_15127692" target="_blank" rel="nofollow">
+                            <img class="is-vip-img is-vip-img-4" data-uid="15117692" src="./WinDbg的安装、配置和功能_51CTO博客_windbg配置_files/noavatar_small.gif">
+                        </a>
+                    </div>
+                </div>
+                <div class="clearfix username">
+                    <a href="https://blog.51cto.com/u_15127692" target="_blank"><span class="blog-user" title="mob60475705c8db" style="max-width: 272px;">mob60475705c8db</span></a>
+                    <div class="icon">
+                        <ul class="clearfix detail-list"></ul>
+                    </div>
+                </div>
+            </div>
+            <div class="identify-list"></div>
+            <div class="bottom" id="userStat"><div class="num-name num-top">
+                <ul class="first-num">
+                    <li>
+                        <div class="num"><a href="https://blog.51cto.com/u_15127692/original" target="_blank" rel="nofollow">10</a></div>
+                        <div class="label-name"><a href="https://blog.51cto.com/u_15127692/original" target="_blank" rel="nofollow">原创</a></div>
+                    </li>
+                    <li>
+                        <div class="num">92.2<span>万</span></div>
+                        <div class="label-name">人气</div>
+                    </li>
+                    <li>
+                        <div class="num"><a href="https://blog.51cto.com/u_15127692/followers" target="_blank" rel="nofollow">5<span></span></a></div>
+                        <div class="label-name"><a href="https://blog.51cto.com/u_15127692/followers" target="_blank" rel="nofollow">粉丝</a></div>
+                    </li>
+                    <li>
+                        <div class="num">4550<span></span></div>
+                        <div class="label-name">评论</div>
+                    </li>
+                </ul>
+            </div>
+            <div class="lines"></div>
+            <div class="num-name num-bottom">
+                <ul>
+                    <li>
+                        <div class="num"><a href="https://blog.51cto.com/u_15127692/translate" target="_blank" rel="nofollow">0</a></div>
+                        <div class="label-name"><a href="https://blog.51cto.com/u_15127692/translate" target="_blank" rel="nofollow">翻译</a></div>
+                    </li>
+                    <li>
+                        <div class="num"><a href="https://blog.51cto.com/u_15127692/reproduce" target="_blank" rel="nofollow">2544</a></div>
+                        <div class="label-name"><a href="https://blog.51cto.com/u_15127692/reproduce" target="_blank" rel="nofollow">转载</a></div>
+                    </li>
+                    <li>
+                        <div class="num"><a href="https://blog.51cto.com/u_15127692/following" target="_blank" rel="nofollow">0</a></div>
+                        <div class="label-name"><a href="https://blog.51cto.com/u_15127692/following" target="_blank" rel="nofollow">关注</a></div>
+                    </li>
+                    <li>
+                        <div class="num">14</div>
+                        <div class="label-name">收藏</div>
+                    </li>
+                    <div class="clear"></div>
+                </ul>
+            </div></div>
+            <div id="medalListBox" class="medal-list"><div title="知名人士" class="medalItem item"><img src="./WinDbg的安装、配置和功能_51CTO博客_windbg配置_files/15ab11299b3053d6c281582e1acf449c18b312.png"></div><div title="自成一派" class="medalItem item"><img src="./WinDbg的安装、配置和功能_51CTO博客_windbg配置_files/81ba9de79b69d05f4333211abd2d0d4a008a05.png"></div><div title="一眼万年" class="medalItem item"><img src="./WinDbg的安装、配置和功能_51CTO博客_windbg配置_files/195f76d50ffb2cd8b16664147e48ea8edd9fd6.png"></div><div title="锋芒毕露" class="medalItem item"><img src="./WinDbg的安装、配置和功能_51CTO博客_windbg配置_files/f6f53e943b8feeab330770a0ec42efed855946.png"></div><div title="崭露头角" class="medalItem item"><img src="./WinDbg的安装、配置和功能_51CTO博客_windbg配置_files/31b28da6607cbc93cd900122f89b19420ac8c5.png"></div><div title="初见码名" class="medalItem item"><img src="./WinDbg的安装、配置和功能_51CTO博客_windbg配置_files/5636945283bfe677050789457e8ebbc115f77f.png"></div><div title="一代宗师" class="medalItem item"><img src="./WinDbg的安装、配置和功能_51CTO博客_windbg配置_files/61ba4e730b80264ca0076678a0dbd3e16f64bb.png"></div><div title="炉火纯青" class="medalItem item"><img src="./WinDbg的安装、配置和功能_51CTO博客_windbg配置_files/c1c0bc692d7397c63280391ec9fc97b029aa51.png"></div><div title="博闻强识" class="medalItem item"><img src="./WinDbg的安装、配置和功能_51CTO博客_windbg配置_files/a8ef82362559226c848000f191ce5a08f03207.png"></div><div title="持之以恒" class="medalItem item"><img src="./WinDbg的安装、配置和功能_51CTO博客_windbg配置_files/b67592a476d24a33731174926f050c7209f5df.png"></div></div>
+            <div class="operating clearfix ">
+                                                            <a id="checkFollow2_15117692" class="follow-1 checkFollow on" rel="nofollow">关注</a>
+                                                    <button class="sx" data="https://home.51cto.com/space?uid=15117692" id="ToSx"><a href="javascript:;" rel="nofollow"><i class="iconblog blogsixin"></i>私信</a></button>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 分类列表 -->
+        <!-- 近期文章 -->
+            <section class="common-section common-spacing mb24" style="visibility: hidden;">
+            <div class="clearfix common-sub-title">
+                <strong title="近期文章">近期文章</strong>
+            </div>
+            <ul class="common-list">
+                                    <li>
+                        <a href="https://blog.51cto.com/u_16034393/6260246" target="_blank" title="extjs 取值">1.extjs 取值</a>
+                    </li>
+                                    <li>
+                        <a href="https://blog.51cto.com/u_16105456/6260505" target="_blank" title="node实现敏感词过滤及敏感词库">2.node实现敏感词过滤及敏感词库</a>
+                    </li>
+                                    <li>
+                        <a href="https://blog.51cto.com/u_16034393/6260380" target="_blank" title="ViewPager setOffscreenPageLimit()">3.ViewPager setOffscreenPageLimit()</a>
+                    </li>
+                                    <li>
+                        <a href="https://blog.51cto.com/u_16105456/6260588" target="_blank" title="古诗词取名小工具1.0">4.古诗词取名小工具1.0</a>
+                    </li>
+                                    <li>
+                        <a href="https://blog.51cto.com/u_16105456/6260492" target="_blank" title="Parsing error: Unexpected token : (或=或＜)">5.Parsing error: Unexpected token : (或=或＜)</a>
+                    </li>
+                            </ul>
+        </section>
+        <section class="common-fix fix-table">
+         <!-- 新人活动 -->
+         <a class="ac-box mb24" href="https://blog.51cto.com/activity-first-publish#xiang" target="_blank"><img alt="新人福利" src="./WinDbg的安装、配置和功能_51CTO博客_windbg配置_files/DetailsBride.gif"></a>
+        <!-- 文章目录 -->
+             </section>
+  
+
+
+</aside>
+    </div>
+    <!--悬浮小菜单-->
+        <aside class="minmenu" style="display: block;">
+        <ul>
+            <li class="signIn" signid="2">
+                <button id="signIn">  每日签到</button>
+            </li>
+            <li class="editArticle" editid="2">
+                <!-- <div class="new_bloger ">新人福利</div> -->
+                 <button id="editArticle"><i class="iconblog blogxiewz"></i></button>
+            </li>
+            <li class="feedback">
+              <a href="https://blog.51cto.com/feedback?utm_medium=rightsuspension" target="_blank">意见<br>反馈</a>
+            </li>
+            <li class="scrollToTop">
+              <i class="iconblog bloggengduo1"></i>
+            </li>
+        </ul>
+    </aside>
+</div>
+<!-- 蒙层 -->
+<div class="Mask"></div>
+
+<div class="report-dialog-root">
+    <div class="report-dialog-container">
+        <p class="report-dialog-title">举报文章</p>
+        <div class="report-type-container model-split_top" data-type="0" id="report-specific-type">
+            <p class="report-type-tit">请选择举报类型</p>
+            <div class="report-type-enmu">
+                <span class="report-type-item type-item_first" data-type="1">内容侵权</span>
+                <span class="report-type-item type-item_first item-split" data-type="2">涉嫌营销</span>
+                <span class="report-type-item type-item_first item-split" data-type="3">内容抄袭</span>
+                <span class="report-type-item type-item_first item-split" data-type="4">违法信息</span>
+                <span class="report-type-item type-item_first item-split" data-type="5">其他</span>
+            </div>
+        </div>
+        <div class="report-type-container model-split_top report-hide-model" id="report-specific-reasons" data-type="0">
+            <p class="report-type-tit">具体原因</p>
+            <div class="report-type-enmu">
+                <span class="report-type-item type-item_second" data-type="1">包含不真实信息</span>
+                <span class="report-type-item type-item_second item-split" data-type="2">涉及个人隐私</span>
+            </div>
+        </div>
+        <div class="report-type-container model-split_top report-hide-model" id="report-original-link">
+            <p class="report-type-tit">原文链接（必填）</p>
+            <input type="text" placeholder="请输入被侵权的原文链接" class="report-orgin_input">
+        </div>
+        <div class="report-type-container model-split_top textarea-content">
+            <p class="report-type-tit">补充说明</p>
+            <textarea maxlength="200" class="report-reason_textarea" placeholder="请详细描述您的举报内容" id="report-more-info"></textarea>
+            <p class="report-textarea-tip"><span class="tip-left">0</span><span>/200</span></p>
+        </div>
+        <div class="report-type-container">
+            <p class="report-type-tit">上传截图</p>
+            <div class="report-img-container">
+                <i class="iconblog blogtianjiabeifen report-add-icon"></i>
+                <input type="file" accept="image/jpg,image/jpeg,image/png" name="file" class="repot-btn-select" onchange="selectImg(this)">
+            </div>
+            <p class="report-img_rule">格式支持JPEG/PNG/JPG，图片不超过1.9M</p>
+            <div class="report-img-show">
+                <img src="https://blog.51cto.com/u_15127692/3677763" alt="" id="report-img">
+                <div class="report-img-close">
+                    <i class="iconblog bloga-shanchutupian report-close-icon"></i>
+                </div>
+            </div>
+        </div>
+        <div class="report-btn-container">
+            <button class="report-btn-cancel">取消</button>
+            <button class="report-btn-concert">确认</button>
+        </div>
+        <div class="report-warm-tip report-hide-model">
+            已经收到您得举报信息，我们会尽快审核
+        </div>
+    </div>
+</div>
+<div class="imgViewDom disnone" style="display: none;">
+    <div class="img-content"></div>
+</div>
+
+<div class="zhiCustomBtn" style="display:none;" id="hide-zhiCustomBtn"></div>
+<!--左边悬浮操作项-->
+<aside class="action-aside action-aside-left">
+    <div class="inner">
+        <ul>
+                        <li>
+                <strong class="is-praise  " type="1" blog_id="3677763" userid="15117692">
+                    <a href="javascript:;"><i></i></a>
+                    <span><b class="praise-num"></b>赞</span>
+                </strong>
+            </li>
+            <li>
+                <strong class="favorites-opt">
+                    <a href="javascript:;"><i></i></a>
+                    <span><b class="favorites-num"></b>收藏</span>
+                </strong>
+            </li>
+            <li>
+                <strong class="Topraise">
+                    <a href="javascript:;"><i class="iconblog blogpinglun"></i></a>
+                    <span><b class="comments_num">2</b>评论</span>
+                </strong>
+            </li>
+            <li class="share">
+                <strong class="">
+                    <a href="javascript:;"><i class="iconblog blogfen"></i></a>
+                    <span>分享</span>
+                </strong>
+            </li>
+        </ul>
+    </div>
+</aside>
+    <div class="modal-bg">
+         <div class="modal">
+            <i class="iconblog blogquxiao18 close-btn"></i>
+            <div class="content "></div>
+            <div class="tip-box">如有误判或任何疑问，可联系 <a href="javascript:;" class="zhiCustomBtn">「51CTO博客客服 」</a><span class="appeal_text">申诉及反馈</span>。</div>
+             <div class="know-box">
+                <span class="know-btn">我知道了</span>
+             </div>
+
+         </div>
+    </div>
+<div class="dialog-box">
+    <div class="mask"></div>
+    <div class="body">
+        <div id="close" class="close"></div>
+        <div id="medalListBox2"></div>
+    </div>
+</div>
+<div class="dialog-box-small">
+    <div class="mask"></div>
+    <div class="body">
+        <div id="close" class="close"></div>
+        <div id="medalBox2" class="medal-list">
+        </div>
+    </div>
+</div></div>
+  <header class="home-top" style="display: none;">
+    <div class="Page">
+        <div class="top_box">
+            <div class="left_nav">
+                               <div class="item-lf "><a class="top" href="https://www.51cto.com/" target="_blank" rel="nofollow" data-id="1"> 51CTO首页                                </a></div>
+                               <div class="item-lf "><a class="top" href="https://www.51cto.com/dev?utm_source=hometop" target="_blank" rel="nofollow" data-id="2"> 内容精选                                </a></div>
+                               <div class="item-lf "><a class="top" href="https://blog.51cto.com/" target="_blank" rel="nofollow" data-id="3"> 博客                                </a></div>
+                               <div class="item-lf "><a class="subweb" href="https://edu.51cto.com/?utm_source=hometop" target="_blank" rel="nofollow" data-id="4"> 学堂                                </a></div>
+                               <div class="item-lf "><a class="subweb" href="https://e.51cto.com/?utm_platform=pc&amp;utm_medi-um=51cto&amp;utm_source=zhuzhan&amp;utm_content=sy_topbar" target="_blank" rel="nofollow" data-id="5"> 精培                                </a></div>
+                               <div class="item-lf "><a class="subweb" href="https://b.51cto.com/index?utm_source=hometop" target="_blank" rel="nofollow" data-id="6"> 企业培训                                </a></div>
+                               <div class="item-lf "><a class="subweb" href="https://x.51cto.com/?www" target="_blank" rel="nofollow" data-id="7"> CTO训练营                                </a></div>
+                               <div class="item-lf "><a class="top" href="https://icv.51cto.com/?utm_source=hometop" target="_blank" rel="nofollow" data-id="8"> 智能汽车                                </a></div>
+                               <div class="item-lf "><a class="subweb" href="https://ost.51cto.com/?utm_source=hometop" target="_blank" rel="nofollow" data-id="9"> 开源基础软件社区                                </a></div>
+                               <div class="item-lf  hot"><a class="top" href="https://wot.51cto.com/?utm_source=dhl" target="_blank" rel="nofollow" data-id="10"> WOT全球技术创新大会                                    <span class="hot-div"><img src="./WinDbg的安装、配置和功能_51CTO博客_windbg配置_files/050f59267bbc5fba674956e98e5712556c5085.png" alt=""></span>
+                                </a></div>
+                           </div>
+            <div class="top_right">
+                <div class="item-rt"><a href="http://so.51cto.com/?keywords=&amp;sort=time" target="_blank" class="search-top" rel="nofollow"><i class="iconblog blogsou blog-search"></i></a></div>
+                <div class="item-rt"><span class="wechatlist" data-id="wechatImageList">公众号矩阵</span></div>
+                <div class="item-rt"><span class="applist" data-id="appImageList">移动端</span></div>
+
+            </div>
+        </div>
+    </div>
+    <div class="nav-more-container ">
+        <div class="Page nav-contant-box">
+                                                                                                                                   <div class="nav-contant " data-id="4">
+                                           <a href="https://edu.51cto.com/courselist/index-zh5.html?utm_source=hometop" target="_blank">免费课程</a>
+                                              <a href="https://edu.51cto.com/ranking/index.html?utm_source=hometop" target="_blank">课程排行</a>
+                                              <a href="https://e.51cto.com/ncamp/list?utm_platform=pc&amp;utm_medium=51cto&amp;utm_source=zhuzhan&amp;utm_content=sy_topbar&amp;rtm_frd=13" target="_blank">直播课</a>
+                                              <a href="https://e.51cto.com/rk/?utm_platform=pc&amp;utm_medi-um=51cto&amp;utm_source=zhuzhan&amp;utm_content=sy_topbar&amp;rtm_frd=14" target="_blank">软考学堂</a>
+                                            </div>
+                                                                  <div class="nav-contant " data-id="5">
+                                           <a href="https://e.51cto.com/?utm_platform=pc&amp;utm_medi-um=51cto&amp;utm_source=zhuzhan&amp;utm_content=sy_topbar" target="_blank">精品班</a>
+                                              <a href="https://e.51cto.com/wejob/list?pid=5&amp;utm_platform=pc&amp;utm_medium=51cto&amp;utm_source=zhuzhan&amp;utm_content=sy_topbar&amp;rtm_frd=41" target="_blank">厂商认证</a>
+                                              <a href="https://e.51cto.com/wejob/list?pid=1&amp;utm_platform=pc&amp;utm_medium=51cto&amp;utm_source=zhuzhan&amp;utm_content=sy_topbar&amp;rtm_frd=42" target="_blank">IT技术</a>
+                                              <a href="https://e.51cto.com/rk/?utm_platform=pc&amp;utm_medium=51cto&amp;utm_source=zhuzhan&amp;utm_content=sy_xyzq_rightwzl&amp;rtm_frd=07&amp;utm_medium=51cto&amp;utm_source=zhuzhan&amp;utm_content=sy_topbar&amp;rtm_frd=43" target="_blank">2023年软考</a>
+                                              <a href="https://e.51cto.com/wejob/list?pid=33&amp;utm_platform=pc&amp;utm_medium=51cto&amp;utm_source=zhuzhan&amp;utm_content=sy_topbar&amp;rtm_frd=44" target="_blank">PMP项目管理</a>
+                                            </div>
+                                                                  <div class="nav-contant " data-id="6">
+                                           <a href="https://b.51cto.com/index?utm_source=hometop" target="_blank">在线学习</a>
+                                              <a href="https://b.edu.51cto.com/site/home" target="_blank">企业服务</a>
+                                            </div>
+                                                                  <div class="nav-contant " data-id="7">
+                                           <a href="https://x.51cto.com/?www" target="_blank">CTO训练营</a>
+                                              <a href="https://x.51cto.com/act/cto/tl" target="_blank">技术经理研习营</a>
+                                              <a href="https://x.51cto.com/act/cto/leatech2021?www1" target="_blank">LeaTech峰会</a>
+                                            </div>
+                                                                                              <div class="nav-contant " data-id="9">
+                                           <a href="https://ost.51cto.com/postlist" target="_blank">文章</a>
+                                              <a href="https://ost.51cto.com/resource" target="_blank">资源</a>
+                                              <a href="https://ost.51cto.com/answerlist" target="_blank">问答</a>
+                                              <a href="https://ost.51cto.com/study" target="_blank">开源课堂</a>
+                                              <a href="https://ost.51cto.com/column" target="_blank">专栏</a>
+                                              <a href="https://ost.51cto.com/activity" target="_blank">直播</a>
+                                            </div>
+                                                                                            <div class="nav-contant wechatImageList" data-id="wechatImageList">
+                                           <div class="ewmbox"><div class="imgbox"><img src="./WinDbg的安装、配置和功能_51CTO博客_windbg配置_files/862966771f540df82857144db74b27ee5b4b23.jpeg"></div><span class="txt">51CTO</span></div>
+                                              <div class="ewmbox"><div class="imgbox"><img src="./WinDbg的安装、配置和功能_51CTO博客_windbg配置_files/d53d67c771f5cc42bac359bceb138c4cb1713b.jpg"></div><span class="txt">开源基础软件社区</span></div>
+                                              <div class="ewmbox"><div class="imgbox"><img src="./WinDbg的安装、配置和功能_51CTO博客_windbg配置_files/58786f9973e5e929ef521783e1ee40413b04de.jpeg"></div><span class="txt">51CTO技术栈</span></div>
+                                              <div class="ewmbox"><div class="imgbox"><img src="./WinDbg的安装、配置和功能_51CTO博客_windbg配置_files/c77c03983d48589b1af789dfc284acb6a7c529.jpeg"></div><span class="txt">51CTO官微</span></div>
+                                              <div class="ewmbox"><div class="imgbox"><img src="./WinDbg的安装、配置和功能_51CTO博客_windbg配置_files/544d71641d983430fc9955636e625e6bb21ff9.jpeg"></div><span class="txt">51CTO学堂</span></div>
+                                              <div class="ewmbox"><div class="imgbox"><img src="./WinDbg的安装、配置和功能_51CTO博客_windbg配置_files/f1bd61e720bf669483d941a8486c124f32c451.jpeg"></div><span class="txt">51CTO博客</span></div>
+                                              <div class="ewmbox"><div class="imgbox"><img src="./WinDbg的安装、配置和功能_51CTO博客_windbg配置_files/4719e7b27bae3af5e33552481b6cb913288b01.jpeg"></div><span class="txt">CTO训练营</span></div>
+                                              <div class="ewmbox"><div class="imgbox"><img src="./WinDbg的安装、配置和功能_51CTO博客_windbg配置_files/61a991f484307eed2fe9356cc215c4d8f2dc0f.jpg"></div><span class="txt">开源基础软件社区订阅号</span></div>
+                                            </div>
+                                                        <div class="nav-contant appImageList" data-id="appImageList">
+                                           <div class="ewmbox"><div class="imgbox"><img src="./WinDbg的安装、配置和功能_51CTO博客_windbg配置_files/24febb8152cc24e264e642f8cb8bb515efea26.jpeg"></div><span class="txt">51CTO学堂APP</span></div>
+                                              <div class="ewmbox"><div class="imgbox"><img src="./WinDbg的安装、配置和功能_51CTO博客_windbg配置_files/43cca7d0489cc5d1f70060be760bde17d552e2.jpeg"></div><span class="txt">51CTO学堂企业版APP</span></div>
+                                              <div class="ewmbox"><div class="imgbox"><img src="./WinDbg的安装、配置和功能_51CTO博客_windbg配置_files/c4d2220826890472539671d7c428f0c0ee9451.jpg"></div><span class="txt">开源基础软件社区视频号</span></div>
+                                            </div>
+                        </div>
+    </div>
+</header>
+<div class="Header  " style="height: 70px; top: 0px; display: none;">
+     <div class="header-content">
+        <div class="header-left">
+                            <div class="Logo"><a href="https://blog.51cto.com/"><img src="./WinDbg的安装、配置和功能_51CTO博客_windbg配置_files/logo.png" alt="51CTO博客" width="100" title="51CTO博客">
+                    <h2>51CTO博客</h2>
+                </a></div>
+                  <ul class="Navigates  commonhide">
+            <li><a href="https://blog.51cto.com/">首页</a>
+                <div class="spam-classifications" style="display:none;">
+                    <div class="spam-classifications-content">
+                        <div class="classification-ipc" id="classification-ipc"></div>
+                        <div class="classification-primary-list-box" id="classification-primary-list-box"></div>
+
+                    </div>
+                </div>
+            </li>
+            <li><a href="https://blog.51cto.com/nav/following">关注</a></li>
+            <li><a href="https://blog.51cto.com/ranking/hot">排行榜</a></li>
+            <li class="">
+                <a href="https://blog.51cto.com/cloumn/index">订阅专栏</a>
+            </li>
+                <li class="first"><a href="https://blog.51cto.com/activity-first-publish#shouye" target="_blank"><img alt="新人福利" src="./WinDbg的安装、配置和功能_51CTO博客_windbg配置_files/first2.gif"></a></li>
+            </ul>
+     </div>
+        <ul class="header-right">
+                <li class="search">
+                    <form class=" form-search" method="get" action="https://blog.51cto.com/search/result" target="_blank" novalidate="">
+                        <input type="text" name="q" placeholder="搜索文章、作者" id="TopSearchInput" autocomplete="off" required="">
+                         <i class="iconblog  bloga-shanchutupian"></i>
+                        <button class="iconblog blogsou" id="TopSearchBtn"></button>
+                    </form>
+                    <div class="focusSelect focusSelect_his" style="display: none;">
+
+                        <div class="searchHistoryList" style="display: none;">
+                            <div class="clearfix hishead">搜索历史
+                                <span class="clearhis"><i class="iconblog blogshanchu18 "></i>清空</span>
+                            </div>
+                            <div class="hisitem-wrap"></div>
+                        </div>
+
+                        <div class="hotList" style="display: none;">
+                            <div class="clearfix hishead">热门搜索</div>
+                            <div class="hot-wrap"></div>
+                        </div>
+
+                    </div>
+
+                    <div class="focusSelect focusSelect_key" style="display: none;">
+                        <div class="keyitem-wrap">
+
+                        </div>
+                        <div class="clearfix checkSearchResult">
+                            <span>查看【</span>
+                            <span class="checkKey"></span>
+                            <span>】的结果</span>
+                        </div>
+                    </div>
+                </li>
+                                      <li class="write commonhide">
+                        <div class="new_bloger">首发福利</div>
+                        <a href="javascript:;" id="toPublish" onclick="Login({scene:&#39;write1&#39;})" rel="nofollow"> <i class="iconblog  blogxiewenzhang"></i>写文章</a></li>
+                      <li class="creative"><a href="https://blog.51cto.com/creative-center/index">创作中心</a></li>
+                                                         <li class="logins">
+                    <a href="https://home.51cto.com/index?from_service=blog&amp;scene=login1&amp;reback=https://blog.51cto.com/u_15127692/3677763" target="_self" class="clearfix" rel="nofollow"><span class="fl">登录</span><b class="fgline fl"></b><span class="fl">注册</span></a>
+                </li>
+                    </ul>
+
+    </div>
+<div class="search-mask" style="display: none;"></div></div>
+    <!-- if publish show -->
+    <div class="Footer">
+        <div class="Page ">
+            <div class="fl">
+                <a href="https://blog.51cto.com/" class="Logo"><img src="./WinDbg的安装、配置和功能_51CTO博客_windbg配置_files/logo4.png" alt="51CTO博客" width="214" title="51CTO博客"></a>
+                <p class="copy">Copyright © 2005-2023 <a href="https://www.51cto.com/" target="_blank">51CTO.COM</a>
+                    版权所有 京ICP证060544号</p>
+            </div>
+
+            <dl class="foot_ab fr">
+                <dt>关于我们</dt>
+                <dd>
+                    <table class="aboutList">
+                        <tbody><tr>
+                            <td><a href="https://blog.51cto.com/51ctoblog" target="_blank">官方博客</a></td>
+                            <td><a href="https://blog.51cto.com/nav" target="_blank">全部文章</a></td>
+                            <td><a href="https://blog.51cto.com/topic/all" target="_blank">热门标签</a></td>
+                            <td><a href="https://blog.51cto.com/class-blog/index" target="_blank" data-v-6e9e21b4="">班级博客</a></td>
+                        </tr>
+                        <tr>
+                            <td><a href="https://www.51cto.com/about/aboutus.html" target="_blank">了解我们</a></td>
+                            <td><a href="javascript:;" class="zhiCustomBtn">在线客服</a></td>
+                            <td><a href="https://www.51cto.com/about/map.html" target="_blank">网站地图</a></td>
+                            <td><a href="https://blog.51cto.com/feedback?utm_medium=aboutus2" target="_blank">意见反馈</a></td>
+
+                        </tr>
+                    </tbody></table>
+                </dd>
+            </dl>
+
+
+            <dl class="foot_link fr">
+                <dt>友情链接</dt>
+                <dd>
+
+                    <table class="aboutList-2">
+                        <tbody><tr>
+                            <td><a href="https://ost.51cto.com/?utm_source=blogsitemap" target="_blank">开源基础软件社区</a></td>
+                            <td><a href="https://edu.51cto.com/" target="_blank">51CTO学堂</a></td>
+                        </tr>
+                        <tr>
+                            <td><a href="https://www.51cto.com/" target="_blank">51CTO</a></td>
+                            <td> <a href="https://icv.51cto.com/" target="_blank">汽车开发者社区</a></td>
+                        </tr>
+                    </tbody></table>
+                </dd>
+            </dl>
+
+        </div>
+    </div>
+    
+
+<div class="zhiCustomBtn" style="display:none;" id="hide-zhiCustomBtn"></div>
+<script>
+    var userId="";
+var uid="";
+var user_id=15117692;
+var isLogin=0;
+var imgpath="https://s2.51cto.com/";
+var BLOG_URL="https://blog.51cto.com/";
+var HOME_URL="https://home.51cto.com/";
+var STATICPATH="https://static2.51cto.com/edu/";
+var SA_SERVER_URL_YM="https://sc.51cto.com/sa?project=production";
+var cururl="https://blog.51cto.com/u_15127692/3677763";
+var login_url="https://home.51cto.com/mobile/client-login?reback=https://blog.51cto.com/u_15127692/3677763";
+var praise_url="https://blog.51cto.com/praise/praise";
+var qrcodeSid="";
+var qr_code="";
+var router="blog/index";
+var csrfParam="_csrf";
+var csrfToken="U7_sSBBSRUPJ37T9-tLB213ApR9-fYyRhHscgxoOzg3eSA75vjTQm6qkcXsWJSJWlKgLHxt8mVQmbQXMKxnwhg==";
+var is_load=0;
+var uc_url="https://ucenter.51cto.com/";
+var blog_url="https://blog.51cto.com/";
+var isBuy=1;
+var isPc=0;
+var writeMessage="WinDbg的安装、配置和功能\r\nhttps:\/\/blog.51cto.com\/u_15127692\/3677763";
+var isCodeCopy=0;
+var cid="";
+var fid=0;
+var commentListPage="";
+var originalUrl="https://blog.51cto.com/u_15127692/original";
+var followersUrl="https://blog.51cto.com/u_15127692/followers";
+var translateUrl="https://blog.51cto.com/u_15127692/translate";
+var reproduceUrl="https://blog.51cto.com/u_15127692/reproduce";
+var followingUrl="https://blog.51cto.com/u_15127692/following";
+var page="detail";
+var tipStatus=1;
+var addReply_url="https://blog.51cto.com/addBlogComment";
+var removeUrl="https://blog.51cto.com/delBlogComment";
+var blog_id=3677763;
+var is_comment=0;
+var comment_list="https://blog.51cto.com/getBlogCommentList";
+var index_url="https://blog.51cto.com/u_15127692";
+var img_url="https://static2.51cto.com/edu/blog/";
+var i_user_id="";
+var c_user_id=15117692;
+var collect_url="https://blog.51cto.com/addUserCollect";
+var is_old=1;
+var nicknameurl="https://blog.51cto.com/u_15127692";
+var nickname="mob60475705c8db";
+var shareimgUrl="/qr/qr-url?url=https%3A%2F%2Fblog.51cto.com%2Fu_15127692%2F3677763";
+var checkFollow=1;
+var seoTitle="windbg配置";
+var articleABtest=0;
+            !function(f,p){"use strict";var h=new RegExp("\\.css"),y=p.head||p.getElementsByTagName("head")[0],r=+navigator.userAgent.replace(/.*(?:AppleWebKit|AndroidWebKit)\/?(\d+).*/i,"$1")<536;function s(e){return"complete"===e.readyState||"loaded"===e.readyState}function v(e,t,n){var o="onload"in e;function a(){e.onload=e.onreadystatechange=null,e=null,t()}"css"!==n||!r&&o?o?(e.onload=a,e.onerror=function(){e.onerror=null}):e.onreadystatechange=function(){s(e)&&a()}:setTimeout(function(){!function e(t,n){var o;t.sheet&&(o=!0),setTimeout(function(){o?n():e(t,n)},20)}(e,t)},1)}function u(t,n,e,o){if(t)if(h.test(t)){var a=t,r=e,c=u,i=p.createElement("link");if(r.attrs)for(var l in r.attrs)i.setAttribute(l,r.attrs[l]);r.prefetch?(i.href=a,i.rel="prefetch",c&&c()):(i.rel="stylesheet",v(i,c,"css"),i.href=a),y.appendChild(i)}else{var c=t,d=e,a=u,f=d.prefetch?p.createElement("link"):p.createElement("script");if(d.attrs)for(var s in d.attrs)f.setAttribute(s,d.attrs[s]);d.prefetch?(f.href=c,f.rel="prefetch",a&&a()):(f.charset="utf-8",v(f,a,"js"),f.async=!1,f.src=c),y.appendChild(f)}else setTimeout(function(){u()});function u(){var e=n.indexOf(t);-1<e&&n.splice(e,1),0===n.length&&o()}}function c(e="load",t){var n="object"==typeof t.option?t.option:{},t="function"==typeof t.callback?t.callback:null;return n.attrs="object"==typeof n.attrs?n.attrs:{},n.loaded="boolean"==typeof n.loaded&&n.loaded,n[e]=!0,{option:n,cb:t}}function i(c,e,t="load"){var n,o,a,r,i,l;function d(){var e=c,t=i,n=l;function o(){n&&n()}if(0===(e=Array.prototype.slice.call(e||[])).length)o();else for(var a=0,r=e.length;a<r;a++)u(e[a],e,t,o)}c&&c.length&&(i=e.option,l=e.cb,e=p,n=function(){"load"===t&&i.loaded?setTimeout(d,2e3):d()},("ready"===(o=t)?"loading"!==e.readyState:s(e))?n():(a=!1,r=function(){a||(n(),a=!0)},"load"===o?f.addEventListener("load",r):"ready"===o&&p.addEventListener("DOMContentLoaded",r),setTimeout(function(){r()},1500)))}f.PsLoader={ready:function(e,t,n={}){var o=[],a=[];e.forEach(function(e){(h.test(e)?o:a).push(e)}),n.loaded=!1,i(o,c("ready",{option:n,callback:function(){t(o)}}),"ready"),i(a,c("load",{option:n,callback:function(){t(a)}}))},load:function(e,t,n={}){i(e,c("load",{option:n,callback:t}))},prefetch:function(e,t,n={}){i(e,c("prefetch",{option:n,callback:t}))}}}(window,document);        !function(m,g){var t=["scroll","wheel","mousewheel","resize","animationend","transitionend","touchmove"];function n(e){if("object"!=typeof e)throw new Error("CLazy option is not Object");var f={defaultImg:e.defaultImg||"data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7",preLoad:e.preLoad||1.3,preLoadTop:e.preLoadTop||0,complete:e.complete||null,events:e.events||t,capture:e.capture||!1},v=0,p={},h={},i={},A=this;function l(e){var t=e;if("object"!=typeof t)return!1;if(!t.el)for(var r in p)if(e===p[r].el){t=p[r];break}return t}function c(e){var e=e.getBoundingClientRect(),t=f.preLoad,r=f.preLoadTop;return e.top<m.innerHeight*t&&e.bottom>r&&e.left<m.innerWidth*t&&0<e.right}function u(e,t){var r,n=e.bindType,o=e.el;switch(t){case"loading":case"error":r=f.defaultImg;break;default:r=e.src}n?e.src&&(o.style[n]='url("'+r+'")'):o.getAttribute("src")!==r&&o.setAttribute("src",r),o.setAttribute("lazy",t)}this.add=function(e,t){var r=function(e){var t,r=!1;for(t in p)if(p[t].el===e){r=p[t];break}return r}(e);if(r)return this.check(r),!1;r="e_"+ ++v;if(p[r])return this.check(p[r]),!1;for(var n,o={id:r,el:e,bindType:"IMG"===e.tagName?null:"background-image",src:(n=e,(t=t)?t.value:n.getAttribute("ps-lazy")),$parent:function(e){if(!(e instanceof HTMLElement))return m;var t=e;for(;t&&t!==g.body&&t!==g.documentElement&&t.parentNode;){if(/(scroll|auto)/.test(function(e){return y(e,"overflow")+y(e,"overflow-y")+y(e,"overflow-x")}(t)))return t;t=t.parentNode}return m}(e)},a=(h[r]=function(e){A.check(o)},p[r]=o),i=h[r],c=0;c<f.events.length;c++){s=d=u=l=void 0;var[l,u,d,s=!1]=[a.$parent,f.events[c],i,f.capture];l&&l.addEventListener(u,d,s),m!==l&&m.addEventListener(u,d,s)}this.check(o)},this.remove=function(e){for(var e=l(e),t=(e.el&&e.el.removeAttribute("ps-lazy"),e),r=h[e.id],n=0;n<f.events.length;n++){c=i=a=o=void 0;var[o,a,i,c=!1]=[t.$parent,f.events[n],r,f.capture];o&&o.removeEventListener(a,i,c),m!==o&&m.removeEventListener(a,i,c)}delete h[e.id],delete p[e.id]},this.check=function(e){var t,r,n,o,a=l(e);c(a.el)&&(m===a.$parent||c(a.$parent))?(e=function(e){u(a,e),A.remove(a),f.complete&&f.complete({el:a.el,src:a.src,state:e})},a.src?(t=a.src,r=e,n=encodeURIComponent(t),i[n]?r(i[n]):((o=new Image).onload=function(){i[n]="loaded",r(i[n])},o.onerror=function(){i[n]="error",r(i[n])},o.src=t)):e("loaded")):u(a,"loading")},this.checkAll=function(){for(var e in p)A.check(p[e])}}function y(e,t){return"undefined"!=typeof getComputedStyle?getComputedStyle(e,null).getPropertyValue(t):e.style[t]}m.PsLazy=function(e={}){function t(e){for(var t=e.path||event.composedPath&&event.composedPath()||e._getPath&&e._getPath(),r=0;r<t.length;r++){var n=t[r];if(n&&"hasAttribute"in n&&n.hasAttribute("ps-lazy-check")){o.format();break}}}function r(){var e=g.querySelector("img[data-share]");e&&!e.getAttribute("src")&&e.setAttribute("src",e.getAttribute("data-share"))}var o=this;n.call(o,e),g.addEventListener("click",t),g.addEventListener("mouseover",t),this.format=function(){var e=g.querySelectorAll("[ps-lazy]");if(!e.length)return!1;for(var t=0;t<e.length;t++)o.add(e[t])},this.format();"complete"===(e=g).readyState||"loaded"===e.readyState?r():m.addEventListener("load",r,!1)}}(window,document);        PsLoader.load(["https://static2.51cto.com/edu/blog/blog-static/static/css/pc_detailinline.min.css?v=5c7f42dbda","https://static2.51cto.com/edu/blog/blog-static/static/css/pc_detail.min.css?v=118252b566","https://cdn.51cto.com/jquery/jquery-2.2.4.min.js","https://static2.51cto.com/edu/center/js/interaction_iframe.js","https://cdn.51cto.com/jquery/swiper-4.5.3.js","https://static2.51cto.com/edu/blog/blog-static/static/js/pc_base.min.js?v=300bc61215","https://static2.51cto.com/edu/blog/blog-static/js/mprime.js?v=2cb70144db","https://static2.51cto.com/edu/blog/blog-static/static/js/pc_detail.min.js?v=2535acb529"], function() {})
+    PsLoader.prefetch(["https://static2.51cto.com/edu/blog/blog-static/static/css/pc_base.min.css?v=2731609498","https://static2.51cto.com/edu/blog/blog-static/static/css/pc_indexinline.min.css?v=e40c304555","https://static2.51cto.com/edu/blog/blog-static/static/css/pc_newIndexinline.min.css?v=7cd4246e43","https://static2.51cto.com/edu/blog/blog-static/static/css/pc_listinline.min.css?v=a365759c73","https://static2.51cto.com/edu/blog/blog-static/static/css/pc_newListinline.min.css?v=fcde138dd1","https://static2.51cto.com/edu/blog/blog-static/static/css/pc_topicinline.min.css?v=47a9bc571c","https://static2.51cto.com/edu/blog/blog-static/static/css/pc_topicdetailinline.min.css?v=512bf305aa","https://static2.51cto.com/edu/blog/blog-static/static/css/pc_bloggerinline.min.css?v=0e63931398","https://static2.51cto.com/edu/blog/blog-static/markdown/dist/js/main.js?v=9fee5bb838","https://static2.51cto.com/edu/blog/blog-static/static/js/pc_index_js.min.js?v=5331660aa2","https://static2.51cto.com/edu/blog/blog-static/static/js/pc_list_js.min.js?v=8973c321c1","https://static2.51cto.com/edu/blog/blog-static/static/js/pc_topic.min.js?v=873da4210c","https://static2.51cto.com/edu/blog/blog-static/static/js/pc_topic_static.min.js?v=8533cb9e02","https://static2.51cto.com/edu/blog/blog-static/static/js/pc_topicdetail.min.js?v=901345e7d5","https://static2.51cto.com/edu/blog/blog-static/static/js/pc_blogger_js.min.js?v=c7a4e3d003"]);
+    var Lazy = new PsLazy({
+        defaultImg: "https://s2.51cto.com/images/100/base/empty.png?x-oss-process=image/format,webp/ignore-error,1",
+        preLoad: 1.3,
+        complete: function(opt) {},
+    })
+</script>
+
+
+<div id="waf_nc_block" style="display: none;"><div class="waf-nc-mask"></div><div id="WAF_NC_WRAPPER" class="waf-nc-wrapper"><p class="waf-nc-title">访问验证</p><p class="waf-nc-description">为了更好的访问体验，请进行如下验证</p><p id="waf-nc-traceid" class="waf-nc-traceid-class"></p><div id="nocaptcha"></div></div></div><script async="" id="zhichiScript" class="zhiCustomBtn" src="./WinDbg的安装、配置和功能_51CTO博客_windbg配置_files/entrance.js.下载"></script><div style="background: url(&quot;https://static2.51cto.com/edu/blog/images/bg50.png&quot;) repeat; position: fixed; left: 0px; top: 0px; width: 100%; height: 100%; z-index: 10000000; display: none;"><div style="z-index:10000001;width:50px;height:50px;background:url(https://static2.51cto.com/edu/blog/images/loading2.gif) no-repeat center;background-size:50px 50px;position:absolute;left:50%;top:50%;margin-left:-25px;margin-top:-25px;"></div></div><div id="zhichiBtnBox" style="position: fixed; z-index: 2147483583; box-shadow: rgba(15, 66, 76, 0.25) 0px 0px 14px 0px; width: 60px; height: 60px; border-radius: 50%; background-color: rgb(231, 83, 73); background-image: url(&quot;//www.sobot.com/chat/frame/imgs/icon.png&quot;); background-repeat: no-repeat; background-position: 18px -58px; right: 40px; bottom: 20px; display: none;"><a hidefocus="" id="zhichiBtn" style="position:relative;text-decoration: none; outline: none; font-family: Microsoft Yahei, Arial, Helvetica; color: #fff; font-size: 16px; display: inline-block; margin: 0; padding: 0; border: none; line-height:43px; float:none;width:100%;height:100%;border-radius:50%;"><span class="zc-advice-icon-btn-title" style="box-shadow: rgba(107, 113, 114, 0.15) 0px 2px 4px 0px; border: 1px solid rgb(235, 239, 240); font-family: &quot;Microsoft Yahei&quot;, Arial, Helvetica; color: rgb(85, 85, 86); font-size: 13px; margin: 0px; text-align: right; background: rgb(255, 255, 255); position: absolute; top: 15px; right: 70px; text-overflow: ellipsis; white-space: nowrap; word-break: normal; display: none; border-radius: 3px; padding: 0px 5px; height: 30px; line-height: 30px;">咨询在线客服</span></a><i style="position:absolute;top:0px;right:0px;padding:1px;line-height:20px;text-align:center;color:#fff;font-weight:bold;height:18px;min-width:18px;background-color:#ed5c5c;border-radius:18px;font-size:12px;display:none;font-style:normal;" id="zhichiCount"></i></div></body></html>

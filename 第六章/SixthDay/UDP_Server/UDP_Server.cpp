@@ -39,32 +39,53 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	if (SOCKET_ERROR == bind(srvSock, (sockaddr*)&srvAddr, sizeof(srvAddr)))
 	{
-		printf("bind Error!\n");
-		closesocket(srvSock);
-		WSACleanup();
-		return -1;
+	printf("bind Error!\n");
+	closesocket(srvSock);
+	WSACleanup();
+	return -1;
 	}
 
 	char Msg[BUF_SIZE];
 	int recvLen = 0;
+
+	SOCKADDR_IN cltAddr;
+	memset(&cltAddr, 0, sizeof(cltAddr));
+	int nCltAddrLen = sizeof(cltAddr);
+
+	//for (int i = 0; i < 3; i++)
+	//{
+	//	recvLen = 0;
+	//	recvLen = recvfrom(srvSock, Msg, BUF_SIZE - 1, 0, (sockaddr*)&cltAddr, &nCltAddrLen);
+	//	Msg[recvLen] = 0;
+	//	printf("recvfrom client msg: %s\n", Msg);
+	//}
+	
+
+
 	while (true)
 	{
 		printf("Wait Msg From Client...\n");
 		//无连接的UDP套接字，sendto和recvfrom必须一一对应，也没有数据边界
 		//无连接的UDP套接字不会保持连接状态，因此每次传输数据都需要添加目标地址信息。
-		recvLen = recvfrom(srvSock, Msg, BUF_SIZE - 1, 0, (sockaddr*)&srvAddr, &srvAddrLen);
+		recvLen = recvfrom(srvSock, Msg, BUF_SIZE - 1, 0, (sockaddr*)&cltAddr, &nCltAddrLen);
+		printf("接收长度: %d, 最后一个字符: %d\n", recvLen, Msg[recvLen]);
 		if (recvLen == -1)
 		{
+			//UDP属于无连接协议，因此没有断开连接的说法，这里不会进来
 			printf("Client Disconnected.");
 			break;
 		}
+
 		Msg[recvLen] = 0;
 		printf("Receive Msg from Client: %s\n", Msg);
 
-		sendto(srvSock, Msg, recvLen, 0, (sockaddr*)&srvAddr, srvAddrLen);
+		sendto(srvSock, Msg, recvLen, 0, (sockaddr*)&cltAddr, nCltAddrLen);
 	}
+
 	closesocket(srvSock);
 	WSACleanup();
+
+	getchar();
 
 	return 0;
 }
