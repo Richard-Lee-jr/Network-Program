@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MuticastSender", "MuticastSender\MuticastSender.vcxproj", "{F5445F31-0A5F-4C14-A6D3-2A36C273C38A}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MulticastReceiver", "MulticastReceiver\MulticastReceiver.vcxproj", "{0C87DD62-A812-4789-8C82-730DC54BD8D6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F5445F31-0A5F-4C14-A6D3-2A36C273C38A}.Debug|Win32.ActiveCfg = Debug|Win32
+		{F5445F31-0A5F-4C14-A6D3-2A36C273C38A}.Debug|Win32.Build.0 = Debug|Win32
+		{F5445F31-0A5F-4C14-A6D3-2A36C273C38A}.Release|Win32.ActiveCfg = Release|Win32
+		{F5445F31-0A5F-4C14-A6D3-2A36C273C38A}.Release|Win32.Build.0 = Release|Win32
+		{0C87DD62-A812-4789-8C82-730DC54BD8D6}.Debug|Win32.ActiveCfg = Debug|Win32
+		{0C87DD62-A812-4789-8C82-730DC54BD8D6}.Debug|Win32.Build.0 = Debug|Win32
+		{0C87DD62-A812-4789-8C82-730DC54BD8D6}.Release|Win32.ActiveCfg = Release|Win32
+		{0C87DD62-A812-4789-8C82-730DC54BD8D6}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ThreadSynchronization", "ThreadSynchronization\ThreadSynchronization.vcxproj", "{B088BAF7-8723-4180-A5F1-42A4F172A281}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MultiThread_Server", "MultiThread_Server\MultiThread_Server.vcxproj", "{37A3F22A-438A-4A97-B640-E2E5E5164A57}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MultiThread_Client", "MultiThread_Client\MultiThread_Client.vcxproj", "{EA67B266-5514-4B17-8BF7-DA02E1E79F44}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B088BAF7-8723-4180-A5F1-42A4F172A281}.Debug|Win32.ActiveCfg = Debug|Win32
+		{B088BAF7-8723-4180-A5F1-42A4F172A281}.Debug|Win32.Build.0 = Debug|Win32
+		{B088BAF7-8723-4180-A5F1-42A4F172A281}.Release|Win32.ActiveCfg = Release|Win32
+		{B088BAF7-8723-4180-A5F1-42A4F172A281}.Release|Win32.Build.0 = Release|Win32
+		{37A3F22A-438A-4A97-B640-E2E5E5164A57}.Debug|Win32.ActiveCfg = Debug|Win32
+		{37A3F22A-438A-4A97-B640-E2E5E5164A57}.Debug|Win32.Build.0 = Debug|Win32
+		{37A3F22A-438A-4A97-B640-E2E5E5164A57}.Release|Win32.ActiveCfg = Release|Win32
+		{37A3F22A-438A-4A97-B640-E2E5E5164A57}.Release|Win32.Build.0 = Release|Win32
+		{EA67B266-5514-4B17-8BF7-DA02E1E79F44}.Debug|Win32.ActiveCfg = Debug|Win32
+		{EA67B266-5514-4B17-8BF7-DA02E1E79F44}.Debug|Win32.Build.0 = Debug|Win32
+		{EA67B266-5514-4B17-8BF7-DA02E1E79F44}.Release|Win32.ActiveCfg = Release|Win32
+		{EA67B266-5514-4B17-8BF7-DA02E1E79F44}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

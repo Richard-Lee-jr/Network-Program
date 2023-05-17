@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OverlappedRecv", "OverlappedRecv\OverlappedRecv.vcxproj", "{C600BE57-7152-4537-BA31-D8FAE1294D63}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OverlappedSend", "OverlappedSend\OverlappedSend.vcxproj", "{25340EBF-19B9-448B-A54F-5D8FA5FB2DD0}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CmplRoutinesRecv", "CmplRoutinesRecv\CmplRoutinesRecv.vcxproj", "{CD76F441-8AA8-40CA-B2A2-B363094E9FDD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C600BE57-7152-4537-BA31-D8FAE1294D63}.Debug|Win32.ActiveCfg = Debug|Win32
+		{C600BE57-7152-4537-BA31-D8FAE1294D63}.Debug|Win32.Build.0 = Debug|Win32
+		{C600BE57-7152-4537-BA31-D8FAE1294D63}.Release|Win32.ActiveCfg = Release|Win32
+		{C600BE57-7152-4537-BA31-D8FAE1294D63}.Release|Win32.Build.0 = Release|Win32
+		{25340EBF-19B9-448B-A54F-5D8FA5FB2DD0}.Debug|Win32.ActiveCfg = Debug|Win32
+		{25340EBF-19B9-448B-A54F-5D8FA5FB2DD0}.Debug|Win32.Build.0 = Debug|Win32
+		{25340EBF-19B9-448B-A54F-5D8FA5FB2DD0}.Release|Win32.ActiveCfg = Release|Win32
+		{25340EBF-19B9-448B-A54F-5D8FA5FB2DD0}.Release|Win32.Build.0 = Release|Win32
+		{CD76F441-8AA8-40CA-B2A2-B363094E9FDD}.Debug|Win32.ActiveCfg = Debug|Win32
+		{CD76F441-8AA8-40CA-B2A2-B363094E9FDD}.Debug|Win32.Build.0 = Debug|Win32
+		{CD76F441-8AA8-40CA-B2A2-B363094E9FDD}.Release|Win32.ActiveCfg = Release|Win32
+		{CD76F441-8AA8-40CA-B2A2-B363094E9FDD}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

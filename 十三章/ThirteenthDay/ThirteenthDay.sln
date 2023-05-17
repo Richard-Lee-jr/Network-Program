@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "oob_server", "oob_server\oob_server.vcxproj", "{2ACBAFC7-D5E6-416C-8DD6-D21BA7F15125}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "oob_cllient", "oob_cllient\oob_cllient.vcxproj", "{8800E5D8-B610-41FF-9A2D-B4D12F7C2BFC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2ACBAFC7-D5E6-416C-8DD6-D21BA7F15125}.Debug|Win32.ActiveCfg = Debug|Win32
+		{2ACBAFC7-D5E6-416C-8DD6-D21BA7F15125}.Debug|Win32.Build.0 = Debug|Win32
+		{2ACBAFC7-D5E6-416C-8DD6-D21BA7F15125}.Release|Win32.ActiveCfg = Release|Win32
+		{2ACBAFC7-D5E6-416C-8DD6-D21BA7F15125}.Release|Win32.Build.0 = Release|Win32
+		{8800E5D8-B610-41FF-9A2D-B4D12F7C2BFC}.Debug|Win32.ActiveCfg = Debug|Win32
+		{8800E5D8-B610-41FF-9A2D-B4D12F7C2BFC}.Debug|Win32.Build.0 = Debug|Win32
+		{8800E5D8-B610-41FF-9A2D-B4D12F7C2BFC}.Release|Win32.ActiveCfg = Release|Win32
+		{8800E5D8-B610-41FF-9A2D-B4D12F7C2BFC}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -58,7 +58,7 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	int nFDNum;
 
-	SOCKET cltSock;
+	
 	SOCKADDR_IN cltAddr;
 	memset(&cltAddr, 0, sizeof(cltAddr));
 	int nCltAddrLen = 0;
@@ -86,24 +86,32 @@ int _tmain(int argc, _TCHAR* argv[])
 			continue;
 		}
 
+		//temps只是一个拷贝集合，只有添加或关闭新的套接字时，需对原始reads集合操作，其余都可使用temps完成
 		for (int i = 0; i < temps.fd_count; i++)
 		{
+			//这里为什么要用reads.fd_array[i]，而不能用temps.fd_array[i].
+			//可以
 			if (FD_ISSET(temps.fd_array[i], &temps))
 			{
 				if (temps.fd_array[i] == srvSock)
 				{
-					cltSock = accept(srvSock, (sockaddr*)&cltAddr, &nCltAddrLen);
+					nCltAddrLen = sizeof(cltAddr);
+					SOCKET cltSock = accept(srvSock, (sockaddr*)&cltAddr, &nCltAddrLen);
+
 					if (INVALID_SOCKET == cltSock)
 					{
 						printf("accept error!\n");
 						continue;
 					}
+
 					FD_SET(cltSock, &reads);
 					printf("connected client: %d \n", cltSock);
 				}
 				else
 				{
 					//读取客户端发来信息
+					//这里为什么要用reads.fd_array[i]，而不能用temps.fd_array[i]
+					//可用temps
 					nRecvLen = recv(temps.fd_array[i], Msg, BUF_SIZE, 0);
 					if (nRecvLen == 0)
 					{
@@ -115,6 +123,10 @@ int _tmain(int argc, _TCHAR* argv[])
 					else
 					{
 						//回发
+						//这里为什么要用reads.fd_array[i]，而不能用temps.fd_array[i]
+						//可用temps
+						Msg[nRecvLen] = 0;
+						printf("echo to client: %s\n", Msg);
 						send(temps.fd_array[i], Msg, nRecvLen, 0);
 					}
 				}
@@ -124,6 +136,8 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	closesocket(srvSock);
 	WSACleanup();
+
+	getchar();
 	return 0;
 }
 

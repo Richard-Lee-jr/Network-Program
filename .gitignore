@@ -54,3 +54,6 @@ Release/
 
 #ºöÂÔÎŞ±àÒëä¯ÀÀÎÄ¼ş£¨no compile browser£©
 *.ncb
+
+*.ipch
+
